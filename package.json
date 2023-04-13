@@ -1,0 +1,22 @@
+{
+  "name": "starter-pack",
+  "version": "1.0.0",
+  "description": "*description*",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dartmouth-cs52-23s/starterpack-Aqkotz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dartmouth-cs52-23s/starterpack-Aqkotz/issues"
+  },
+  "homepage": "https://github.com/dartmouth-cs52-23s/starterpack-Aqkotz#readme",
+  "devDependencies": {
+    "vite": "^4.2.1"
+  }
+}
