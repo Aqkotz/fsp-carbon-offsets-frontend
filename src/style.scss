@@ -12,6 +12,10 @@ body, html {
     background-size: contain;
   }
 
+  .active {
+    color: pink;
+  }  
+
   :root {
     text-size-adjust: 100%;
   }
