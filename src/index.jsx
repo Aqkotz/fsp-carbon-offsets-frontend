@@ -5,6 +5,10 @@ import './style.scss';
 import {
   BrowserRouter, Routes, Route, NavLink, useParams,
 } from 'react-router-dom';
+import { Provider, useSelector } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import rootReducer from './reducers';
+import Controls from './components/controls';
 
 function Nav(props) {
   return (
@@ -18,6 +22,11 @@ function Nav(props) {
     </nav>
   );
 }
+
+// this creates the store with the reducers
+const store = configureStore({
+  reducer: rootReducer,
+});
 
 function Test(props) {
   const { id } = useParams();
@@ -33,6 +42,7 @@ function App(props) {
     <BrowserRouter>
       <div>
         <Nav />
+        <Controls />
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/about" element={<About />} />
@@ -47,8 +57,13 @@ function About(props) {
   return <div> All there is to know about me </div>;
 }
 function Welcome(props) {
-  return <div>Welcome</div>;
+  const count = useSelector((s) => s.count);
+  return <div>{count}</div>;
 }
 
 const root = createRoot(document.getElementById('main'));
-root.render(<App />);
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+);
