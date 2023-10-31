@@ -4,6 +4,7 @@ import {
   BrowserRouter, Routes, Route, NavLink, useParams,
 } from 'react-router-dom';
 import Nav from '../nav/Nav';
+import UserGoals from '../usergoals/UserGoals';
 
 function FallBack() {
   return (
@@ -27,7 +28,7 @@ function App() {
       <div>
         <Nav />
         <Routes>
-          <Route path="/" element={<Welcome />} />
+          <Route path="/" element={<UserGoals />} />
           <Route path="*" element={<FallBack />} />
         </Routes>
       </div>
