@@ -1,15 +1,11 @@
 import React from 'react';
-import { increment } from './userGoalsSlice';
+import UserGoalSelection from './UserGoalSelection';
 
 function UserGoals() {
   return (
     <div>
-      <h1
-        onClick={() => {
-          increment();
-        }}
-      >UserGoals
-      </h1>
+      <h1>UserGoals</h1>
+      <UserGoalSelection />
     </div>
   );
 }
