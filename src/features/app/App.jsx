@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter, Routes, Route, NavLink, useParams,
 } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
+import User from '../user/User';
+import { setToken } from '../user/userSlice';
 
 function FallBack() {
   return (
@@ -23,8 +26,18 @@ function Welcome() {
 }
 
 function App() {
-  return (
-    <BrowserRouter>
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const token = localStorage.getItem('token_mtg_challenges');
+    if (token) {
+      dispatch(setToken(token));
+    }
+  }, []);
+
+  const token = useSelector((state) => state.user.token);
+
+  if (!token) {
+    return (
       <div>
         <Nav />
         <Routes>
@@ -32,8 +45,20 @@ function App() {
           <Route path="*" element={<FallBack />} />
         </Routes>
       </div>
+    );
+  } else {
+    return (
+      <User />
+    );
+  }
+}
+
+function AppWrapper() {
+  return (
+    <BrowserRouter>
+      <App />
     </BrowserRouter>
   );
 }
 
-export default App;
+export default AppWrapper;
