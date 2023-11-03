@@ -12,3 +12,14 @@ body, html {
     text-size-adjust: 100%;
   }
   
+  .tile {
+    background-color: #05abe0;
+    border-radius: 5px;
+    padding: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .goals {
+    display: flex;
+  }
