@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { getAuthHeader } from '../../app/utils';
 
-const ROOT_URL = 'https://mtg-challenges-backedn.onrender.com/api';
+const ROOT_URL = 'https://fsp-carbon-offsets-backend-lakm.onrender.com/api';
 
 export function signinRequest({ email, password }, actions) {
   return async (dispatch) => {
@@ -20,9 +21,7 @@ export function signupRequest({ email, password, username }, actions) {
 
 export function fetchUser(actions) {
   return async (dispatch) => {
-    const response = await axios.get(`${ROOT_URL}/users`, {
-      headers: { authorization: `${localStorage.getItem('token_mtg_challenges')}` },
-    });
+    const response = await axios.get(`${ROOT_URL}/users`, getAuthHeader());
     dispatch(actions.setUser(response.data));
   };
 }
