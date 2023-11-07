@@ -18,7 +18,6 @@ const userSlice = createSlice({
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload;
-      localStorage.setItem('token_mtg_challenges', action.payload);
     },
     setUser: (state, action) => {
       state.user = action.payload;

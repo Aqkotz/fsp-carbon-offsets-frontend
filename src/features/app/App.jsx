@@ -17,10 +17,18 @@ function FallBack() {
   );
 }
 
-function Welcome() {
+function Circles(props) {
   return (
-    <div>
-      <h1>Welcome</h1>
+    <div className="circles">
+      <div className="circle a" />
+      <div className="circle b" />
+      <div className="circle c" />
+      <div className="circle d" />
+      <div className="circle e" />
+      <div className="circle f" />
+      <div className="circle g" />
+      <div className="circle h" />
+      <div className="circle_cover" />
     </div>
   );
 }
@@ -28,7 +36,7 @@ function Welcome() {
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const token = localStorage.getItem('token_mtg_challenges');
+    const token = localStorage.getItem('token_fsp_carbon_offsets');
     if (token) {
       dispatch(setToken(token));
     }
@@ -36,7 +44,7 @@ function App() {
 
   const token = useSelector((state) => state.user.token);
 
-  if (!token) {
+  if (token) {
     return (
       <div>
         <Nav />
@@ -56,7 +64,10 @@ function App() {
 function AppWrapper() {
   return (
     <BrowserRouter>
-      <App />
+      <div>
+        <Circles />
+        <App />
+      </div>
     </BrowserRouter>
   );
 }
