@@ -8,6 +8,7 @@ import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
 import User from '../user/User';
 import { setToken } from '../user/userSlice';
+import Header from './Header';
 
 function FallBack() {
   return (
@@ -47,11 +48,14 @@ function App() {
   if (token) {
     return (
       <div>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<UserGoals />} />
-          <Route path="*" element={<FallBack />} />
-        </Routes>
+        <div id="app">
+          <Nav />
+          <Routes>
+            <Route path="/" element={<UserGoals />} />
+            <Route path="*" element={<FallBack />} />
+          </Routes>
+        </div>
+        <Header />
       </div>
     );
   } else {

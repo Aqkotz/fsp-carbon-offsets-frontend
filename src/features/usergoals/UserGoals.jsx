@@ -5,12 +5,15 @@ function UserGoals() {
   const [selectionShown, setSelectionShown] = useState(false);
 
   return (
-    <div>
-      <h1
-        onClick={() => { setSelectionShown(!selectionShown); }}
-      >UserGoals
-      </h1>
-      {selectionShown && <UserGoalSelection />}
+    <div className="page">
+      <div className="container">
+        <h1
+          className="post-title"
+          onClick={() => { setSelectionShown(!selectionShown); }}
+        >UserGoals
+        </h1>
+        {selectionShown && <UserGoalSelection />}
+      </div>
     </div>
   );
 }
