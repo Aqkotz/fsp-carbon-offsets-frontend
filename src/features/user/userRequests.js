@@ -7,21 +7,19 @@ export function signinRequest({ email, password }, actions) {
   return async (dispatch) => {
     const response = await axios.post(`${ROOT_URL}/signin`, { email, password });
     dispatch(actions.setToken(response.data.token));
-    dispatch(actions.setUser(response.data));
   };
 }
 
-export function signupRequest({ email, password, username }, actions) {
+export function signupRequest(data, actions) {
   return async (dispatch) => {
-    const response = await axios.post(`${ROOT_URL}/signup`, { email, password, username });
+    const response = await axios.post(`${ROOT_URL}/signup`, data);
     dispatch(actions.setToken(response.data.token));
-    dispatch(actions.setUser(response.data));
   };
 }
 
 export function fetchUser(actions) {
   return async (dispatch) => {
-    const response = await axios.get(`${ROOT_URL}/users`, getAuthHeader());
+    const response = await axios.get(`${ROOT_URL}/user`, getAuthHeader());
     dispatch(actions.setUser(response.data));
   };
 }
