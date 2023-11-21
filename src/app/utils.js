@@ -1,13 +1,13 @@
 export function getToken() {
-  return localStorage.getItem('authToken');
+  return localStorage.getItem('token_fsp_carbon_offsets');
 }
 
 export function setToken(token) {
-  localStorage.setItem('authToken', token);
+  localStorage.setItem('token_fsp_carbon_offsets', token);
 }
 
 export function removeToken() {
-  localStorage.removeItem('authToken');
+  localStorage.removeItem('token_fsp_carbon_offsets');
 }
 
 export function getAuthHeader() {

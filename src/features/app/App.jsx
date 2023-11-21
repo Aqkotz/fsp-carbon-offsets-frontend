@@ -8,6 +8,8 @@ import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
 import User from '../user/User';
 import { setToken } from '../user/userSlice';
+import Header from './Header';
+import { getToken } from '../../app/utils';
 
 function FallBack() {
   return (
@@ -36,7 +38,7 @@ function Circles(props) {
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const token = localStorage.getItem('token_fsp_carbon_offsets');
+    const token = getToken();
     if (token) {
       dispatch(setToken(token));
     }
@@ -47,11 +49,14 @@ function App() {
   if (token) {
     return (
       <div>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<UserGoals />} />
-          <Route path="*" element={<FallBack />} />
-        </Routes>
+        <div id="app">
+          <Nav />
+          <Routes>
+            <Route path="/" element={<UserGoals />} />
+            <Route path="*" element={<FallBack />} />
+          </Routes>
+        </div>
+        <Header />
       </div>
     );
   } else {

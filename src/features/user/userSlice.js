@@ -9,6 +9,8 @@ const initialState = {
     role: null,
     rerolls: null,
     userId: null,
+    firstName: '',
+    lastName: '',
   },
 };
 
@@ -20,6 +22,7 @@ const userSlice = createSlice({
       state.token = action.payload;
     },
     setUser: (state, action) => {
+      console.log('user', action.payload);
       state.user = action.payload;
     },
     logout: (state) => {
@@ -34,8 +37,8 @@ export const signin = ({ email, password }) => async (dispatch) => {
   dispatch(signinRequest({ email, password }, userSlice.actions));
 };
 
-export const signup = ({ email, password, username }) => async (dispatch) => {
-  dispatch(signupRequest({ email, password, username }, userSlice.actions));
+export const signup = (data) => async (dispatch) => {
+  dispatch(signupRequest(data, userSlice.actions));
 };
 
 export const getUser = () => async (dispatch) => {
