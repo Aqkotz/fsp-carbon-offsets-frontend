@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UserGoalSelection from './UserGoalSelection';
 
 function UserGoals() {
-  const [selectionShown, setSelectionShown] = useState(false);
+  const [selectionShown, setSelectionShown] = useState(true);
 
   return (
     <div className="page">
@@ -10,7 +10,7 @@ function UserGoals() {
         <h1
           className="post-title"
           onClick={() => { setSelectionShown(!selectionShown); }}
-        >UserGoals
+        >Weekly Goal Setting
         </h1>
         {selectionShown && <UserGoalSelection />}
       </div>

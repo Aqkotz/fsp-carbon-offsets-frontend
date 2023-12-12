@@ -2,7 +2,7 @@ import React from 'react';
 
 function UserGoal(props) {
   return (
-    <div className="tile">
+    <div className="button">
       <h2>
         {props.goal.name}
       </h2>
