@@ -1,9 +1,14 @@
 
 .profile {
-    float: right;
+    
+}
+
+.spacer {
+    flex-grow: 1;
 }
 
 .logo {
-    height: 100%;
+    height: 60%;
     width: auto;
+    margin: 20px;
 }
