@@ -8,8 +8,6 @@ import logo from '../../img/D-Pine_RGB.png';
 const profileButton = (user) => {
   return (
     <div>
-      <img className="logo" src={logo} alt="logo" />
-      <button className="button" type="button">Settings</button>
       <NavLink className="button profile" to="profile">{`${user.firstName} ${user.lastName}`} </NavLink>
     </div>
   );
@@ -23,6 +21,9 @@ function Header() {
   const user = useSelector((state) => state.user.user);
   return (
     <nav id="header">
+      <img className="logo" src={logo} alt="logo" />
+      <button className="button" type="button">Settings</button>
+      <div className="spacer" />
       {user && profileButton(user)}
     </nav>
   );
