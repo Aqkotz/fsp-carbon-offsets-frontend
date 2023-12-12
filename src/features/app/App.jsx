@@ -10,6 +10,7 @@ import User from '../user/User';
 import { setToken } from '../user/userSlice';
 import Header from './Header';
 import { getToken } from '../../app/utils';
+import './background-style.scss';
 
 function FallBack() {
   return (
