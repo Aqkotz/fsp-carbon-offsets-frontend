@@ -11,6 +11,7 @@ import { setToken } from '../user/userSlice';
 import Header from './Header';
 import { getToken } from '../../app/utils';
 import './background-style.scss';
+import Team from '../team/Team';
 
 function FallBack() {
   return (
@@ -53,7 +54,8 @@ function App() {
         <div id="app">
           <Nav />
           <Routes>
-            <Route path="/" element={<UserGoals />} />
+            <Route path="/goals" element={<UserGoals />} />
+            <Route path="/team" element={<Team />} />
             <Route path="*" element={<FallBack />} />
           </Routes>
         </div>
