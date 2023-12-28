@@ -46,7 +46,7 @@ export default function Signup(props) {
             firstName,
             lastName,
           }));
-          navigate('/');
+          navigate('/dashboard');
         }}
       >
         Sign Up
