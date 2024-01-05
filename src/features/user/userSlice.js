@@ -33,12 +33,12 @@ const userSlice = createSlice({
   },
 });
 
-export const signin = ({ email, password }) => async (dispatch) => {
-  dispatch(signinRequest({ email, password }, userSlice.actions));
+export const signin = ({ email, password }, navigate) => async (dispatch) => {
+  dispatch(signinRequest({ email, password }, navigate, userSlice.actions));
 };
 
-export const signup = (data) => async (dispatch) => {
-  dispatch(signupRequest(data, userSlice.actions));
+export const signup = (data, navigate) => async (dispatch) => {
+  dispatch(signupRequest(data, navigate, userSlice.actions));
 };
 
 export const getUser = () => async (dispatch) => {

@@ -1,19 +1,23 @@
 import axios from 'axios';
-import { getAuthHeader } from '../../app/utils';
+import { getAuthHeader, setToken } from '../../app/utils';
 
 const ROOT_URL = 'https://fsp-carbon-offsets-backend-lakm.onrender.com/api';
 
-export function signinRequest({ email, password }, actions) {
+export function signinRequest({ email, password }, navigate, actions) {
   return async (dispatch) => {
     const response = await axios.post(`${ROOT_URL}/signin`, { email, password });
     dispatch(actions.setToken(response.data.token));
+    setToken(response.data.token);
+    navigate('/dashboard');
   };
 }
 
-export function signupRequest(data, actions) {
+export function signupRequest(data, navigate, actions) {
   return async (dispatch) => {
     const response = await axios.post(`${ROOT_URL}/signup`, data);
+    setToken(response.data.token);
     dispatch(actions.setToken(response.data.token));
+    navigate('/dashboard');
   };
 }
 
