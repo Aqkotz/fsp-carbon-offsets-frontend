@@ -24,8 +24,7 @@ export default function Signin(props) {
         className="button"
         type="button"
         onClick={() => {
-          dispatch(signin({ email, password }));
-          navigate('/dashboard');
+          dispatch(signin({ email, password }, navigate));
         }}
       >
         Sign In

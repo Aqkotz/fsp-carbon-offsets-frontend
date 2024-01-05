@@ -39,14 +39,16 @@ export default function Signup(props) {
         className="button"
         type="button"
         onClick={() => {
-          dispatch(signup({
-            email,
-            password,
-            username,
-            firstName,
-            lastName,
-          }));
-          navigate('/dashboard');
+          dispatch(signup(
+            {
+              email,
+              password,
+              username,
+              firstName,
+              lastName,
+            },
+            navigate,
+          ));
         }}
       >
         Sign Up
