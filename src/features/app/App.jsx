@@ -56,7 +56,7 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/" element={<DashBoard />} />
           <Route path="/goals" element={<UserGoals />} />
           <Route path="/team" element={<Team />} />
           <Route path="*" element={<FallBack />} />
