@@ -12,10 +12,10 @@ import Header from './Header';
 import { getToken } from '../../app/utils';
 import './background-style.scss';
 import Team from '../team/Team';
-import LandingPage from '../landingpage/landingpage';
+import LandingPage from '../landingpage/LandingPage';
 import Signin from '../user/Signin';
 import Signup from '../user/Signup';
-import DashBoard from '../dashboard/dashboard';
+import DashBoard from '../dashboard/DashBoard';
 
 function FallBack() {
   return (
