@@ -56,7 +56,7 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/" element={<DashBoard />} />
           <Route path="/goals" element={<UserGoals />} />
           <Route path="/team" element={<Team />} />
           <Route path="*" element={<FallBack />} />
@@ -69,6 +69,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="*" element={<LandingPage />} />
       </Routes>
     );
   }

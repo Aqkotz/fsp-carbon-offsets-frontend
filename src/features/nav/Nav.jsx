@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { logout } from '../user/userSlice';
+import { removeToken } from '../../app/utils';
 
 function Nav() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function Nav() {
       <NavLink className="button" to="/goals">Goals</NavLink>
       <NavLink className="button" to="/offsetting">Offsetting</NavLink>
       <NavLink className="button" to="/journal">Journal</NavLink>
-      <button className="button" type="button" onClick={() => { dispatch(logout()); navigate('/'); }}>Logout</button>
+      <button className="button" type="button" onClick={() => { dispatch(logout()); navigate('/'); removeToken(); }}>Logout</button>
     </div>
   );
 }
