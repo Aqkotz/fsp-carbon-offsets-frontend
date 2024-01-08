@@ -4,25 +4,24 @@ import logo from '../../img/LonePine_Rev.png';
 
 function LandingPage() {
   return (
-    <div>
-      {/* <div className="centercontainer">
-        <h1>
-          Test
-        </h1>
-      </div>
- */}
-
+    <div className="centercontainer">
       <div className="centercontainer">
-        <div className="titleclear">
-          <img className="imgresize" src={logo} alt="pine" />
-          <h1> Go GREEN</h1>
-          <h2> Dartmouth Carbon Initiative</h2>
+        <div className="container2">
+          <div className="container2">
+            <img className="imgresize" src={logo} alt="pine" />
+          </div>
+          <div className="titleclear">
+            <h1> Go GREEN</h1>
+            <h2> Dartmouth Carbon Initiative</h2>
+          </div>
         </div>
-        {/* <div className="titleclear">
+        <div className="container2">
+          {/* <div className="titleclear">
           <h2> Dartmouth Carbon Initiative</h2>
         </div> */}
-        <NavLink className="button" to="/signin">Sign In</NavLink>
-        <NavLink className="button" to="/signup">Sign Up</NavLink>
+          <NavLink className="button" to="/signin">Sign In</NavLink>
+          <NavLink className="button" to="/signup">Sign Up</NavLink>
+        </div>
       </div>
     </div>
 
