@@ -16,6 +16,7 @@ $opaqueness: #ffffff00;
   width: 100svw;
   height: $header-height;
   background-color: $secondary-color-semitranslucent;
+  //display: flex;
   align-items: center;
   backdrop-filter: blur(5px);
   border-bottom: 0.75px solid $border-color;
@@ -32,7 +33,6 @@ $opaqueness: #ffffff00;
   backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border-right: 0.75px solid $border-color;
   left: 0;
   position: fixed;
@@ -122,11 +122,13 @@ p {
 }
 
 h1 {
-  font-size: 2.5em;
+  font-size: 4.5em;
+  margin: 0px;
 }
 
-h2 {
-  font-size:1.5em
+h2{
+  font-size: 2.5em;
+  margin: 0px;
 }
 
 h3 {
@@ -149,12 +151,14 @@ h4 {
 }
 
 .titleclear{
-  font-size: 1.5em;
+  // font-size: 1.5em;
   width: 100%;
   margin: 0px;
   display: flex;
   flex-direction: column;
-  align-items: baseline;
+  align-items: center;
+  display: inline-block;
+  vertical-align: middle
 }
 
 .container{
@@ -176,6 +180,26 @@ h4 {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.clearcontainer{
+  overflow: auto;
+  backdrop-filter: blur(5px);
+  // min-height: 100vh;
+  align-items:baseline;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container2{
+  overflow: auto;
+  backdrop-filter: blur(5px);
+  align-items: center;
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  padding:20px;
 }
 
 .post{
@@ -328,8 +352,8 @@ h4 {
 }
 
 .imgresize {
-  width: 30px;
-  height: auto; 
+  width: 80px;
+  height: auto;
 }
 
 .landing-page {
