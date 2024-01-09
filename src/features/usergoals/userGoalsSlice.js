@@ -6,21 +6,19 @@ export const userGoalsSlice = createSlice({
   initialState: {
     goals: [
       {
-        name: 'light shower',
-        description: 'reduce by 10min',
+        name: 'Yes!',
       },
       {
-        name: 'medium shower',
-        description: 'reduce by 5min',
+        name: 'No :(',
       },
-      {
-        name: 'heavy shower',
-        description: 'reduce by 1min',
-      },
-      {
-        name: 'No shower',
-        description: 'reduce by full time',
-      },
+      // {
+      //   name: 'heavy shower',
+      //   description: 'reduce by 1min',
+      // },
+      // {
+      //   name: 'No shower',
+      //   description: 'reduce by full time',
+      // },
     ],
   },
   reducers: {
