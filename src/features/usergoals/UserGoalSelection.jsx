@@ -6,7 +6,7 @@ function UserGoalSelection() {
   const goals = useSelector((state) => state.userGoals.goals);
   return (
     <div>
-      <h1>Weekly Goal</h1>
+      <h1>Did you complete your goal today?</h1>
       <div className="goals">
         {goals.map((goal, index) => (
           <UserGoal goal={goal} />
