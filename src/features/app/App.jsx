@@ -16,6 +16,7 @@ import LandingPage from '../landingpage/LandingPage';
 import Signin from '../user/Signin';
 import Signup from '../user/Signup';
 import DashBoard from '../dashboard/DashBoard';
+import SignedInUser from '../user/SignedInUser';
 
 function FallBack() {
   return (
@@ -55,12 +56,16 @@ function App() {
   if (token) {
     return (
       <div>
-        <Routes>
-          <Route path="/" element={<DashBoard />} />
-          <Route path="/goals" element={<UserGoals />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="*" element={<FallBack />} />
-        </Routes>
+        <div id="app">
+          <Nav />
+          <Routes>
+            <Route path="/" element={<DashBoard />} />
+            <Route path="/goals" element={<UserGoals />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="*" element={<FallBack />} />
+          </Routes>
+        </div>
+        <Header />
       </div>
     );
   } else {
@@ -68,6 +73,7 @@ function App() {
       <Routes>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/signedin" element={<SignedInUser />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
