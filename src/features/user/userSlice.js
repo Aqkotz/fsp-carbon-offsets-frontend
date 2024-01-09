@@ -1,13 +1,14 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { signinRequest, signupRequest, fetchUser } from './userRequests';
+import {
+  signinRequest, signupRequest, fetchUser, duoSigninRequest,
+} from './userRequests';
 
 const initialState = {
   token: null,
   user: {
     username: null,
     role: null,
-    rerolls: null,
     userId: null,
     firstName: '',
     lastName: '',
@@ -28,7 +29,6 @@ const userSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.username = null;
-      state.rerolls = null;
     },
   },
 });
@@ -43,6 +43,11 @@ export const signup = (data, navigate) => async (dispatch) => {
 
 export const getUser = () => async (dispatch) => {
   dispatch(fetchUser(userSlice.actions));
+};
+
+export const duoSignin = (ticket, navigate) => async (dispatch) => {
+  console.log('duoSignin');
+  dispatch(duoSigninRequest(ticket, navigate, userSlice.actions));
 };
 
 export const {
