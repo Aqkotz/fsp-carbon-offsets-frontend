@@ -7,11 +7,8 @@ import {
 const initialState = {
   token: null,
   user: {
-    username: null,
-    role: null,
-    userId: null,
-    firstName: '',
-    lastName: '',
+    name: '',
+    netid: '',
   },
 };
 
@@ -23,7 +20,6 @@ const userSlice = createSlice({
       state.token = action.payload;
     },
     setUser: (state, action) => {
-      console.log('user', action.payload);
       state.user = action.payload;
     },
     logout: (state) => {

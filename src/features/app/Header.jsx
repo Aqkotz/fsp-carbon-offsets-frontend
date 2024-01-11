@@ -8,7 +8,7 @@ import logo from '../../img/D-Pine_RGB.png';
 const profileButton = (user) => {
   return (
     <div>
-      <NavLink className="button profile" to="profile">{`${user.firstName} ${user.lastName}`} </NavLink>
+      <NavLink className="button profile" to="profile">{`${user.name}`} </NavLink>
     </div>
   );
 };

@@ -34,7 +34,7 @@ export function duoSigninRequest(ticket, navigate, actions) {
     console.log(response);
     setToken(response.data.token);
     dispatch(actions.setToken(response.data.token));
-    dispatch(actions.setUser(response.data.user));
+    dispatch(actions.setUser({ name: response.data.name, netid: response.data.netid }));
     navigate('/');
   };
 }
