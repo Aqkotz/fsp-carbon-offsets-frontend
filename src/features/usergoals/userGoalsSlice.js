@@ -1,35 +1,43 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { setGoalRequest } from './userGoalsRequests';
 
 export const userGoalsSlice = createSlice({
   name: 'userGoals',
   initialState: {
-    goals: [
-      {
-        name: 'light shower',
-        description: 'reduce by 10min',
-      },
-      {
-        name: 'medium shower',
-        description: 'reduce by 5min',
-      },
-      {
-        name: 'heavy shower',
-        description: 'reduce by 1min',
-      },
-      {
-        name: 'No shower',
-        description: 'reduce by full time',
-      },
-    ],
+    goal: '',
+    // goals: [
+    //   {
+    //     name: 'Yes!',
+    //   },
+    //   {
+    //     name: 'No :(',
+    //   },
+    //   // {
+    //   //   name: 'heavy shower',
+    //   //   description: 'reduce by 1min',
+    //   // },
+    //   // {
+    //   //   name: 'No shower',
+    //   //   description: 'reduce by full time',
+    //   // },
+    // ],
   },
   reducers: {
-    selectGoal: (state, goal) => {
-      console.log('selecting goal');
+    setGoalReducer: (state, goal) => {
+      state.goal = goal;
     },
+    // selectGoal: (state, goal) => {
+    //   console.log('selecting goal');
+    // },
   },
 });
 
-export const { selectGoal } = userGoalsSlice.actions;
+export const { setGoalReducer } = userGoalsSlice.actions;
+
+export const setGoal = (goal) => async (dispatch) => {
+  dispatch(setGoal(goal));
+  await dispatch(setGoalRequest(goal, userGoalsSlice.actions));
+};
 
 export default userGoalsSlice.reducer;
