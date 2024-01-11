@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import UserGoalSelection from './UserGoalSelection';
+import SustyGoalInput from './SustainabilityGoalInput';
 
 function UserGoals() {
   const [selectionShown, setSelectionShown] = useState(true);
 
   return (
     <div className="page">
+      <SustyGoalInput />
       <div className="container">
         <h1
           className="post-title"
