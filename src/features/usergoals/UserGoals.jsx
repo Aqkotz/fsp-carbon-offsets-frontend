@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import UserGoalSelection from './UserGoalSelection';
 import SustyGoalInput from './SustainabilityGoalInput';
+import GoalComplete from './GoalComplete';
+import Streak from './Streak';
 
 function UserGoals() {
   const [selectionShown, setSelectionShown] = useState(true);
@@ -15,7 +17,9 @@ function UserGoals() {
         >Weekly Goal Setting
         </h1>
         {selectionShown && <UserGoalSelection />}
+        <GoalComplete />
       </div>
+      <Streak />
     </div>
   );
 }
