@@ -5,31 +5,21 @@ import { setGoalRequest } from './userGoalsRequests';
 export const userGoalsSlice = createSlice({
   name: 'userGoals',
   initialState: {
-    goal: '',
-    // goals: [
-    //   {
-    //     name: 'Yes!',
-    //   },
-    //   {
-    //     name: 'No :(',
-    //   },
-    //   // {
-    //   //   name: 'heavy shower',
-    //   //   description: 'reduce by 1min',
-    //   // },
-    //   // {
-    //   //   name: 'No shower',
-    //   //   description: 'reduce by full time',
-    //   // },
-    // ],
+    goal: {
+      description: '',
+      completed: false,
+    },
+    streak: 3,
   },
   reducers: {
     setGoalReducer: (state, goal) => {
       state.goal = goal;
     },
-    // selectGoal: (state, goal) => {
-    //   console.log('selecting goal');
-    // },
+
+    setCompleted: (state) => {
+      state.goal.completed = true;
+    },
+
   },
 });
 
