@@ -2,6 +2,8 @@ import React from 'react';
 import logo from '../../img/LonePine_Rev.png';
 
 function LandingPage() {
+  const { CLIENT_URL } = process.env;
+
   return (
     <div className="centercontainer">
       <div className="centercontainer">
@@ -15,7 +17,7 @@ function LandingPage() {
           </div>
         </div>
         <div className="container2">
-          <a className="button" href="https://login.dartmouth.edu/cas/login?service=http://localhost:5174/signedin">Sign in with Duo</a>
+          <a className="button" href={`https://login.dartmouth.edu/cas/login?service=${CLIENT_URL}`}>Sign in with Duo</a>
         </div>
       </div>
     </div>

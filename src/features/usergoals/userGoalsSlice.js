@@ -1,15 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { setGoalRequest } from './userGoalsRequests';
+import { completeGoalRequest, setGoalRequest, deleteGoalRequest } from './userGoalsRequests';
 
 export const userGoalsSlice = createSlice({
   name: 'userGoals',
   initialState: {
-    goal: {
-      description: '',
-      completed: false,
-    },
-    streak: 3,
     goals: [
       {
         description: 'test',
@@ -29,22 +24,34 @@ export const userGoalsSlice = createSlice({
     ],
   },
   reducers: {
-    setGoalReducer: (state, goal) => {
-      state.goal = goal;
+    setGoalReducer: (state, goals) => {
+      state.goals = goals;
     },
-
-    setCompleted: (state) => {
-      state.goal.completed = true;
+    setGoalCompleted: (state, goal) => {
+      state.goals.map((g) => {
+        if (g.description === goal.description) {
+          g.completed = true;
+        }
+        return g;
+      });
     },
-
   },
 });
 
-export const { setGoalReducer } = userGoalsSlice.actions;
+export const { setGoalReducer, setGoalCompleted } = userGoalsSlice.actions;
 
 export const setGoal = (goal) => async (dispatch) => {
   dispatch(setGoal(goal));
   await dispatch(setGoalRequest(goal, userGoalsSlice.actions));
+};
+
+export const completeGoal = (goal) => async (dispatch) => {
+  dispatch(setGoalCompleted(goal));
+  await dispatch(completeGoalRequest(goal, userGoalsSlice.actions));
+};
+
+export const deleteGoal = (goal) => async (dispatch) => {
+  await dispatch(deleteGoalRequest(goal, userGoalsSlice.actions));
 };
 
 export default userGoalsSlice.reducer;
