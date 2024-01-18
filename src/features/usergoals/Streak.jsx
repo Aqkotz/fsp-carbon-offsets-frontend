@@ -7,11 +7,11 @@ function Streak() {
   for (let i = 0; i < streak; i += 1) {
     content.push(
       <div key={i}>
-        <span role="img" aria-label="fire-emoji">🔥</span>
+        <span role="img" style={{ fontSize: '5rem' }} aria-label="fire-emoji">🔥</span>
       </div>,
     );
   }
-  return <div className="clearcontainer">{content}</div>;
+  return <div className="clearcontainer2">{content}</div>;
 }
 
 export default Streak;

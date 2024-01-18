@@ -139,6 +139,10 @@ h4 {
   font-size: 1em;
 }
 
+allign-v{
+  flex-direction: column;
+}
+
 .post-title {
   font-size: 1.5em;
   width: 100%;
@@ -190,6 +194,16 @@ h4 {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.clearcontainer2{
+  overflow: auto;
+  backdrop-filter: blur(5px);
+  // min-height: 100vh;
+  align-items:baseline;
+  display: flex;
+  justify-content: center;
+  padding:40px;
 }
 
 .container2{
