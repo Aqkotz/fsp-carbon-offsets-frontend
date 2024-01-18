@@ -10,6 +10,23 @@ export const userGoalsSlice = createSlice({
       completed: false,
     },
     streak: 3,
+    goals: [
+      {
+        description: 'test',
+        completed: false,
+        streak: 3,
+      },
+      {
+        description: 'test1',
+        completed: false,
+        streak: 3,
+      },
+      {
+        description: 'test2',
+        completed: false,
+        streak: 3,
+      },
+    ],
   },
   reducers: {
     setGoalReducer: (state, goal) => {
