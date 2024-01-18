@@ -17,7 +17,7 @@ function LandingPage() {
           </div>
         </div>
         <div className="container2">
-          <a className="button" href={`https://login.dartmouth.edu/cas/login?service=${CLIENT_URL}`}>Sign in with Duo</a>
+          <a className="button" href={`https://login.dartmouth.edu/cas/login?service=${CLIENT_URL}/signedin`}>Sign in with Duo</a>
         </div>
       </div>
     </div>

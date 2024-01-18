@@ -25,7 +25,7 @@ function FallBack() {
   );
 }
 
-function Circles(props) {
+function Circles() {
   return (
     <div className="circles">
       <div className="circle a" />
@@ -45,7 +45,6 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = getToken();
-    console.log(token);
     if (token) {
       dispatch(setToken(token));
     }
