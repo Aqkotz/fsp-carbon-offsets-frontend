@@ -30,7 +30,8 @@ export function fetchUser(actions) {
 
 export function duoSigninRequest(ticket, navigate, actions) {
   return async (dispatch) => {
-    const response = await axios.post(`${ROOT_URL}/validate`, { ticket });
+    const { CLIENT_URL } = process.env;
+    const response = await axios.post(`${ROOT_URL}/validate`, { ticket, service: CLIENT_URL });
     console.log(response);
     setToken(response.data.token);
     dispatch(actions.setToken(response.data.token));
