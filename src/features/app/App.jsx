@@ -6,7 +6,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
-import User from '../user/User';
 import { setToken } from '../user/userSlice';
 import Header from './Header';
 import { getToken } from '../../app/utils';

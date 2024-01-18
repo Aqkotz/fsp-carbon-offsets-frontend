@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../img/LonePine_Rev.png';
 
 function LandingPage() {
-  const { CLIENT_URL } = process.env;
+  const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
   return (
     <div className="centercontainer">
