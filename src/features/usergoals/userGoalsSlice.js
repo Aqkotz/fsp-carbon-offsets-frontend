@@ -26,12 +26,12 @@ export const userGoalsSlice = createSlice({
     ],
   },
   reducers: {
-    setGoalReducer: (state, goals) => {
-      state.goals = goals;
+    setGoalReducer: (state, action) => {
+      state.goals = action.payload;
     },
-    setGoalCompleted: (state, goal) => {
+    setGoalCompleted: (state, action) => {
       state.goals.map((g) => {
-        if (g.description === goal.description) {
+        if (g.description === action.payload.description) {
           g.completed = true;
         }
         return g;

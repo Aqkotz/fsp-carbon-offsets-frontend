@@ -15,6 +15,7 @@ export function setGoalRequest(goal, actions) {
 export function fetchGoals(actions) {
   return async (dispatch) => {
     const response = await axios.get(`${ROOT_URL}/goals`, getAuthHeader());
+    console.log(response.data);
     dispatch(actions.setGoalReducer(response.data));
   };
 }

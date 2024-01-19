@@ -23,7 +23,6 @@ export function signupRequest(data, navigate, actions) {
 
 export function fetchUser(actions) {
   return async (dispatch) => {
-    console.log(getAuthHeader());
     const response = await axios.get(`${ROOT_URL}/user`, getAuthHeader());
     dispatch(actions.setUser(response.data));
   };
