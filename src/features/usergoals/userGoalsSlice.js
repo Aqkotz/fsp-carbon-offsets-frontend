@@ -12,16 +12,19 @@ export const userGoalsSlice = createSlice({
         description: 'test',
         completed: false,
         streak: 3,
+        id: '',
       },
       {
         description: 'test1',
         completed: false,
         streak: 3,
+        id: '',
       },
       {
         description: 'test2',
         completed: false,
         streak: 3,
+        id: '',
       },
     ],
   },
@@ -50,13 +53,12 @@ export const setGoal = (goal) => async (dispatch) => {
   await dispatch(setGoalRequest(goal, userGoalsSlice.actions));
 };
 
-export const completeGoal = (goal) => async (dispatch) => {
-  dispatch(setGoalCompleted(goal));
-  await dispatch(completeGoalRequest(goal, userGoalsSlice.actions));
+export const completeGoal = (id) => async (dispatch) => {
+  await dispatch(completeGoalRequest(id, userGoalsSlice.actions));
 };
 
-export const deleteGoal = (goal) => async (dispatch) => {
-  await dispatch(deleteGoalRequest(goal, userGoalsSlice.actions));
+export const deleteGoal = (id) => async (dispatch) => {
+  await dispatch(deleteGoalRequest(id, userGoalsSlice.actions));
 };
 
 export default userGoalsSlice.reducer;
