@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter, Routes, Route, NavLink, useParams,
+  BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../nav/Nav';
@@ -45,6 +44,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = getToken();
+    console.log(token);
     if (token) {
       dispatch(setToken(token));
     }
