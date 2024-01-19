@@ -25,6 +25,13 @@ export function completeGoalRequest(goal, actions) {
   };
 }
 
+export function failGoalRequest(goal, actions) {
+  return async (dispatch) => {
+    const response = await axios.post(`${ROOT_URL}/goals/fail/${goal}`, getAuthHeader());
+    dispatch(actions.setGoalReducer(response.data));
+  };
+}
+
 export function deleteGoalRequest(goal, actions) {
   return async (dispatch) => {
     const response = await axios.delete(`${ROOT_URL}/goals`, goal, getAuthHeader());

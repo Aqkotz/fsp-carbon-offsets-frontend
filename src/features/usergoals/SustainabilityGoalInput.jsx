@@ -10,9 +10,9 @@ function SustyGoalInput() {
   }, []);
   return (
     <div className="container">
-      <h2>What is your sustainability goal?</h2>
+      <h3>What is your sustainability goal?</h3>
       <input value={goal} type="text" onChange={(e) => { setGoalState(e.target.value); }} />
-      <button type="button" className="button" onClick={() => { dispatch(setGoal({ description: goal })); }}>
+      <button type="button" className="button" onClick={() => { dispatch(setGoal({ description: goal })); setGoalState(''); }}>
         Add Goal
       </button>
     </div>
