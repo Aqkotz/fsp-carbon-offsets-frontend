@@ -8,24 +8,6 @@ export const userGoalsSlice = createSlice({
   name: 'userGoals',
   initialState: {
     goals: [
-      {
-        description: 'test',
-        completed: false,
-        streak: 3,
-        id: '',
-      },
-      {
-        description: 'test1',
-        completed: false,
-        streak: 3,
-        id: '',
-      },
-      {
-        description: 'test2',
-        completed: false,
-        streak: 3,
-        id: '',
-      },
     ],
   },
   reducers: {

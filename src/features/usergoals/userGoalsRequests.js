@@ -20,14 +20,14 @@ export function fetchGoals(actions) {
 
 export function completeGoalRequest(id, actions) {
   return async (dispatch) => {
-    const response = await axios.post(`${ROOT_URL}/goals/complete`, id, getAuthHeader());
+    const response = await axios.post(`${ROOT_URL}/goals/complete/${id}`, getAuthHeader());
     dispatch(actions.setGoalReducer(response.data));
   };
 }
 
 export function deleteGoalRequest(id, actions) {
   return async (dispatch) => {
-    const response = await axios.delete(`${ROOT_URL}/goals`, id, getAuthHeader());
+    const response = await axios.delete(`${ROOT_URL}/goals/${id}`, getAuthHeader());
     dispatch(actions.setGoalReducer(response.data));
   };
 }
