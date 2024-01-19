@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setGoal, getGoals } from './userGoalsSlice';
+import { setGoal } from './userGoalsSlice';
 
 function SustyGoalInput() {
-  const [goal, setGoalState] = useState('');
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getGoals());
-  }, []);
+  const [goal, setGoalState] = useState('');
   return (
     <div className="container">
       <h3>What is your sustainability goal?</h3>
