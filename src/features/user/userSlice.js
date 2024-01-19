@@ -42,7 +42,6 @@ export const getUser = () => async (dispatch) => {
 };
 
 export const duoSignin = (ticket, navigate) => async (dispatch) => {
-  console.log('duoSignin');
   dispatch(duoSigninRequest(ticket, navigate, userSlice.actions));
 };
 

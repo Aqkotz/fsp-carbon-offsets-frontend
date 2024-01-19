@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { completeGoalRequest, setGoalRequest, deleteGoalRequest } from './userGoalsRequests';
+import {
+  completeGoalRequest, setGoalRequest, deleteGoalRequest, fetchGoals,
+} from './userGoalsRequests';
 
 export const userGoalsSlice = createSlice({
   name: 'userGoals',
@@ -40,8 +42,11 @@ export const userGoalsSlice = createSlice({
 
 export const { setGoalReducer, setGoalCompleted } = userGoalsSlice.actions;
 
+export const getGoals = () => async (dispatch) => {
+  await dispatch(fetchGoals(userGoalsSlice.actions));
+};
+
 export const setGoal = (goal) => async (dispatch) => {
-  dispatch(setGoal(goal));
   await dispatch(setGoalRequest(goal, userGoalsSlice.actions));
 };
 
