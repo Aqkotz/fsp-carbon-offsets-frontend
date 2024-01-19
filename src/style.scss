@@ -10,6 +10,7 @@ $secondary-color-semitranslucent: rgba(50, 61, 73, 0.7);
 $border-color: #787d80;
 $header-height: 100px;
 $nav-width: 200px;
+$opaqueness: #ffffff00;
 
 #header {
   width: 100svw;
@@ -19,7 +20,7 @@ $nav-width: 200px;
   align-items: center;
   backdrop-filter: blur(5px);
   border-bottom: 0.75px solid $border-color;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Oswald', sans-serif;
   position: fixed;
   display: flex;
   top: 0;
@@ -61,7 +62,7 @@ $nav-width: 200px;
   margin: 20px;
   margin-top: 30px;
   transition: background-color 0.3s, scale 0.3s;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Oswald', sans-serif;
   text-align: center;
   text-decoration: none;
   border-radius: 8px;
@@ -102,9 +103,8 @@ textarea, input, p, h1, h2, h3, h4, h5{
   resize: none;
   color: white;
   margin: 10px;
-  margin-top: 30px;
 
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Oswald', sans-serif;
   padding: 0px;
 }
 
@@ -122,7 +122,13 @@ p {
 }
 
 h1 {
-  font-size: 1.5em;
+  font-size: 4.5em;
+  margin: 0px;
+}
+
+h2{
+  font-size: 2.5em;
+  margin: 0px;
 }
 
 h3 {
@@ -133,8 +139,6 @@ h4 {
   font-size: 1em;
 }
 
-<<<<<<< Updated upstream
-=======
 .allign-v{
   flex-direction: column;
 }
@@ -147,10 +151,8 @@ h4 {
   min-height: 100vh;
 }
 
->>>>>>> Stashed changes
 .post-title {
   font-size: 1.5em;
-  overflow: hidden;
   width: 100%;
   height: 50px;
   background-color: $secondary-color-translucent;
@@ -158,6 +160,17 @@ h4 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.titleclear{
+  // font-size: 1.5em;
+  width: 100%;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: inline-block;
+  vertical-align: middle
 }
 
 .container{
@@ -171,8 +184,6 @@ h4 {
   width: calc(100% - 80px);
 }
 
-<<<<<<< Updated upstream
-=======
 .container2{
   overflow: auto;
   backdrop-filter: blur(5px);
@@ -183,8 +194,6 @@ h4 {
   padding:40px;
 }
 
-
->>>>>>> Stashed changes
 .post{
   width: 400px;
   display: flex;
@@ -335,6 +344,11 @@ h4 {
 }
 
 .imgresize {
-  width: 20px;
-  height: auto; 
+  width: 80px;
+  height: auto;
+}
+
+.landing-page {
+  align-items: center;
+  justify-content: center;
 }

@@ -1,21 +1,20 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter, Routes, Route, NavLink, useParams,
+  BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
-import User from '../user/User';
 import { setToken } from '../user/userSlice';
 import Header from './Header';
 import { getToken } from '../../app/utils';
 import './background-style.scss';
 import Team from '../team/Team';
-import LandingPage from '../landingpage/landingpage';
 import Signin from '../user/Signin';
 import Signup from '../user/Signup';
-import DashBoard from '../dashboard/dashboard';
+import SignedInUser from '../user/SignedInUser';
+import LandingPage from '../landingpage/LandingPage';
+import DashBoard from '../dashboard/DashBoard';
 
 function FallBack() {
   return (
@@ -25,7 +24,7 @@ function FallBack() {
   );
 }
 
-function Circles(props) {
+function Circles() {
   return (
     <div className="circles">
       <div className="circle a" />
@@ -45,6 +44,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = getToken();
+    console.log(token);
     if (token) {
       dispatch(setToken(token));
     }
@@ -55,12 +55,16 @@ function App() {
   if (token) {
     return (
       <div>
-        <Routes>
-          <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/goals" element={<UserGoals />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="*" element={<FallBack />} />
-        </Routes>
+        <div id="app">
+          <Nav />
+          <Routes>
+            <Route path="/" element={<DashBoard />} />
+            <Route path="/goals" element={<UserGoals />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="*" element={<FallBack />} />
+          </Routes>
+        </div>
+        <Header />
       </div>
     );
   } else {
@@ -68,7 +72,9 @@ function App() {
       <Routes>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/signedin" element={<SignedInUser />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="*" element={<LandingPage />} />
       </Routes>
     );
   }
