@@ -6,12 +6,12 @@ function Streak() {
   const content = [];
   for (let i = 0; i < streak; i += 1) {
     content.push(
-      <div key={i}>
-        <span role="img" style={{ fontSize: '5rem' }} aria-label="fire-emoji">🔥</span>
+      <div className="container2 allign-h" key={i}>
+        <span role="img" style={{ fontSize: '1rem' }} aria-label="check-mark">✅</span>
       </div>,
     );
   }
-  return <div className="clearcontainer2">{content}</div>;
+  return <div>{content}</div>;
 }
 
 export default Streak;

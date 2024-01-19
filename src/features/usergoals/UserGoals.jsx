@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import UserGoalSelection from './UserGoalSelection';
 import SustyGoalInput from './SustainabilityGoalInput';
-import GoalComplete from './GoalComplete';
-import Streak from './Streak';
 
 function UserGoals() {
-  const [selectionShown, setSelectionShown] = useState(true);
+  const goals = useSelector((state) => state.userGoals.goals);
 
   return (
     <div className="page">
       <SustyGoalInput />
       <div className="container">
-        <h1
-          className="post-title"
-          onClick={() => { setSelectionShown(!selectionShown); }}
-        >Weekly Goal Setting
-        </h1>
-        {selectionShown && <UserGoalSelection />}
-        <GoalComplete />
+        <h1 className="post-title">Weekly Goal Setting</h1>
+        <div className="container2">
+          {
+          goals.map((goal) => {
+            return (
+              <UserGoalSelection goal />
+            );
+          })
+        }
+        </div>
       </div>
-      <Streak />
     </div>
   );
 }

@@ -1,17 +1,15 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
-// import UserGoal from './UserGoal';
+import Streak from './Streak';
+import GoalComplete from './GoalComplete';
 
-function UserGoalSelection() {
-  // const goals = useSelector((state) => state.userGoals.goals);
+function UserGoalSelection(props) {
   return (
-    <div>
+    <div className="container">
+      <h3>{props.goal.description}</h3>
       <h3>Did you complete your goal today?</h3>
-      {/* <div className="goals">
-        {goals.map((goal, index) => (
-          <UserGoal goal={goal} />
-        ))}
-      </div> */}
+      {/* <GoalComplete /> */}
+      <GoalComplete />
+      <Streak />
     </div>
   );
 }

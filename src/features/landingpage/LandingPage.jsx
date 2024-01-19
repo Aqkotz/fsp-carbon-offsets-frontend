@@ -5,8 +5,8 @@ function LandingPage() {
   const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
   return (
-    <div className="centercontainer">
-      <div className="centercontainer">
+    <div className="container2 allign-v center">
+      <div className="container2 allign-v center">
         <div className="container2">
           <div className="container2">
             <img className="imgresize" src={logo} alt="pine" />
