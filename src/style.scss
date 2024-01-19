@@ -133,6 +133,21 @@ h4 {
   font-size: 1em;
 }
 
+<<<<<<< Updated upstream
+=======
+.allign-v{
+  flex-direction: column;
+}
+
+.allign-h{
+  flex-direction: row;
+}
+
+.center{
+  min-height: 100vh;
+}
+
+>>>>>>> Stashed changes
 .post-title {
   font-size: 1.5em;
   overflow: hidden;
@@ -156,6 +171,20 @@ h4 {
   width: calc(100% - 80px);
 }
 
+<<<<<<< Updated upstream
+=======
+.container2{
+  overflow: auto;
+  backdrop-filter: blur(5px);
+  align-items: center;
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  padding:40px;
+}
+
+
+>>>>>>> Stashed changes
 .post{
   width: 400px;
   display: flex;
