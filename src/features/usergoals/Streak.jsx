@@ -7,7 +7,7 @@ function Streak() {
   for (let i = 0; i < streak; i += 1) {
     content.push(
       <div className="container2 allign-h" key={i}>
-        <span role="img" style={{ fontSize: '1rem' }} aria-label="check-mark">✅</span>
+        <span role="img" style={{ fontSize: '3rem' }} aria-label="check-mark">✅</span>
       </div>,
     );
   }
