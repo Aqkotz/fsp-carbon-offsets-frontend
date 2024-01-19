@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  completeGoalRequest, setGoalRequest, deleteGoalRequest, fetchGoals,
+  completeGoalRequest, setGoalRequest, deleteGoalRequest, fetchGoals, failGoalRequest,
 } from './userGoalsRequests';
 
 export const userGoalsSlice = createSlice({
@@ -37,10 +37,18 @@ export const userGoalsSlice = createSlice({
         return g;
       });
     },
+    setGoalFailed: (state, action) => {
+      state.goals.map((g) => {
+        if (g.description === action.payload.description) {
+          g.failed = true;
+        }
+        return g;
+      });
+    },
   },
 });
 
-export const { setGoalReducer, setGoalCompleted } = userGoalsSlice.actions;
+export const { setGoalReducer, setGoalCompleted, setGoalFailed } = userGoalsSlice.actions;
 
 export const getGoals = () => async (dispatch) => {
   await dispatch(fetchGoals(userGoalsSlice.actions));
@@ -53,6 +61,11 @@ export const setGoal = (goal) => async (dispatch) => {
 export const completeGoal = (goal) => async (dispatch) => {
   dispatch(setGoalCompleted(goal));
   await dispatch(completeGoalRequest(goal, userGoalsSlice.actions));
+};
+
+export const failGoal = (goal) => async (dispatch) => {
+  dispatch(setGoalFailed(goal));
+  await dispatch(failGoalRequest(goal, userGoalsSlice.actions));
 };
 
 export const deleteGoal = (goal) => async (dispatch) => {

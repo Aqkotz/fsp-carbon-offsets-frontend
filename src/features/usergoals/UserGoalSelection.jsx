@@ -15,6 +15,9 @@ function UserGoalSelection(props) {
         Yes!
       </button>
       <button type="button" className="button" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
+        No!
+      </button>
+      <button type="button" className="button" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
         Delete Goal
       </button>
       <Streak />
