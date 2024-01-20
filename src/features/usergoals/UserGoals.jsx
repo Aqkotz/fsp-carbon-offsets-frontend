@@ -15,7 +15,7 @@ function UserGoals() {
     <div className="page">
       <SustyGoalInput />
       <div className="container">
-        <h1 className="post-title">Weekly Goal Setting</h1>
+        <h2>Weekly Goals </h2>
         <div className="container2">
           {goals && goals.map((goal, index) => {
             return (
