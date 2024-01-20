@@ -8,21 +8,6 @@ export const userGoalsSlice = createSlice({
   name: 'userGoals',
   initialState: {
     goals: [
-      {
-        description: 'test',
-        completed: false,
-        streak: 3,
-      },
-      {
-        description: 'test1',
-        completed: false,
-        streak: 3,
-      },
-      {
-        description: 'test2',
-        completed: false,
-        streak: 3,
-      },
     ],
   },
   reducers: {
@@ -30,7 +15,7 @@ export const userGoalsSlice = createSlice({
       state.goals = action.payload;
     },
     setGoalCompleted: (state, action) => {
-      state.goals.map((g) => {
+      state.goals = state.goals.map((g) => {
         if (g.description === action.payload.description) {
           g.completed = true;
         }
@@ -38,7 +23,7 @@ export const userGoalsSlice = createSlice({
       });
     },
     setGoalFailed: (state, action) => {
-      state.goals.map((g) => {
+      state.goals = state.goals.map((g) => {
         if (g.description === action.payload.description) {
           g.failed = true;
         }
@@ -58,18 +43,17 @@ export const setGoal = (goal) => async (dispatch) => {
   await dispatch(setGoalRequest(goal, userGoalsSlice.actions));
 };
 
-export const completeGoal = (goal) => async (dispatch) => {
-  dispatch(setGoalCompleted(goal));
-  await dispatch(completeGoalRequest(goal, userGoalsSlice.actions));
+export const completeGoal = (id) => async (dispatch) => {
+  await dispatch(completeGoalRequest(id, userGoalsSlice.actions));
 };
 
-export const failGoal = (goal) => async (dispatch) => {
-  dispatch(setGoalFailed(goal));
-  await dispatch(failGoalRequest(goal, userGoalsSlice.actions));
+export const failGoal = (id) => async (dispatch) => {
+  dispatch(setGoalFailed(id));
+  await dispatch(failGoalRequest(id, userGoalsSlice.actions));
 };
 
-export const deleteGoal = (goal) => async (dispatch) => {
-  await dispatch(deleteGoalRequest(goal, userGoalsSlice.actions));
+export const deleteGoal = (id) => async (dispatch) => {
+  await dispatch(deleteGoalRequest(id, userGoalsSlice.actions));
 };
 
 export default userGoalsSlice.reducer;

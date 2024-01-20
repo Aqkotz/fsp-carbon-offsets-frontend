@@ -19,7 +19,7 @@ function UserGoals() {
         <div className="container2">
           {goals && goals.map((goal, index) => {
             return (
-              <UserGoalSelection key={goal.description} goal={goal} index={index} />
+              <UserGoalSelection key={goal.id} goal={goal} index={index} />
             );
           })}
         </div>
