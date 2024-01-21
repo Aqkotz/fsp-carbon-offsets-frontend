@@ -6,6 +6,7 @@ const ROOT_URL = 'https://fsp-carbon-offsets-backend-lakm.onrender.com/api';
 export function setGoalRequest(goal, actions) {
   return async (dispatch) => {
     const response = await axios.post(`${ROOT_URL}/goals`, goal, getAuthHeader());
+    console.log(response.data);
     dispatch(actions.setGoalReducer(response.data));
   };
 }
@@ -20,6 +21,7 @@ export function fetchGoals(actions) {
 export function completeGoalRequest(id, actions) {
   return async (dispatch) => {
     const response = await axios.post(`${ROOT_URL}/goals/complete/${id}`, {}, getAuthHeader());
+    console.log(response.data);
     dispatch(actions.setGoalReducer(response.data));
   };
 }
