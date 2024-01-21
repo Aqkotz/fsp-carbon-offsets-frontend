@@ -38,7 +38,7 @@ $opaqueness: #ffffff00;
   align-items: center;
   // backdrop-filter: blur(5px);
   border-bottom: 0.75px solid $border-color;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Inria Sans', sans-serif;
   position: fixed;
   display: flex;
   top: 0;
@@ -70,7 +70,7 @@ $opaqueness: #ffffff00;
   margin: 20px;
   margin-top: 30px;
   transition: background-color 0.3s, scale 0.3s;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Inria Sans', sans-serif;
   text-align: center;
   text-decoration: none;
   border-radius: 8px;
@@ -112,7 +112,7 @@ textarea, input, p, h1, h2, h3, h4, h5{
   color:black;
   margin: 10px;
 
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Inria Sans', sans-serif;
   padding: 0px;
 }
 
