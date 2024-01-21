@@ -32,6 +32,7 @@ export function duoSigninRequest(ticket, navigate, actions) {
   return async (dispatch) => {
     const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
     const response = await axios.post(`${ROOT_URL}/validate`, { ticket, service: CLIENT_URL });
+    console.log(response.data.token);
     setToken(response.data.token);
     dispatch(actions.setToken(response.data.token));
     dispatch(actions.setUser({ name: response.data.name, netid: response.data.netid }));

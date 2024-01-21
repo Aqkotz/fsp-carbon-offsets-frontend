@@ -16,9 +16,7 @@ function SignedInUser(props) {
   }, []);
 
   return (
-    <div>
-      <h1>SignedInUser</h1>
-    </div>
+    <div />
   );
 }
 
