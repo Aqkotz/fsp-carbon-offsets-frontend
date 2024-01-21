@@ -24,8 +24,8 @@ function LandingPage() {
   return (
     <div>
       <Circles />
-      <div className="container2 allign-v center">
-        <div className="container2 allign-v center">
+      <div className="centercontainer">
+        <div className="centercontainer">
           <div className="container2">
             <div className="container2">
               <img className="imgresize" src={logo} alt="pine" />
