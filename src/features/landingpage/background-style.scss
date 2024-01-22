@@ -103,7 +103,7 @@ backdrop-filter: blur(100px);
 top: 0;
 }
 
-textarea, input, p, h1, h2{
+p, h4, h5{
     // width: 90%;
     border: none;
     overflow: auto;
@@ -122,25 +122,17 @@ textarea, input, p, h1, h2{
     padding: 0px;
   }
   
-  input, textarea{
-    padding: 3px;
-    padding-left: 7px;
-    border-radius: 8px;
-    border: 0.75px solid $border-color;
-    max-lines: 5;
-  }
-  
   p {
     font-size: 0.84em;
   }
   
  
-  h1 {
+  h4 {
     font-size: 4.0em;
     margin-left: 10px;
   }
   
-  h2{
+  h5{
     font-size: 2.5em;
     margin-left: 10px;
   }

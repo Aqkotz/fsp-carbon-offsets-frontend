@@ -16,7 +16,7 @@ function UserGoals() {
       <SustyGoalInput />
       <div className="container">
         <h2>Weekly Goals </h2>
-        <div className="container2">
+        <div className="container_goals">
           {goals && goals.map((goal, index) => {
             return (
               <UserGoalSelection key={goal.id} goal={goal} index={index} />

@@ -38,7 +38,7 @@ $opaqueness: #ffffff00;
   align-items: center;
   // backdrop-filter: blur(5px);
   border-bottom: 0.75px solid $border-color;
-  font-family: 'Inria Sans', sans-serif;
+  font-family: 'Oswald', sans-serif;
   position: fixed;
   display: flex;
   top: 0;
@@ -67,10 +67,27 @@ $opaqueness: #ffffff00;
   outline: none;
   color: white;
   cursor: pointer;
-  margin: 20px;
-  margin-top: 30px;
+  margin: 10px;
+  margin-top: 15px;
   transition: background-color 0.3s, scale 0.3s;
-  font-family: 'Inria Sans', sans-serif;
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+.clearbutton {
+  background-color: $primary-color;
+  border: 0.75px solid $border-color;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+  margin-top: 15px;
+  transition: background-color 0.3s, scale 0.3s;
+  font-family: 'Oswald', sans-serif;
   text-align: center;
   text-decoration: none;
   border-radius: 8px;
@@ -112,7 +129,7 @@ textarea, input, p, h1, h2, h3, h4, h5{
   color:black;
   margin: 10px;
 
-  font-family: 'Inria Sans', sans-serif;
+  font-family: 'Oswald', sans-serif;
   padding: 0px;
 }
 
@@ -140,11 +157,7 @@ h2{
 }
 
 h3 {
-  font-size: 1.1em;
-}
-
-h4 {
-  font-size: 1em;
+  font-size: 2.0em;
 }
 
 .goaltext{
@@ -199,6 +212,15 @@ h4 {
   width: calc(100% - 80px);
 }
 
+.container_goals{
+  overflow: auto;
+  backdrop-filter: blur(5px);
+  align-items: center;
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  padding:10px;
+}
 .container2{
   overflow: auto;
   backdrop-filter: blur(5px);
@@ -207,7 +229,7 @@ h4 {
   // flex-direction: column;
   justify-content: center;
   // padding:40px;
-  border:5px
+  border:1px
 }
 
 .post{
