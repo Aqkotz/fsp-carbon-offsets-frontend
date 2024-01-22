@@ -36,6 +36,6 @@ export function duoSigninRequest(ticket, navigate, actions) {
     setToken(response.data.token);
     dispatch(actions.setToken(response.data.token));
     dispatch(actions.setUser({ name: response.data.name, netid: response.data.netid }));
-    navigate('/');
+    navigate('/goals');
   };
 }
