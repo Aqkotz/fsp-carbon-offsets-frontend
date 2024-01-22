@@ -1,6 +1,5 @@
 $background-color-translucent: rgba(3, 56, 78, 0.504);
 $background-color: #0c6580;
-// $background-color-translucent: rgba(19, 27, 32, 0.369);
 $primary-color: #222c32;
 $dartmouth-green: #00693e;
 $primary-color-translucent: rgba(34, 44, 50, 0.5);
@@ -18,11 +17,9 @@ position: fixed;
 }
 
 .landing-container {
-    display: flex;
-    // width: 100vh;
-    // height: 100vw;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .circle {
@@ -118,7 +115,7 @@ p, h4, h5{
     color:rgb(255, 255, 255);
     margin: 0px;
   
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     padding: 0px;
   }
   

@@ -37,16 +37,18 @@ function App() {
   if (token) {
     return (
       <div>
-        <div id="app">
-          <Nav />
-          <Routes>
-            <Route path="/" element={<DashBoard />} />
-            <Route path="/goals" element={<UserGoals />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="*" element={<FallBack />} />
-          </Routes>
+        <Nav />
+        <div>
+          <div id="app">
+            <Routes>
+              <Route path="/" element={<DashBoard />} />
+              <Route path="/goals" element={<UserGoals />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="*" element={<FallBack />} />
+            </Routes>
+          </div>
+          <Header />
         </div>
-        <Header />
       </div>
     );
   } else {
@@ -66,7 +68,6 @@ function AppWrapper() {
   return (
     <BrowserRouter>
       <div>
-        {/* <Circles /> */}
         <App />
       </div>
     </BrowserRouter>
