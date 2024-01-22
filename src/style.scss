@@ -18,39 +18,40 @@ $opaqueness: #ffffff00;
 }
 
 #nav {
-  height: 100svh;
+  height: 100vh;
   width: $nav-width;
   background-color: $dartmouth-green;
-  backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
   border-right: 0.75px solid $border-color;
-  left: 0;
   position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
 }
 
 #header {
-  width: 100%;
+  width: calc(100% - $nav-width);
   height: $header-height;
   background-color: $background-color;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  //display: flex;
   align-items: center;
-  // backdrop-filter: blur(5px);
   border-bottom: 0.75px solid $border-color;
   font-family: 'Inria Sans', sans-serif;
   position: fixed;
-  display: flex;
+  left: $nav-width;
   top: 0;
+  z-index: 1;
+  display: flex;
 }
-
 
 #app {
   display: flex;
   flex-direction: row;
   margin-top: 120px;
-  padding-left: $nav-width;
-  
+  margin-left: $nav-width;
+  height: calc(100vh - $header-height);
+  overflow: auto;
 }
 
 .page {
@@ -166,7 +167,6 @@ h4 {
 
 .post-title {
   font-size: 1.5em;
-  // width: 100%;
   height: 30px;
   background-color: rgba(5, 133, 24, 0.25);;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -178,7 +178,6 @@ h4 {
 }
 
 .titleclear{
-  // font-size: 1.5em;
   width: 100%;
   margin: 0px;
   display: flex;
@@ -189,13 +188,10 @@ h4 {
 }
 
 .container{
-  // background-color: $primary-color-translucent;
   border-radius: 8px;
   overflow: hidden;
-  // border: 0.75px solid $border-color;
   margin: 10px;
   transition: transform 0.5s, box-shadow 0.5s;
-  // backdrop-filter: blur(5px);
   width: calc(100% - 80px);
 }
 
@@ -204,9 +200,7 @@ h4 {
   backdrop-filter: blur(5px);
   align-items: center;
   display: flex;
-  // flex-direction: column;
   justify-content: center;
-  // padding:40px;
   border:5px
 }
 
