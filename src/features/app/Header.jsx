@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import './style.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { getUser } from '../user/userSlice';
 
 const profileButton = (user) => {
   return (
     <div>
-      <NavLink className="button profile" to="profile">{`${user.name}`} </NavLink>
+      <div className="button profile" to="profile">{`${user.name}`} </div>
     </div>
   );
 };
