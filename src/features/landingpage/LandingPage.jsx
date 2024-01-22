@@ -31,8 +31,8 @@ function LandingPage() {
               <img className="imgresize" src={logo} alt="pine" />
             </div>
             <div className="titleclear">
-              <h1> Go GREEN</h1>
-              <h2> Dartmouth Carbon Initiative</h2>
+              <h4> Go GREEN</h4>
+              <h5> Dartmouth Carbon Initiative</h5>
             </div>
           </div>
           <div className="container2">
