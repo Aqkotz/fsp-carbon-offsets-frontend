@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@mui/joy/Button';
 import logo from '../../img/LonePine_Rev.png';
 import './background-style.scss';
 
@@ -36,7 +37,7 @@ function LandingPage() {
             </div>
           </div>
           <div className="container2">
-            <a className="button" href={`https://login.dartmouth.edu/cas/login?service=${CLIENT_URL}/signedin`}>Sign in with Duo</a>
+            <Button variant="outlined" color="neutral" onClick={() => { window.location.href = `https://login.dartmouth.edu/cas/login?service=${CLIENT_URL}/signedin`; }}>Sign in with Duo</Button>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import Button from '@mui/joy/Button';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { logout } from '../user/userSlice';
@@ -12,8 +12,11 @@ function Nav() {
   return (
     <div id="nav">
       <img className="logo" src={logo} alt="logo" />
-      <NavLink className="button" to="/goals">GOALS</NavLink>
-      <button className="button" type="button" onClick={() => { dispatch(logout()); navigate('/'); removeToken(); }}>LOGOUT</button>
+      <Button color="neutral" size="lg" variant="plain" onClick={() => { navigate('/goals'); }}>My Goals</Button>
+      <Button color="neutral" size="lg" variant="plain" onClick={() => { navigate('/carbontracking'); }}>Carbon Tracking</Button>
+      <Button color="neutral" size="lg" variant="plain" onClick={() => { navigate('/team'); }}>My Team</Button>
+      <Button color="neutral" size="lg" variant="plain" onClick={() => { navigate('/team'); }}>Discussion Board</Button>
+      <Button color="neutral" size="lg" variant="plain" onClick={() => { dispatch(logout()); navigate('/'); removeToken(); }}>LOGOUT</Button>
     </div>
   );
 }
