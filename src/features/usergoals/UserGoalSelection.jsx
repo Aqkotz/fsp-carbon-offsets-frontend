@@ -6,6 +6,7 @@ import { completeGoal, deleteGoal, failGoal } from './userGoalsSlice';
 function UserGoalSelection(props) {
   const dispatch = useDispatch();
   const [changeCompleted, setChangeCompleted] = useState(false);
+  console.log(props.goal.streak);
   const completionSection = () => {
     if (props.goal.completedToday && !changeCompleted) {
       return (
@@ -44,7 +45,7 @@ function UserGoalSelection(props) {
       <h2 className="post-title">Goal {props.index + 1}</h2>
       <h5 className="goaltext">{props.goal.description}</h5>
       {completionSection()}
-      <Streak />
+      <Streak goal={props.goal} />
       <button type="button" className="button" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
         Delete Goal
       </button>
