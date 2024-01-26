@@ -9,11 +9,12 @@ import { setToken } from '../user/userSlice';
 import Header from './Header';
 import { getToken } from '../../app/utils';
 import Team from '../team/Team';
+import CarbonTracking from '../carbontracking/CarbonTracking';
 import Signin from '../user/Signin';
 import Signup from '../user/Signup';
 import SignedInUser from '../user/SignedInUser';
 import LandingPage from '../landingpage/LandingPage';
-import DashBoard from '../dashboard/DashBoard';
+import DashBoard from '../dashboard/dashboard';
 
 function FallBack() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Routes>
               <Route path="/" element={<DashBoard />} />
               <Route path="/goals" element={<UserGoals />} />
+              <Route path="/carbontracking" element={<CarbonTracking />} />
               <Route path="/team" element={<Team />} />
               <Route path="*" element={<FallBack />} />
             </Routes>
