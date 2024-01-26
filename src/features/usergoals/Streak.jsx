@@ -1,17 +1,23 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
-import { useSelector } from 'react-redux';
 
-function Streak() {
-  const streak = useSelector((state) => state.userGoals.streak);
-  const content = [];
-  for (let i = 0; i < streak; i += 1) {
-    content.push(
+function Streak(props) {
+  const { streak } = props.goal;
+  const content = streak.map((day, i) => {
+    if (day) {
+      return (
+        <div className="container2 allign-h" key={i}>
+          <span role="img" style={{ fontSize: '1rem' }} aria-label="check-mark">✅</span>
+        </div>
+      );
+    }
+    return (
       <div className="container2 allign-h" key={i}>
-        <span role="img" style={{ fontSize: '3rem' }} aria-label="check-mark">✅</span>
-      </div>,
+        <span role="img" style={{ fontSize: '1rem' }} aria-label="x-mark">❌</span>
+      </div>
     );
-  }
-  return <div>{content}</div>;
+  });
+  return <div className="container2">{content}</div>;
 }
 
 export default Streak;
