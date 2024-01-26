@@ -15,7 +15,7 @@ import Signin from '../user/Signin';
 import Signup from '../user/Signup';
 import SignedInUser from '../user/SignedInUser';
 import LandingPage from '../landingpage/LandingPage';
-import DashBoard from '../dashboard/dashboard';
+import DashBoard from '../dashboard/DashBoard';
 
 function FallBack() {
   return (
