@@ -15,7 +15,7 @@ import Team from '../team/Team';
 import CarbonTracking from '../carbontracking/CarbonTracking';
 import SignedInUser from '../user/SignedInUser';
 import LandingPage from '../landingpage/LandingPage';
-import DashBoard from '../dashboard/dashboard';
+import DashBoard from '../dashboard/DashBoard3';
 import DiscussionBoard from '../discussionboard/DiscussionBoard';
 
 function FallBack() {
