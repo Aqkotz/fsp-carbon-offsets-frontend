@@ -1,11 +1,8 @@
-/* eslint-disable no-unreachable */
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import {
   BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { CssVarsProvider, Box, Stack } from '@mui/joy';
 import Sheet from '@mui/joy/Sheet';
 import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
 import Box from '@mui/joy/Box';
@@ -39,7 +36,6 @@ function App() {
   }, []);
 
   const token = useSelector((state) => state.user.token);
-
   const theme = extendTheme({ cssVarPrefix: 'demo' });
 
   if (token) {

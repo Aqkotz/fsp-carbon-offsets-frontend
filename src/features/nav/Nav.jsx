@@ -30,12 +30,12 @@ function Nav() {
     >
       <Box
         component="img"
-        src={logo} // Use the imported image as the source
+        src={logo}
         alt="Logo"
         sx={{
-          width: '80%', // Make the image fully occupy the container width
-          height: 'auto', // Keep the image's aspect ratio
-          padding: '16px', // Add some padding around the image
+          width: '80%',
+          height: 'auto',
+          padding: '16px',
         }}
       />
       <Button color="neutral" size="lg" variant="plain" sx={{ justifyContent: 'start', width: '100%', marginBottom: '8px' }} onClick={() => navigate('/goals')}>My Goals</Button>

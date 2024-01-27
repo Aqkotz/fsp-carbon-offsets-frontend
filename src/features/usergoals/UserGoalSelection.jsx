@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Card, Typography, Button, ButtonGroup, CardOverflow, CardActions,
+  Card, Typography, Button, ButtonGroup, CardOverflow, CardActions, Stack, IconButton,
 } from '@mui/joy';
+import CloseIcon from '@mui/icons-material/Close';
 import Streak from './Streak';
 import { completeGoal, deleteGoal, failGoal } from './userGoalsSlice';
 
@@ -50,9 +51,19 @@ function UserGoalSelection(props) {
 
   return (
     <Card>
-      <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
-        Goal {props.index + 1}
-      </Typography>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        spacing={2}
+      >
+        <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
+          Goal {props.index + 1}
+        </Typography>
+        <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
+          <CloseIcon fontSize="inherit" />
+        </IconButton>
+      </Stack>
       <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
         {props.goal.description}
       </Typography>
