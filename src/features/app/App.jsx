@@ -19,6 +19,7 @@ import CarbonTracking from '../carbontracking/CarbonTracking';
 import SignedInUser from '../user/SignedInUser';
 import LandingPage from '../landingpage/LandingPage';
 import DashBoard from '../dashboard/dashboard';
+import DiscussionBoard from '../discussionboard/DiscussionBoard';
 
 function FallBack() {
   return (
@@ -68,6 +69,7 @@ function App() {
                     <Route path="/goals" element={<UserGoals />} />
                     <Route path="/carbontracking" element={<CarbonTracking />} />
                     <Route path="/team" element={<Team />} />
+                    <Route path="/discussionboard" element={<DiscussionBoard />} />
                     <Route path="*" element={<FallBack />} />
                   </Routes>
                 </Sheet>

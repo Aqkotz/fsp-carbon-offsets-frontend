@@ -32,8 +32,10 @@ function Header() {
         return 'Team';
       case '/profile':
         return 'Profile';
-      case 'carbontracking':
+      case '/carbontracking':
         return 'Carbon Tracking';
+      case '/discussionboard':
+        return 'Discussion Board';
       default:
         return '';
     }
