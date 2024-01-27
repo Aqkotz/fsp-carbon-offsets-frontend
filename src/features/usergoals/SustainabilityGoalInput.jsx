@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Box from '@mui/joy/Box';
-import Typography from '@mui/joy/Typography';
+import {
+  Typography, Card, Box, Button,
+} from '@mui/joy';
 import { setGoal, getGoals } from './userGoalsSlice';
 
 function SustyGoalInput() {
@@ -12,7 +13,7 @@ function SustyGoalInput() {
     dispatch(getGoals());
   }, []);
   return (
-    <Box variant="outlined"
+    <Card variant="outlined"
       sx={{
         px: 3, py: 1.5, borderRadius: 'sm', backgroundColor: 'background.level1',
       }}
@@ -21,10 +22,10 @@ function SustyGoalInput() {
         What is your sustainability goal?
       </Typography>
       <input value={goal} type="text" onChange={(e) => { setGoalState(e.target.value); }} />
-      <button type="button" className="button" onClick={() => { dispatch(setGoal({ description: goal })); setGoalState(''); }}>
+      <Button onClick={() => { dispatch(setGoal({ description: goal })); setGoalState(''); }}>
         Add Goal
-      </button>
-    </Box>
+      </Button>
+    </Card>
   );
 }
 
