@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import {
+  Card, Typography, Button, ButtonGroup,
+} from '@mui/joy';
 import Streak from './Streak';
 import { completeGoal, deleteGoal, failGoal } from './userGoalsSlice';
 
@@ -11,45 +14,57 @@ function UserGoalSelection(props) {
     if (props.goal.completedToday && !changeCompleted) {
       return (
         <div>
-          <h3>Completed!</h3>
-          <button type="button" className="button" onClick={() => { setChangeCompleted(true); }}>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Completed!
+          </Typography>
+          <Button onClick={() => { setChangeCompleted(true); }}>
             Change Completed
-          </button>
+          </Button>
         </div>
       );
     } else if (props.goal.failed && !changeCompleted) {
       return (
         <div>
-          <h3>Failed!</h3>
-          <button type="button" className="button" onClick={() => { setChangeCompleted(true); }}>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Failed!
+          </Typography>
+          <Button onClick={() => { setChangeCompleted(true); }}>
             Change Completed
-          </button>
+          </Button>
         </div>
       );
     }
     return (
       <div>
-        <h3>Did you complete your goal today?</h3>
-        <button type="button" className="button" onClick={() => { dispatch(completeGoal(props.goal.id)); }}>
-          Yes!
-        </button>
-        <button type="button" className="button" onClick={() => { dispatch(failGoal(props.goal.id)); }}>
-          No!
-        </button>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Did you complete your goal today?
+        </Typography>
+        <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
+          <Button onClick={() => { dispatch(completeGoal(props.goal.id)); }}>
+            Yes!
+          </Button>
+          <Button onClick={() => { dispatch(failGoal(props.goal.id)); }}>
+            No!
+          </Button>
+        </ButtonGroup>
       </div>
     );
   };
 
   return (
-    <div className="container center background">
-      <h2 className="post-title">Goal {props.index + 1}</h2>
-      <h5 className="goaltext">{props.goal.description}</h5>
+    <Card>
+      <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
+        Goal {props.index + 1}
+      </Typography>
+      <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
+        {props.goal.description}
+      </Typography>
       {completionSection()}
       <Streak goal={props.goal} />
-      <button type="button" className="button" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
+      <Button onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
         Delete Goal
-      </button>
-    </div>
+      </Button>
+    </Card>
   );
 }
 
