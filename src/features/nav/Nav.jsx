@@ -40,7 +40,7 @@ function Nav() {
       <Button color="neutral" size="lg" variant="plain" sx={{ justifyContent: 'start', width: '100%', marginBottom: '8px' }} onClick={() => navigate('/goals')}>My Goals</Button>
       <Button color="neutral" size="lg" variant="plain" sx={{ justifyContent: 'start', width: '100%', marginBottom: '8px' }} onClick={() => navigate('/carbontracking')}>Carbon Tracking</Button>
       <Button color="neutral" size="lg" variant="plain" sx={{ justifyContent: 'start', width: '100%', marginBottom: '8px' }} onClick={() => navigate('/team')}>My Team</Button>
-      <Button color="neutral" size="lg" variant="plain" sx={{ justifyContent: 'start', width: '100%', marginBottom: '8px' }} onClick={() => navigate('/discussion')}>Discussion Board</Button>
+      <Button color="neutral" size="lg" variant="plain" sx={{ justifyContent: 'start', width: '100%', marginBottom: '8px' }} onClick={() => navigate('/discussionboard')}>Discussion Board</Button>
       <Button color="neutral" size="lg" variant="plain" sx={{ justifyContent: 'start', width: '100%' }} onClick={() => { dispatch(logout()); navigate('/'); removeToken(); }}>LOGOUT</Button>
     </Sheet>
   );
