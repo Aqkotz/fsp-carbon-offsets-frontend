@@ -14,6 +14,7 @@ function Nav() {
   const navigate = useNavigate();
   return (
     <Sheet
+      color="neutral"
       variant="outlined"
       sx={{
         display: 'flex',
