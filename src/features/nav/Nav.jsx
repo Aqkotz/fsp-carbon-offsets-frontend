@@ -26,6 +26,7 @@ function Nav() {
         boxShadow: '2px 0 4px rgba(0,0,0,0.1)',
         width: '240px',
         minWidth: '240px',
+        position: 'fixed',
       }}
     >
       <Box
