@@ -50,7 +50,7 @@ function App() {
         <div id="demo_dark-mode-by-default">
           <Box sx={{ display: 'flex', height: '100vh' }}>
             <Nav />
-            <Box sx={{ flexGrow: 1, marginLeft: '240px' }}>
+            <Box sx={{ flexGrow: 1 }}>
               <Header />
               <Box component="main" sx={{ overflow: 'auto' }}>
                 <Sheet

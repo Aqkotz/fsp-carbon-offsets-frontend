@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import {
   setStop, addStop, submitStops, removeStop,
-} from './carbonTrackingSlice';
+} from './carbonSlice';
 
 function FlightInput(props) {
   const dispatch = useDispatch();

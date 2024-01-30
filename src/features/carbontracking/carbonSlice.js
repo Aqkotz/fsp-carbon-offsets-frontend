@@ -8,6 +8,7 @@ const carbonSlice = createSlice({
   name: 'carbon',
   initialState: {
     stops: 'loading',
+    kg: 'loading',
   },
   reducers: {
     addStop: (state, action) => {
@@ -29,6 +30,9 @@ const carbonSlice = createSlice({
     setStops: (state, action) => {
       state.stops = action.payload;
     },
+    setCarbonFootprint: (state, action) => {
+      state.kg = action.payload;
+    },
   },
 });
 
@@ -41,18 +45,26 @@ export const createStop = (stop) => {
   };
 };
 
+export function fetchCarbonFootprint() {
+  return async (dispatch) => {
+    const response = await axios.get(`${ROOT_URL}/carbonfootprint`, getAuthHeader());
+    dispatch(carbonSlice.actions.setCarbonFootprint(response.data));
+  };
+}
+
 export function submitStops(stops) {
   return async (dispatch) => {
     console.log(`${ROOT_URL}/stops`);
     const response = await axios.post(`${ROOT_URL}/stops`, { stops }, getAuthHeader());
     dispatch(carbonSlice.actions.setStops(response.data));
+    dispatch(carbonSlice.actions.setCarbonFootprint('loading'));
+    dispatch(fetchCarbonFootprint());
   };
 }
 
 export function fetchStops() {
   return async (dispatch) => {
     const response = await axios.get(`${ROOT_URL}/stops`, getAuthHeader());
-    console.log(response.data);
     dispatch(carbonSlice.actions.setStops(response.data));
   };
 }
