@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Card, Typography, Button, ButtonGroup, CardOverflow, CardActions, Stack, IconButton,
+  Card, Typography, Button, ButtonGroup, CardOverflow, CardActions, Stack, IconButton, Box,
 } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
 import Streak from './Streak';
@@ -29,7 +29,7 @@ function UserGoalSelection(props) {
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
             Failed!
           </Typography>
-          <Button onClick={() => { setChangeCompleted(true); }}>
+          <Button variant="outlined" sx={{ bgcolor: 'background.surface' }} onClick={() => { setChangeCompleted(true); }}>
             Change Completed
           </Button>
         </div>
@@ -37,15 +37,20 @@ function UserGoalSelection(props) {
     }
     return (
       <div>
-        <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-          <Button onClick={() => { dispatch(completeGoal(props.goal.id)); }}>
-            Yes!
-          </Button>
-          <Button onClick={() => { dispatch(failGoal(props.goal.id)); }}>
-            No!
-          </Button>
-        </ButtonGroup>
+        <Box m={1}>
+          <CardActions buttonFlex="1">
+            <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
+              <Button onClick={() => { dispatch(completeGoal(props.goal.id)); }}>
+                Yes!
+              </Button>
+              <Button onClick={() => { dispatch(failGoal(props.goal.id)); }}>
+                No!
+              </Button>
+            </ButtonGroup>
+          </CardActions>
+        </Box>
       </div>
+
     );
   };
 
@@ -67,17 +72,14 @@ function UserGoalSelection(props) {
       <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
         {props.goal.description}
       </Typography>
-      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-        Did you complete your goal today?
-      </Typography>
+      <Streak goal={props.goal} />
       <CardOverflow sx={{ bgcolor: 'background.level1' }}>
-        <CardActions buttonFlex="1">
-          {completionSection()}
-          <Streak goal={props.goal} />
-          <Button onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
-            Delete Goal
-          </Button>
-        </CardActions>
+        <Box marginTop={2} marginBottom={0.5}>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Did you complete your goal today?
+          </Typography>
+        </Box>
+        {completionSection()}
       </CardOverflow>
     </Card>
   );
