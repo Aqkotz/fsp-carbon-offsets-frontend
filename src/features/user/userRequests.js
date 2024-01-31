@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getAuthHeader, setToken } from '../../app/utils';
 
-const ROOT_URL = 'https://fsp-carbon-offsets-backend-lakm.onrender.com/api';
+const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
 
 export function signinRequest({ email, password }, navigate, actions) {
   return async (dispatch) => {
