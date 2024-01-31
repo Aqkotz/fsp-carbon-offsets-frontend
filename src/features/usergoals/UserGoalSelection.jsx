@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
+<<<<<<< Updated upstream
   Card, Typography, Button, ButtonGroup, CardOverflow, CardActions, Stack, IconButton, Box,
+=======
+  Card, Typography, Button, ButtonGroup, CardOverflow, CardActions, Box,
+>>>>>>> Stashed changes
 } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
 import Streak from './Streak';
@@ -55,6 +59,7 @@ function UserGoalSelection(props) {
   };
 
   return (
+<<<<<<< Updated upstream
     <Card>
       <Stack
         direction="row"
@@ -82,6 +87,30 @@ function UserGoalSelection(props) {
         {completionSection()}
       </CardOverflow>
     </Card>
+=======
+    <Box m={2}>
+      <Card>
+        <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
+          Goal {props.index + 1}
+        </Typography>
+        <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
+          {props.goal.description}
+        </Typography>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Did you complete your goal today?
+        </Typography>
+        <CardOverflow sx={{ bgcolor: 'background.level1' }}>
+          <CardActions buttonFlex="1">
+            {completionSection()}
+            <Streak goal={props.goal} />
+            <Button onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
+              Delete Goal
+            </Button>
+          </CardActions>
+        </CardOverflow>
+      </Card>
+    </Box>
+>>>>>>> Stashed changes
   );
 }
 

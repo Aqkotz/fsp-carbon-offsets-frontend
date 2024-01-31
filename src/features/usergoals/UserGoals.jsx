@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+<<<<<<< Updated upstream
 import { Card, Typography, Stack } from '@mui/joy';
+=======
+import { Card, Typography, Box } from '@mui/joy';
+>>>>>>> Stashed changes
 import UserGoalSelection from './UserGoalSelection';
 import SustyGoalInput from './SustainabilityGoalInput';
 import { getGoals } from './userGoalsSlice';
@@ -13,6 +17,7 @@ function UserGoals() {
   }, []);
 
   return (
+<<<<<<< Updated upstream
     <Stack
       direction="column"
       justifyContent="flex-start"
@@ -38,6 +43,27 @@ function UserGoals() {
         </Stack>
       </Card>
     </Stack>
+=======
+    <div>
+      <Box m={2}>
+        <SustyGoalInput />
+      </Box>
+      <Box m={2}>
+        <Card>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Weekly Goals
+          </Typography>
+          <div className="container_goals">
+            {goals && goals.map((goal, index) => {
+              return (
+                <UserGoalSelection key={goal.id} goal={goal} index={index} />
+              );
+            })}
+          </div>
+        </Card>
+      </Box>
+    </div>
+>>>>>>> Stashed changes
   );
 }
 
