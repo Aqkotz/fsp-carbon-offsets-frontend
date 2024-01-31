@@ -14,7 +14,7 @@ const profileButton = (user) => {
   );
 };
 
-function Header() {
+function Header(props) {
   const dispatch = useDispatch();
   const location = useLocation();
   useEffect(() => {
@@ -53,6 +53,9 @@ function Header() {
         alignItems: 'center',
         justifyContent: 'space-between',
         height: '64px',
+        position: 'fixed',
+        top: 0,
+        marginLeft: `${props.navBarOffset}px`,
       }}
     >
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
