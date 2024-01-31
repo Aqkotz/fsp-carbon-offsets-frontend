@@ -37,6 +37,10 @@ function App() {
 
   const token = useSelector((state) => state.user.token);
   const theme = extendTheme({ cssVarPrefix: 'demo' });
+  const navBarWidth = 240;
+  const navBarPadding = 16;
+  const navBarOffset = navBarWidth + navBarPadding * 2;
+  console.log(navBarOffset);
 
   if (token) {
     return (
@@ -48,16 +52,16 @@ function App() {
         disableNestedContext
       >
         <div id="demo_dark-mode-by-default">
-          <Box sx={{ display: 'flex', height: '100vh' }}>
-            <Nav />
-            <Box sx={{ flexGrow: 1 }}>
-              <Header />
+          <Box sx={{ display: 'flex', height: '100vh', backgroundColor: 'black' }}>
+            <Box>
               <Box component="main" sx={{ overflow: 'auto' }}>
                 <Sheet
                   sx={{
-                    width: '100%',
-                    height: 'calc(100vh - 64px)',
+                    width: `calc(100vw - ${navBarOffset}px - 32px)`,
+                    minHeight: 'calc(100vh - 80px)',
                     padding: '16px',
+                    marginTop: '80px',
+                    marginLeft: `${navBarOffset}px`,
                   }}
                 >
                   <Routes>
@@ -70,7 +74,9 @@ function App() {
                   </Routes>
                 </Sheet>
               </Box>
+              <Header navBarOffset={navBarOffset} />
             </Box>
+            <Nav navBarWidth={navBarWidth} navBarPadding={navBarPadding} />
           </Box>
         </div>
       </CssVarsProvider>
