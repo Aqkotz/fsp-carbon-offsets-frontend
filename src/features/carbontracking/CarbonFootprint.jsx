@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Card, Typography, Skeleton } from '@mui/joy';
 import { fetchCarbonFootprint } from './carbonSlice';
-import PieActiveArc from './dataVis';
+// import PieActiveArc from './dataVis';
 
 function CarbonFootprint(props) {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function CarbonFootprint(props) {
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
         {kg} kg CO2e
       </Typography>
-      <PieActiveArc points={kg} />
+      {/* <PieActiveArc points={kg} /> */}
     </Card>
   );
 }
