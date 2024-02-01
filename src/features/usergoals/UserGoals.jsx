@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Card, Typography, Box } from '@mui/joy';
 import UserGoalSelection from './UserGoalSelection';
 import SustyGoalInput from './SustainabilityGoalInput';
 import { getGoals } from './userGoalsSlice';
@@ -12,18 +13,24 @@ function UserGoals() {
   }, []);
 
   return (
-    <div className="page">
-      <SustyGoalInput />
-      <div className="container">
-        <h2>Weekly Goals </h2>
-        <div className="container_goals">
-          {goals && goals.map((goal, index) => {
-            return (
-              <UserGoalSelection key={goal.id} goal={goal} index={index} />
-            );
-          })}
-        </div>
-      </div>
+    <div>
+      <Box m={2}>
+        <SustyGoalInput />
+      </Box>
+      <Box m={2}>
+        <Card>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Weekly Goals
+          </Typography>
+          <div className="container_goals">
+            {goals && goals.map((goal, index) => {
+              return (
+                <UserGoalSelection key={goal.id} goal={goal} index={index} />
+              );
+            })}
+          </div>
+        </Card>
+      </Box>
     </div>
   );
 }

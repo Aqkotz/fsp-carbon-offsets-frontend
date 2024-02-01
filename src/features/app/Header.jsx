@@ -2,17 +2,13 @@ import React, { useEffect } from 'react';
 import './style.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import {
+  Typography, Box, Button, Skeleton,
+} from '@mui/joy';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { getUser } from '../user/userSlice';
 
-const profileButton = (user) => {
-  return (
-    <div>
-      <div className="button profile" to="profile">{`${user.name}`} </div>
-    </div>
-  );
-};
-
-function Header() {
+function Header(props) {
   const dispatch = useDispatch();
   const location = useLocation();
   useEffect(() => {
@@ -20,6 +16,7 @@ function Header() {
   }, []);
 
   const user = useSelector((state) => state.user.user);
+  console.log('user', user);
   const pageTitle = () => {
     switch (location.pathname) {
       case '/':
@@ -30,17 +27,47 @@ function Header() {
         return 'Team';
       case '/profile':
         return 'Profile';
+      case '/carbontracking':
+        return 'Carbon Tracking';
+      case '/discussionboard':
+        return 'Discussion Board';
       default:
         return '';
     }
   };
 
   return (
-    <nav id="header">
-      <h2>{pageTitle()}</h2>
-      <div className="spacer" />
-      {user && profileButton(user)}
-    </nav>
+    <Box
+      sx={{
+        width: `calc(100vw - ${props.navBarOffset}px)`,
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+        backgroundColor: 'background.level1',
+        padding: '8px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: '64px',
+        position: 'fixed',
+        top: 0,
+        marginLeft: `${props.navBarOffset}px`,
+      }}
+    >
+      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+        {pageTitle()}
+      </Typography>
+      <Button color="neutral"
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', marginRight: '30px', alignItems: 'center', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+        }}
+        to="/profile"
+        startDecorator={user !== 'loading' ? <AccountCircleOutlinedIcon /> : <Skeleton variant="circular" width={32} height={32} />}
+      >
+        {user !== 'loading' ? user.name : <Skeleton variant="text" width={100} height={28} />}
+      </Button>
+    </Box>
   );
 }
 
