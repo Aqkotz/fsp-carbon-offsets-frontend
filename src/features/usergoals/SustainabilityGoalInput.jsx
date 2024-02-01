@@ -23,12 +23,12 @@ function SustyGoalInput() {
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
         What is your sustainability goal?
       </Typography>
-      <Select placeholder="Theme">
+      {/* <Select placeholder="Theme">
         <Option value="transport">Transport</Option>
         <Option value="dietary">Dietary</Option>
         <Option value="waste">Waste</Option>
-      </Select>
-      {/* <input value={goal} type="text" onChange={(e) => { setGoalState(e.target.value); }} /> */}
+      </Select> */}
+      <input value={goal} type="text" onChange={(e) => { setGoalState(e.target.value); }} />
       <Button onClick={() => { dispatch(setGoal({ description: goal })); setGoalState(''); }}>
         Add Goal
       </Button>
