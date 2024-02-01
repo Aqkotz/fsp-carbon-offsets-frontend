@@ -1,18 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import './style.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Sheet, Typography, Box } from '@mui/joy';
+import {
+  Typography, Box, Button, Skeleton,
+} from '@mui/joy';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { getUser } from '../user/userSlice';
-
-const profileButton = (user) => {
-  return (
-    <div>
-      <div className="button profile" to="profile">{`${user.name}`} </div>
-    </div>
-  );
-};
 
 function Header(props) {
   const dispatch = useDispatch();
@@ -22,6 +16,7 @@ function Header(props) {
   }, []);
 
   const user = useSelector((state) => state.user.user);
+  console.log('user', user);
   const pageTitle = () => {
     switch (location.pathname) {
       case '/':
@@ -44,7 +39,7 @@ function Header(props) {
   return (
     <Box
       sx={{
-        width: '100%',
+        width: `calc(100vw - ${props.navBarOffset}px)`,
         borderBottom: '1px solid',
         borderColor: 'divider',
         backgroundColor: 'background.level1',
@@ -61,7 +56,17 @@ function Header(props) {
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
         {pageTitle()}
       </Typography>
-      {/* Additional header content can go here, like buttons or user info */}
+      <Button color="neutral"
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', marginRight: '30px', alignItems: 'center', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+        }}
+        to="/profile"
+        startDecorator={user !== 'loading' ? <AccountCircleOutlinedIcon /> : <Skeleton variant="circular" width={32} height={32} />}
+      >
+        {user !== 'loading' ? user.name : <Skeleton variant="text" width={100} height={28} />}
+      </Button>
     </Box>
   );
 }

@@ -6,10 +6,7 @@ import {
 
 const initialState = {
   token: null,
-  user: {
-    name: '',
-    netid: '',
-  },
+  user: 'loading',
 };
 
 const userSlice = createSlice({

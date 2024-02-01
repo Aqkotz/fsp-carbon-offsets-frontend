@@ -40,7 +40,6 @@ function App() {
   const navBarWidth = 240;
   const navBarPadding = 16;
   const navBarOffset = navBarWidth + navBarPadding * 2;
-  console.log(navBarOffset);
 
   if (token) {
     return (
