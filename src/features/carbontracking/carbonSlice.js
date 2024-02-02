@@ -9,6 +9,7 @@ const carbonSlice = createSlice({
   initialState: {
     stops: 'loading',
     kg: 'loading',
+    trips: 'loading',
   },
   reducers: {
     addStop: (state, action) => {
@@ -32,6 +33,9 @@ const carbonSlice = createSlice({
     },
     setCarbonFootprint: (state, action) => {
       state.kg = action.payload;
+    },
+    setTrips: (state, action) => {
+      state.trips = action.payload;
     },
   },
 });
@@ -66,6 +70,42 @@ export function fetchStops() {
   return async (dispatch) => {
     const response = await axios.get(`${ROOT_URL}/stops`, getAuthHeader());
     dispatch(carbonSlice.actions.setStops(response.data));
+  };
+}
+
+export function fetchTrips() {
+  return async (dispatch) => {
+    const response = await axios.get(`${ROOT_URL}/trips`, getAuthHeader());
+    const trips = response.data.map((trip) => {
+      return {
+        ...trip,
+        origin: trip.legs[0],
+        destination: trip.legs[trip.legs.length - 1],
+      };
+    });
+    dispatch(carbonSlice.actions.setTrips(trips));
+  };
+}
+
+export function addTrip(trip) {
+  return async (dispatch) => {
+    console.log(trip);
+    await axios.post(`${ROOT_URL}/trips`, trip, getAuthHeader());
+    dispatch(fetchTrips());
+  };
+}
+
+export function removeTrip(trip) {
+  return async (dispatch) => {
+    await axios.delete(`${ROOT_URL}/trips/${trip.id}`, getAuthHeader());
+    dispatch(fetchTrips());
+  };
+}
+
+export function updateTrip(trip) {
+  return async (dispatch) => {
+    await axios.put(`${ROOT_URL}/trips/${trip.id}`, trip, getAuthHeader());
+    dispatch(fetchTrips());
   };
 }
 
