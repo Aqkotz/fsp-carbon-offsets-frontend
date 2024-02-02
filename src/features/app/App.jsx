@@ -33,6 +33,7 @@ function App() {
     if (token) {
       dispatch(setToken(token));
     }
+    console.log(token);
   }, []);
 
   const token = useSelector((state) => state.user.token);

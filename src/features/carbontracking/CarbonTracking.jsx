@@ -3,23 +3,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Stack, Card, Typography, Box,
 } from '@mui/joy';
-import { fetchStops } from './carbonSlice';
-import FlightInput from './FlightInput';
+import { fetchTrips } from './carbonSlice';
 import CarbonFootprint from './CarbonFootprint';
+import FlightInput from './FlightInput';
 import logo from '../../img/climatiqWhite.png';
 
 function CarbonTracking(props) {
   const dispatch = useDispatch();
-  const stops = useSelector((state) => state.carbon.stops);
+  const trips = useSelector((state) => state.carbon.trips);
   useEffect(() => {
-    if (stops === 'loading') {
-      dispatch(fetchStops());
+    if (trips === 'loading') {
+      dispatch(fetchTrips());
     }
   }, []);
 
   return (
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
-      <FlightInput stops={stops} />
+      <FlightInput />
       <CarbonFootprint />
       <Card variant="plain"
         style={{
