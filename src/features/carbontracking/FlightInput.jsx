@@ -1,18 +1,17 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Typography, Card, Stack, Input, IconButton, Button, List, ListItem, ListItemDecorator, Skeleton,
+  Typography, Card, Stack, Input, IconButton, Button, List, ListItem, ListItemDecorator, Skeleton, Select, Option,
 } from '@mui/joy';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import {
-  setStop, addStop, submitStops, removeStop,
-} from './carbonSlice';
+import { addTrip } from './carbonSlice';
 
-function FlightInput(props) {
+function FlightInput() {
   const dispatch = useDispatch();
-  const { stops } = props;
+  const [stops, setStops] = useState(['', '']);
+  const [mode, setMode] = useState('');
 
   if (!stops) {
     return (
@@ -21,14 +20,13 @@ function FlightInput(props) {
   }
 
   const canSubmit = () => {
-    console.log(stops);
     const uniqueStops = [...new Set(stops.map((stop) => stop.toLowerCase()))];
-    return stops.every((stop) => stop.length === 3) && uniqueStops.length === stops.length;
+    return stops.every((stop) => stop.length >= 2) && uniqueStops.length === stops.length;
   };
 
   const submit = () => {
     if (canSubmit()) {
-      dispatch(submitStops(stops));
+      dispatch(addTrip({ modeOfTravel: mode, legs: stops }));
     } else {
       console.log('Invalid stops');
     }
@@ -60,12 +58,17 @@ function FlightInput(props) {
     <Card>
       <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Your Flights
+          New Trip
         </Typography>
-        <IconButton aria-label="add" onClick={() => { dispatch(addStop('')); }}>
+        <IconButton aria-label="add" onClick={() => { setStops(stops.push('')); }}>
           <AddIcon />
         </IconButton>
       </Stack>
+      <Select placeholder="Mode of Travel" onChange={(e, n) => { setMode(n); }}>
+        <Option value="air">Plane</Option>
+        <Option value="rail">Train</Option>
+        <Option value="car">Car</Option>
+      </Select>
       <List>
         {stops && stops.map((stop, index) => {
           let label = `Stop ${index}`;
@@ -83,9 +86,9 @@ function FlightInput(props) {
                 </Typography>
               </ListItemDecorator>
               <Stack direction="row" alignItems="center" spacing={2} flexGrow={0}>
-                <Input value={stop} onChange={(e) => { dispatch(setStop({ index, stop: e.target.value })); }} sx={{ marginBottom: '8px' }} />
+                <Input value={stop} onChange={(e) => { const newStops = [...stops]; newStops[index] = e.target.value; setStops(newStops); }} sx={{ marginBottom: '8px' }} />
                 <ListItemDecorator>
-                  <IconButton aria-label="delete" size="small" onClick={() => { dispatch(removeStop(index)); }}>
+                  <IconButton aria-label="delete" size="small" onClick={() => { setStops(stops.filter((s, i) => { return i !== index; })); }}>
                     <CloseIcon />
                   </IconButton>
                 </ListItemDecorator>
@@ -94,7 +97,7 @@ function FlightInput(props) {
           );
         })}
       </List>
-      <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Save</Button>
+      <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>
     </Card>
   );
 }
