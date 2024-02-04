@@ -1,24 +1,20 @@
 import * as React from 'react';
-import { PieChart } from '@mui/x-charts/PieChart';
+import { BarChart } from '@mui/x-charts/BarChart';
 
-export default function PieActiveArc(props) {
-  const { points } = props;
-  console.log(points);
-  const data = [
-    { id: 0, value: points, label: 'Flight 1' },
-    { id: 1, value: 100 - points, label: 'Flight 2' },
-  ];
+export default function SimpleBarChart(props) {
+  const { air, rail, car } = props.points;
+  const xLabel = ['Travel'];
 
   return (
-    <PieChart
+    <BarChart
+      width={500}
+      height={300}
       series={[
-        {
-          data,
-          highlightScope: { faded: 'global', highlighted: 'item' },
-          faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
-        },
+        { data: [air], label: 'Flight CO2e', id: 'airId' },
+        { data: [rail], label: 'Train CO2e', id: 'railId' },
+        { data: [car], label: 'Car CO2e', id: 'carId' },
       ]}
-      height={200}
+      xAxis={[{ data: xLabel, scaleType: 'band' }]}
     />
   );
 }

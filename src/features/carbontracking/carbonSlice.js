@@ -9,7 +9,22 @@ const carbonSlice = createSlice({
   initialState: {
     stops: 'loading',
     kg: 'loading',
+    trips: [
+      {
+        legs: ['Berlin', 'Hamburg'],
+        actualCarbonFootprint: 100,
+        potentialCarbonFootprint: {
+          car: 150,
+          rail: 50,
+          air: 300,
+        },
+        origin: 'Berlin',
+        destination: 'Hamburg',
+        modeOfTravel: 'train',
+      },
+    ],
   },
+
   reducers: {
     addStop: (state, action) => {
       if (!state.stops) {
