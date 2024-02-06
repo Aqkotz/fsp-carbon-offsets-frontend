@@ -29,8 +29,8 @@ function Header(props) {
         return 'Profile';
       case '/carbontracking':
         return 'Carbon Tracking';
-      case '/discussionboard':
-        return 'Discussion Board';
+      case '/helpfulresources':
+        return 'Helpful Resources';
       default:
         return '';
     }

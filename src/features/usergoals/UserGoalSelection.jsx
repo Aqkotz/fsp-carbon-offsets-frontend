@@ -55,33 +55,35 @@ function UserGoalSelection(props) {
   };
 
   return (
-    <Card>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="flex-start"
-        spacing={2}
-      >
-        <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
-          Goal {props.index + 1}
-        </Typography>
-        <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
-          <CloseIcon fontSize="inherit" />
-        </IconButton>
-      </Stack>
-      <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
-        {props.goal.description}
-      </Typography>
-      <Streak goal={props.goal} />
-      <CardOverflow sx={{ bgcolor: 'background.level1' }}>
-        <Box marginTop={2} marginBottom={0.5}>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Did you complete your goal today?
+    <Box m={2}>
+      <Card>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="flex-start"
+          spacing={2}
+        >
+          <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
+            Goal {props.index + 1}
           </Typography>
-        </Box>
-        {completionSection()}
-      </CardOverflow>
-    </Card>
+          <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+        </Stack>
+        <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
+          {props.goal.description}
+        </Typography>
+        <Streak goal={props.goal} />
+        <CardOverflow sx={{ bgcolor: 'background.level1' }}>
+          <Box marginTop={2} marginBottom={0.5}>
+            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+              Did you complete your goal today?
+            </Typography>
+          </Box>
+          {completionSection()}
+        </CardOverflow>
+      </Card>
+    </Box>
   );
 }
 
