@@ -19,7 +19,7 @@ function HelpfulResources() {
       <Select
         placeholder="Theme"
         value={filterTheme}
-        onChange={(e) => (dispatch(updateFilterTheme(e.target.value)))}
+        onChange={(e, n) => (dispatch(updateFilterTheme(n)))}
       >
         <Option value="Food">Food</Option>
         <Option value="Shopping">Shopping</Option>

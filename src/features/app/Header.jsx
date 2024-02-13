@@ -16,7 +16,6 @@ function Header(props) {
   }, []);
 
   const user = useSelector((state) => state.user.user);
-  console.log('user', user);
   const pageTitle = () => {
     switch (location.pathname) {
       case '/':
