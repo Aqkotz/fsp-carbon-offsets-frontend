@@ -16,6 +16,8 @@ import CarbonTracking from '../carbontracking/CarbonTracking';
 import SignedInUser from '../user/SignedInUser';
 import LandingPage from '../landingpage/LandingPage';
 import DashBoard from '../dashboard/DashBoard';
+import DiscussionBoard from '../discussionboard/DiscussionBoard';
+import Admin from '../admin/Admin';
 import HelpfulResources from '../helpfulresources/HelpfulResources';
 
 function FallBack() {
@@ -68,6 +70,8 @@ function App() {
                     <Route path="/goals" element={<UserGoals />} />
                     <Route path="/carbontracking" element={<CarbonTracking />} />
                     <Route path="/team" element={<Team />} />
+                    <Route path="/discussionboard" element={<DiscussionBoard />} />
+                    <Route path="/admin" element={<Admin />} />
                     <Route path="/helpfulresources" element={<HelpfulResources />} />
                     <Route path="*" element={<FallBack />} />
                   </Routes>
