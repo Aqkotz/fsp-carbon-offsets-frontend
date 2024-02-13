@@ -58,7 +58,6 @@ export function fetchCarbonFootprint() {
 
 export function submitStops(stops) {
   return async (dispatch) => {
-    console.log(`${ROOT_URL}/stops`);
     const response = await axios.post(`${ROOT_URL}/stops`, { stops }, getAuthHeader());
     dispatch(carbonSlice.actions.setStops(response.data));
     dispatch(carbonSlice.actions.setCarbonFootprint('loading'));
@@ -89,7 +88,6 @@ export function fetchTrips() {
 
 export function addTrip(trip) {
   return async (dispatch) => {
-    console.log(trip);
     await axios.post(`${ROOT_URL}/trips`, trip, getAuthHeader());
     dispatch(fetchTrips());
   };

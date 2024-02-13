@@ -1,8 +1,12 @@
 import React from 'react';
+import JoinTeam from './joinTeam';
 
 function Team() {
   return (
-    <div>Team</div>
+    <div>
+      <JoinTeam />
+    </div>
+
   );
 }
 
