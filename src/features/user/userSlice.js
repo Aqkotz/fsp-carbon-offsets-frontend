@@ -35,6 +35,7 @@ export const signup = (data, navigate) => async (dispatch) => {
 };
 
 export const getUser = () => async (dispatch) => {
+  dispatch(userSlice.actions.setUser('loading'));
   dispatch(fetchUser(userSlice.actions));
 };
 
