@@ -5,7 +5,7 @@ export default function PieActiveArc(props) {
   const { points } = props;
   const data = [
     { id: 0, value: points, label: 'Flight 1' },
-    { id: 1, value: 100 - points, label: 'Flight 2' },
+    { id: 1, value: 3000 - points, label: 'Flight 2' },
   ];
 
   return (

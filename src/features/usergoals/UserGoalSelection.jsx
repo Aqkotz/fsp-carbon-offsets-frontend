@@ -84,21 +84,4 @@ function UserGoalSelection(props) {
   );
 }
 
-// return (
-//   <Card>
-//     <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
-//       Goal {props.index + 1}
-//     </Typography>
-//     <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
-//       {props.goal.description}
-//     </Typography>
-//     {completionSection()}
-//     <Streak goal={props.goal} />
-//     <Button onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
-//       Delete Goal
-//     </Button>
-//   </Card>
-// );
-// }
-
 export default UserGoalSelection;

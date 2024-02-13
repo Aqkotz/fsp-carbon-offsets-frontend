@@ -7,8 +7,7 @@ import {
 export const userGoalsSlice = createSlice({
   name: 'userGoals',
   initialState: {
-    goals: [
-    ],
+    goals: 'loading',
   },
   reducers: {
     setGoalReducer: (state, action) => {
@@ -36,23 +35,28 @@ export const userGoalsSlice = createSlice({
 export const { setGoalReducer, setGoalCompleted, setGoalFailed } = userGoalsSlice.actions;
 
 export const getGoals = () => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setGoalReducer('loading'));
   await dispatch(fetchGoals(userGoalsSlice.actions));
 };
 
 export const setGoal = (goal) => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setGoalReducer('loading'));
   await dispatch(setGoalRequest(goal, userGoalsSlice.actions));
 };
 
 export const completeGoal = (id) => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setGoalReducer('loading'));
   await dispatch(completeGoalRequest(id, userGoalsSlice.actions));
 };
 
 export const failGoal = (id) => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setGoalReducer('loading'));
   dispatch(setGoalFailed(id));
   await dispatch(failGoalRequest(id, userGoalsSlice.actions));
 };
 
 export const deleteGoal = (id) => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setGoalReducer('loading'));
   await dispatch(deleteGoalRequest(id, userGoalsSlice.actions));
 };
 
