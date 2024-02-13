@@ -16,7 +16,7 @@ export const adminSlice = createSlice({
       state.team = action.payload;
     },
     setIsAdmin: (state, action) => {
-      state.admin = action.payload;
+      state.isAdmin = action.payload;
     },
     setJoinCode: (state, action) => {
       state.joinCode = action.payload;
