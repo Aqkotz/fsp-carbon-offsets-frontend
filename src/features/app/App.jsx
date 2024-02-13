@@ -18,6 +18,7 @@ import LandingPage from '../landingpage/LandingPage';
 import DashBoard from '../dashboard/DashBoard';
 import DiscussionBoard from '../discussionboard/DiscussionBoard';
 import Admin from '../admin/Admin';
+import HelpfulResources from '../helpfulresources/HelpfulResources';
 
 function FallBack() {
   return (
@@ -34,7 +35,6 @@ function App() {
     if (token) {
       dispatch(setToken(token));
     }
-    console.log(token);
   }, []);
 
   const token = useSelector((state) => state.user.token);
@@ -72,6 +72,7 @@ function App() {
                     <Route path="/team" element={<Team />} />
                     <Route path="/discussionboard" element={<DiscussionBoard />} />
                     <Route path="/admin" element={<Admin />} />
+                    <Route path="/helpfulresources" element={<HelpfulResources />} />
                     <Route path="*" element={<FallBack />} />
                   </Routes>
                 </Sheet>

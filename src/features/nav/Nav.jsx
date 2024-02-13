@@ -73,8 +73,8 @@ function Nav() {
         sx={{
           justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
         }}
-        onClick={() => navigate('/discussionboard')}
-      >Discussion Board
+        onClick={() => navigate('/helpfulresources')}
+      >Helpful Resources
       </Button>
       {admin && (
       <Button color="neutral"

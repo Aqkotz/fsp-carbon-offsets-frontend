@@ -10,7 +10,6 @@ import { completeGoal, deleteGoal, failGoal } from './userGoalsSlice';
 function UserGoalSelection(props) {
   const dispatch = useDispatch();
   const [changeCompleted, setChangeCompleted] = useState(false);
-  console.log(props.goal.streak);
   const completionSection = () => {
     if (props.goal.completedToday && !changeCompleted) {
       return (

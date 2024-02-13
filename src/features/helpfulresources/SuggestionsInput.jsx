@@ -48,13 +48,12 @@ function SuggestionsInput() {
       <Select
         placeholder="Theme"
         value={suggestion.theme}
-        onChange={(e) => handleChange('theme', e.target.value)}
+        onChange={(e, n) => handleChange('theme', n)}
       >
         <Option value="Food">Food</Option>
         <Option value="Shopping">Shopping</Option>
         <Option value="Museum/Exhibit">Museum/exhibit</Option>
       </Select>
-      {/* <input value={goal} type="text" onChange={(e) => { setGoalState(e.target.value); }} /> */}
       <Button onClick={handleSubmit}>Add Suggestion</Button>
     </Card>
   );

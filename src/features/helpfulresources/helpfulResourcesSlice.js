@@ -53,13 +53,15 @@ export function fetchSuggestionsByTheme(filterTheme) {
   };
 }
 
-export function updateFilterTheme(filterTheme, dispatch) {
-  dispatch(helpfulResourcesSlice.actions.setFilterTheme(filterTheme));
-  if (filterTheme === 'all') {
-    dispatch(fetchSuggestions());
-  } else {
-    dispatch(fetchSuggestionsByTheme(filterTheme));
-  }
+export function updateFilterTheme(filterTheme) {
+  return (dispatch) => {
+    dispatch(helpfulResourcesSlice.actions.setFilterTheme(filterTheme));
+    if (filterTheme === 'all') {
+      dispatch(fetchSuggestions());
+    } else {
+      dispatch(fetchSuggestionsByTheme(filterTheme));
+    }
+  };
 }
 
 export default helpfulResourcesSlice.reducer;
