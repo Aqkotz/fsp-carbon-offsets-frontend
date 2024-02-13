@@ -15,6 +15,9 @@ export default function TravelDetails(props) {
 //   const trip = { origin, destination, potentialCarbonFootprints } = props.trip;
 //   const { air } = potentialCarbonFootprints;
   const trips = useSelector((state) => state.carbon.trips);
+  if (trips === 'loading') {
+    return <div />;
+  }
 
   return (
     <AccordionGroup>

@@ -113,17 +113,12 @@ function FlightInput() {
     <Card>
       <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          New Trip
+          Trip Planning
         </Typography>
-        <IconButton aria-label="add" onClick={() => { handleStopsChange(stops.push('')); }}>
+        <IconButton aria-label="add" onClick={() => { handleStopsChange([...stops, '']); }}>
           <AddIcon />
         </IconButton>
       </Stack>
-      <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
-        <Option value="air">Plane</Option>
-        <Option value="rail">Train</Option>
-        <Option value="car">Car</Option>
-      </Select>
       <List>
         {stops && stops.map((stop, index) => {
           let label = `Stop ${index}`;
@@ -152,6 +147,11 @@ function FlightInput() {
           );
         })}
       </List>
+      <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
+        <Option value="air">Plane</Option>
+        <Option value="rail">Train</Option>
+        <Option value="car">Car</Option>
+      </Select>
       {estimatedCarbon()}
       <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>
     </Card>
