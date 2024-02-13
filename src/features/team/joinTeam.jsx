@@ -3,22 +3,24 @@ import { useDispatch } from 'react-redux';
 import {
   Input, Button, Stack, Typography,
 } from '@mui/joy';
-
-import { addTeam } from './teamSlice';
+import { joinTeam } from './teamSlice';
 
 function JoinTeam() {
   const dispatch = useDispatch();
   const [groupCode, setGroupCode] = useState('');
+
+  const canSubmit = () => groupCode.length === 5;
 
   const handleInputChange = (event) => {
     setGroupCode(event.target.value);
   };
 
   const handleJoinGroup = () => {
-    dispatch(addTeam(groupCode));
-    setGroupCode({
-      groupCode: '',
-    });
+    if (!canSubmit()) {
+      return;
+    }
+    dispatch(joinTeam(groupCode));
+    setGroupCode('');
   };
 
   return (
@@ -26,7 +28,7 @@ function JoinTeam() {
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Join a Team! </Typography>
       <Stack direction="row" alignItems="center" spacing={2}>
         <Input placeholder="Team Code" type="text" value={groupCode} onChange={handleInputChange} />
-        <Button type="button" onClick={handleJoinGroup}>Join Group</Button>
+        <Button type="button" onClick={handleJoinGroup} disabled={!canSubmit()}>Join Group</Button>
       </Stack>
     </div>
   );

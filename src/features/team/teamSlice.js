@@ -8,30 +8,32 @@ const teamSlice = createSlice({
   name: 'team',
   initialState: {
     groupCode: 'loading',
+    team: 'loading',
   },
   reducers: {
     setCode: (state, action) => {
       state.suggestions = action.payload;
     },
+    setTeam: (state, action) => {
+      state.team = action.payload;
+    },
   },
 
 });
 
-export const { setCode } = teamSlice.actions;
+export const { setTeam } = teamSlice.actions;
 
-// the fetch is using the reducer...this is setting the state (like name to something instead of loading)
 export function fetchTeam() {
   return async (dispatch) => {
-    const response = await axios.get(`${ROOT_URL}/team`, getAuthHeader());
-    dispatch(teamSlice.actions.setCode(response.data));
+    const response = await axios.get(`${ROOT_URL}/teams`, getAuthHeader());
+    dispatch(teamSlice.actions.setTeam(response.data));
   };
 }
 
-// when you add, you're just adding the newly set suggestion
-export function addTeam(groupCode) {
+export function joinTeam(joinCode) {
   return async (dispatch) => {
-    await axios.post(`${ROOT_URL}/team`, groupCode, getAuthHeader());
-    dispatch(fetchTeam());
+    const response = await axios.post(`${ROOT_URL}/teams/join`, { joinCode }, getAuthHeader());
+    dispatch(teamSlice.actions.setTeam(response.data));
   };
 }
 
