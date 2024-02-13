@@ -76,6 +76,15 @@ function Nav() {
         onClick={() => navigate('/helpfulresources')}
       >Helpful Resources
       </Button>
+      <Button color="neutral"
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+        }}
+        onClick={() => navigate('/')}
+      >Dashboard
+      </Button>
       {admin && (
       <Button color="neutral"
         size="lg"
@@ -87,15 +96,6 @@ function Nav() {
       >Admin
       </Button>
       )}
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/')}
-      >Dashboard
-      </Button>
       <Button color="neutral"
         size="lg"
         variant="plain"

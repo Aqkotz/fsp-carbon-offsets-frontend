@@ -1,11 +1,17 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Card, Typography, Stack,
 } from '@mui/joy';
+import { fetchJoinCode } from './adminSlice';
 
 function Admin() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchJoinCode());
+  }, []);
   const joinCode = useSelector((state) => state.user.joinCode);
+  console.log(joinCode);
   return (
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
       <Card>
