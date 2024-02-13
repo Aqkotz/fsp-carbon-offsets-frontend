@@ -23,15 +23,13 @@ function FlightInput() {
   }
 
   useEffect(() => {
-    // Initialize the debounced function inside useEffect so it's created only once.
-    // This time, the function takes parameters for mode and stops to ensure it uses the latest values.
     debouncedApiCallRef.current = debounce((modeOfTravel, legs) => {
       dispatch(estimateTrip({ modeOfTravel, legs }));
     }, 1000);
-  }, []); // Empty dependency array ensures this effect runs only once.
+  }, []);
 
   const canSubmit = () => {
-    if (mode === '' || stops.length < 2) {
+    if (stops.length < 2) {
       return false;
     }
     const uniqueStops = [...new Set(stops.map((stop) => stop.toLowerCase()))];
@@ -39,8 +37,7 @@ function FlightInput() {
   };
 
   useEffect(() => {
-    if (canSubmit()) {
-      // Call the debounced function using .current and pass the latest state as arguments.
+    if (canSubmit() && mode && stops) {
       debouncedApiCallRef.current(mode, stops);
     }
   }, [mode, stops]);

@@ -32,6 +32,7 @@ export const fetchTeam = () => async (dispatch) => {
 };
 
 export const fetchJoinCode = () => async (dispatch) => {
+  dispatch(setJoinCode('loading'));
   const response = await axios.get(`${ROOT_URL}/teams/joincode`, getAuthHeader());
   dispatch(setJoinCode(response.data));
 };

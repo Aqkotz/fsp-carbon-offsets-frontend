@@ -10,8 +10,7 @@ function Admin() {
   useEffect(() => {
     dispatch(fetchJoinCode());
   }, []);
-  const joinCode = useSelector((state) => state.user.joinCode);
-  console.log(joinCode);
+  const joinCode = useSelector((state) => state.admin.joinCode);
   return (
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
       <Card>
@@ -22,7 +21,7 @@ function Admin() {
       {joinCode !== 'loading' && (
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Join Code
+          Join Code:
         </Typography>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           {joinCode}
