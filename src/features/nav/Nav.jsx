@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import {
   Sheet, Button, Typography, Box,
@@ -12,6 +12,7 @@ import logo from '../../img/Dartmouth_wordmark_Rev.png';
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const admin = useSelector((state) => state.admin.isAdmin);
   return (
     <Sheet
       color="success"
@@ -75,6 +76,17 @@ function Nav() {
         onClick={() => navigate('/discussionboard')}
       >Discussion Board
       </Button>
+      {admin && (
+      <Button color="neutral"
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+        }}
+        onClick={() => navigate('/admin')}
+      >Admin
+      </Button>
+      )}
       <Button color="neutral"
         size="lg"
         variant="plain"
