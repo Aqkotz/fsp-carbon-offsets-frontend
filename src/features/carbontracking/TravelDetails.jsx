@@ -4,7 +4,7 @@ import Accordion from '@mui/joy/Accordion';
 import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import AccordionGroup from '@mui/joy/AccordionGroup';
-import Typography from '@mui/joy/Typography';
+import { Typography, Card, Skeleton } from '@mui/joy';
 import SimpleBarChart from './dataVis';
 // import DoubleArrowTwoToneIcon from '@mui/icons-material/DoubleArrowTwoTone';
 
@@ -16,6 +16,14 @@ export default function TravelDetails(props) {
 //   const { air } = potentialCarbonFootprints;
   const trips = useSelector((state) => state.carbon.trips);
 
+  if (trips === 'loading') {
+    return (
+      <Card>
+        <Skeleton variant="text" width={210} height={32} />
+        <Skeleton variant="text" width={100} height={28} />
+      </Card>
+    );
+  }
   return (
     <AccordionGroup>
       {trips.map((trip) => (
@@ -26,7 +34,7 @@ export default function TravelDetails(props) {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <SimpleBarChart points={trip.potentialCarbonFootprint} />
+            <SimpleBarChart points={trip.carbon} />
           </AccordionDetails>
         </Accordion>
       ))}
