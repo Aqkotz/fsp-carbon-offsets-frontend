@@ -5,8 +5,7 @@ import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import AccordionGroup from '@mui/joy/AccordionGroup';
 import Typography from '@mui/joy/Typography';
-import { SimpleBarChart } from './dataVis';
-
+import SimpleBarChart from './dataVis';
 // import DoubleArrowTwoToneIcon from '@mui/icons-material/DoubleArrowTwoTone';
 
 // const trip = { origin, destination, potentialCarbonFootprints } = props.trip;
@@ -16,11 +15,7 @@ export default function TravelDetails(props) {
 //   const trip = { origin, destination, potentialCarbonFootprints } = props.trip;
 //   const { air } = potentialCarbonFootprints;
   const trips = useSelector((state) => state.carbon.trips);
-  if (trips === 'loading') {
-    return (
-      <div />
-    );
-  }
+
   return (
     <AccordionGroup>
       {trips.map((trip) => (

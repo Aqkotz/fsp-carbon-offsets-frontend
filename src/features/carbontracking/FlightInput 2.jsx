@@ -7,7 +7,6 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { debounce } from 'lodash';
-import BarChart from './barChart';
 import { addTrip, estimateTrip } from './carbonSlice';
 
 function FlightInput() {
@@ -78,7 +77,6 @@ function FlightInput() {
     }
     return (
       <div>
-        <BarChart points={estimate} />
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Air: {estimate.air} kg CO2e
         </Typography>
