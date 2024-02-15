@@ -7,6 +7,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { debounce } from 'lodash';
+import BarChart from './barChart';
 import { addTrip, estimateTrip } from './carbonSlice';
 
 function FlightInput() {
@@ -37,7 +38,7 @@ function FlightInput() {
   };
 
   useEffect(() => {
-    if (canSubmit() && mode && stops) {
+    if (canSubmit() && stops) {
       debouncedApiCallRef.current(mode, stops);
     }
   }, [mode, stops]);
@@ -83,6 +84,7 @@ function FlightInput() {
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Car: {estimate.car} kg CO2e
         </Typography>
+        <BarChart points={estimate} />
       </div>
     );
   };
