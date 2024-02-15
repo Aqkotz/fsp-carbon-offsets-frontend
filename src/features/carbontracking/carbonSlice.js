@@ -82,4 +82,12 @@ export function estimateTrip(trip) {
   };
 }
 
+export function deleteTrip(trip) {
+  return async (dispatch) => {
+    dispatch(carbonSlice.actions.setTrips('loading'));
+    await axios.delete(`${ROOT_URL}/trips/${trip._id}`, getAuthHeader());
+    dispatch(fetchTrips());
+  };
+}
+
 export default carbonSlice.reducer;
