@@ -4,7 +4,7 @@ import Accordion from '@mui/joy/Accordion';
 import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import AccordionGroup from '@mui/joy/AccordionGroup';
-import { Typography, IconButton } from '@mui/joy';
+import { Typography, IconButton, Stack } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
 import BarChart from './barChart';
 import { deleteTrip } from './carbonSlice';
@@ -30,17 +30,22 @@ export default function TravelDetails(props) {
     <AccordionGroup>
       {trips.map((trip) => (
         <Accordion key={trip.origin}>
-          <AccordionSummary>
+          <Stack
+            direction="row"
+            alignContent="flex-start"
+          />
+          <AccordionSummary alignContent="left">
+            <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteTrip(trip)); }}>
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
             <Typography>
               {trip.origin} to {trip.destination}
             </Typography>
+            <Stack />
           </AccordionSummary>
           <AccordionDetails>
             <BarChart points={trip.potentialCarbonFootprint} />
           </AccordionDetails>
-          <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteTrip(trip)); }}>
-            <CloseIcon fontSize="inherit" />
-          </IconButton>
         </Accordion>
       ))}
     </AccordionGroup>

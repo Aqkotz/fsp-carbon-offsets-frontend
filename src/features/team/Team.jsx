@@ -22,7 +22,7 @@ function Team() {
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Team: {team.name} </Typography>
       </Card>
-      <DonutChart />
+      <DonutChart style={{ width: '10px', height: '10px' }} />
     </Stack>
   );
 }
