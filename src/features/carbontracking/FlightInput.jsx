@@ -15,6 +15,7 @@ function FlightInput() {
   const [stops, setStops] = useState(['', '']);
   const [mode, setMode] = useState('');
   const estimate = useSelector((state) => state.carbon.estimate);
+  const loading = estimate === 'loading' || estimate === 'undefined';
   const debouncedApiCallRef = useRef();
 
   if (!stops) {
@@ -75,7 +76,7 @@ function FlightInput() {
     }
     return (
       <div>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+        {/* <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Air: {estimate.air} kg CO2e
         </Typography>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
@@ -83,7 +84,7 @@ function FlightInput() {
         </Typography>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Car: {estimate.car} kg CO2e
-        </Typography>
+        </Typography> */}
         <BarChart points={estimate} />
       </div>
     );
@@ -121,11 +122,6 @@ function FlightInput() {
           <AddIcon />
         </IconButton>
       </Stack>
-      <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
-        <Option value="air">Plane</Option>
-        <Option value="rail">Train</Option>
-        <Option value="car">Car</Option>
-      </Select>
       <List>
         {stops && stops.map((stop, index) => {
           let label = `Stop ${index}`;
@@ -154,6 +150,12 @@ function FlightInput() {
           );
         })}
       </List>
+      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> How will you be traveling? </Typography>
+      <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
+        <Option value="air">{loading ? 'Air' : `Air: ${estimate.air} kg CO2e`}</Option>
+        <Option value="rail">{loading ? 'Rail' : `Rail: ${estimate.rail} kg CO2e`}</Option>
+        <Option value="car">{loading ? 'Car' : `Car: ${estimate.car} kg CO2e`}</Option>
+      </Select>
       {estimatedCarbon()}
       <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>
     </Card>
