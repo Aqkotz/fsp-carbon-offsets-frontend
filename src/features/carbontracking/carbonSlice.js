@@ -87,7 +87,34 @@ export function deleteTrip(trip) {
     dispatch(carbonSlice.actions.setTrips('loading'));
     await axios.delete(`${ROOT_URL}/trips/${trip._id}`, getAuthHeader());
     dispatch(fetchTrips());
+    dispatch(fetchCarbonFootprint());
+  };
+}
+export function fetchEnergy() {
+  return async (dispatch) => {
+    const response = await axios.get(`${ROOT_URL}/posts`, getAuthHeader());
+    dispatch(carbonSlice.actions.setSuggestions(response.data));
   };
 }
 
+export function addEnergy(energy) {
+  return async (dispatch) => {
+    await axios.post(`${ROOT_URL}/posts`, energy, getAuthHeader());
+    dispatch(fetchEnergy());
+  };
+}
+
+export function fetchFood() {
+  return async (dispatch) => {
+    const response = await axios.get(`${ROOT_URL}/posts`, getAuthHeader());
+    dispatch(carbonSlice.actions.setFood(response.data));
+  };
+}
+
+export function addFood(food) {
+  return async (dispatch) => {
+    await axios.post(`${ROOT_URL}/posts`, food, getAuthHeader());
+    dispatch(fetchFood());
+  };
+}
 export default carbonSlice.reducer;

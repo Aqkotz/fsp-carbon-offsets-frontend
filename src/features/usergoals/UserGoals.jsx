@@ -50,7 +50,7 @@ function UserGoals() {
         <SustyGoalInput />
       </Box>
       <Box m={2}>
-        <Card>
+        <Card variant="plain">
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
             Weekly Goals
           </Typography>

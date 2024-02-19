@@ -26,7 +26,7 @@ function Header(props) {
         return 'Team';
       case '/profile':
         return 'Profile';
-      case '/carbontracking':
+      case '/dailytracking':
         return 'Carbon Tracking';
       case '/discussionboard':
         return 'Discussion Board';
@@ -41,7 +41,7 @@ function Header(props) {
         width: `calc(100vw - ${props.navBarOffset}px)`,
         borderBottom: '1px solid',
         borderColor: 'divider',
-        backgroundColor: 'background.level1',
+        backgroundColor: 'secondary.50',
         padding: '8px 16px',
         display: 'flex',
         alignItems: 'center',
@@ -50,6 +50,10 @@ function Header(props) {
         position: 'fixed',
         top: 0,
         marginLeft: `${props.navBarOffset}px`,
+        px: 3,
+        py: 1.5,
+        borderRadius: 'sm',
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add drop shadow
       }}
     >
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>

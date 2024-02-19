@@ -75,18 +75,20 @@ function FlightInput() {
       );
     }
     return (
-      <div>
+      <Card variant="soft" alignItems="center" style={{ width: '100%', height: '400px' }}>
+        {/* <div style={{ width: '100%', height: '400px' }}> */}
         {/* <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Air: {estimate.air} kg CO2e
-        </Typography>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Train: {estimate.rail} kg CO2e
-        </Typography>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Car: {estimate.car} kg CO2e
-        </Typography> */}
-        <BarChart points={estimate} />
-      </div>
+            Air: {estimate.air} kg CO2e
+          </Typography>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Train: {estimate.rail} kg CO2e
+          </Typography>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Car: {estimate.car} kg CO2e
+          </Typography> */}
+        <BarChart points={estimate} options={{ maintainAspectRatio: false }} style={{ width: '100%', height: '100%' }} />
+        {/* </div> */}
+      </Card>
     );
   };
 
@@ -132,13 +134,13 @@ function FlightInput() {
           }
 
           return (
-            <ListItem key={`key-${index}`} sx={{ spacing: 2, justifyContent: 'space-between' }}>
-              <ListItemDecorator sx={{ marginBottom: '8px' }}>
+            <ListItem key={`key-${index}`} sx={{ display: 'flex', alignItems: 'right' }}>
+              <ListItemDecorator sx={{ marginBottom: '8px', marginRight: '10px' }}>
                 <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
                   {label}
                 </Typography>
               </ListItemDecorator>
-              <Stack direction="row" alignItems="center" spacing={2} flexGrow={0}>
+              <Stack direction="row" alignItems="center" spacing={1} flexGrow={0}>
                 <Input value={stop} onChange={(e) => { const newStops = [...stops]; newStops[index] = e.target.value; handleStopsChange(newStops); }} sx={{ marginBottom: '8px' }} />
                 <ListItemDecorator>
                   <IconButton aria-label="delete" size="small" onClick={() => { handleStopsChange(stops.filter((s, i) => { return i !== index; })); }}>
