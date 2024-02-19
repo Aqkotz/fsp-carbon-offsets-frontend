@@ -15,7 +15,7 @@ function Nav() {
   const admin = useSelector((state) => state.admin.isAdmin);
   return (
     <Sheet
-      color="success"
+      color="primary"
       variant="soft"
       sx={{
         display: 'flex',
@@ -40,67 +40,67 @@ function Nav() {
           padding: '16px',
         }}
       />
-      <Button color="neutral"
+      <Button
         size="lg"
         variant="plain"
         sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/goals')}
-      >My Goals
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/carbontracking')}
-      >Carbon Tracking
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/team')}
-      >My Team
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/helpfulresources')}
-      >Helpful Resources
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
         }}
         onClick={() => navigate('/')}
-      >Dashboard
+      >DASHBOARD
+      </Button>
+      <Button
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
+        }}
+        onClick={() => navigate('/goals')}
+      >MY GOALS
+      </Button>
+      <Button
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
+        }}
+        onClick={() => navigate('/dailytracking')}
+      >CARBON TRACKING
+      </Button>
+      <Button
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
+        }}
+        onClick={() => navigate('/team')}
+      >MY TEAM
+      </Button>
+      <Button
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
+        }}
+        onClick={() => navigate('/helpfulresources')}
+      >HELPFUL RESOURCES
       </Button>
       {admin && (
-      <Button color="neutral"
+      <Button
         size="lg"
         variant="plain"
         sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
         }}
         onClick={() => navigate('/admin')}
-      >Admin
+      >ADMIN
       </Button>
       )}
-      <Button color="neutral"
+      <Button
         size="lg"
         variant="plain"
         sx={{
-          justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+          justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
         }}
         onClick={() => { dispatch(logout()); navigate('/'); removeToken(); }}
       >LOGOUT
