@@ -15,7 +15,7 @@ function UserGoalSelection(props) {
       return (
         <div>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Completed!
+            Good job!
           </Typography>
           <Button onClick={() => { setChangeCompleted(true); }}>
             Change Completed
@@ -26,7 +26,7 @@ function UserGoalSelection(props) {
       return (
         <div>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Failed!
+            Try again tomorrow!
           </Typography>
           <Button variant="outlined" sx={{ bgcolor: 'background.surface' }} onClick={() => { setChangeCompleted(true); }}>
             Change Completed
@@ -54,7 +54,7 @@ function UserGoalSelection(props) {
   };
 
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" sx={{ width: '100%' }}>
       <Stack
         direction="row"
         justifyContent="space-between"

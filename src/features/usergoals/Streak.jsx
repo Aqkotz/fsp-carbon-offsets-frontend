@@ -1,23 +1,26 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
+import { Card, Stack } from '@mui/joy';
 
 function Streak(props) {
   const { streak } = props.goal;
   const content = streak.map((day, i) => {
     if (day) {
       return (
-        <div className="container2 allign-h" key={i}>
+        <Card variant="plain" key={i}>
           <span role="img" style={{ fontSize: '1rem' }} aria-label="check-mark">✅</span>
-        </div>
+        </Card>
       );
     }
     return (
-      <div className="container2 allign-h" key={i}>
+      <Card variant="plain" key={i}>
         <span role="img" style={{ fontSize: '1rem' }} aria-label="x-mark">❌</span>
-      </div>
+      </Card>
     );
   });
-  return <div className="container2">{content}</div>;
+  return (
+    <Stack direction="row" variant="plain" ustifyContent="flex-start" alignItems="center">{content}</Stack>
+  );
 }
 
 export default Streak;

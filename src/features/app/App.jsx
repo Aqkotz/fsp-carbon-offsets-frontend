@@ -59,7 +59,7 @@ function App() {
             900: '#093a01',
           },
           secondary: {
-            50: '#D9D9D9',
+            50: '##D9D9D9',
             100: '#D9D9D9',
             200: '##D9D9D9',
             300: '#4886D0',
@@ -72,7 +72,7 @@ function App() {
           },
           neutral: {
             solidBg: '#D9D9D9',
-            solidBorder: '#5d5d5d',
+            solidBorder: '#909090',
             solidHoverBg: 'rgba(243, 248, 243, 0.19)',
             solidHoverBorder: '#5d5d5d',
             solidActiveBg: '#5d5d5d',

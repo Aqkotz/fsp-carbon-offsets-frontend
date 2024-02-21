@@ -13,9 +13,8 @@ function DailyTracking() {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', marginTop: '20px' }}>
       <ToggleButtonGroup
-        color="neutral"
         value={calculatorType}
         exclusive
         onChange={handleChange}
@@ -27,11 +26,13 @@ function DailyTracking() {
         <Button value="food">FOOD</Button>
         <Button value="house">HOME</Button>
       </ToggleButtonGroup>
-      {calculatorType && calculatorType === 'travel'
-        ? <TravelTracking />
-        : calculatorType === 'food'
-          ? <FoodTracking />
-          : <HomeTracking />}
+      <div style={{ marginTop: '20px' }}> {/* Add marginTop */}
+        {calculatorType && calculatorType === 'travel'
+          ? <TravelTracking />
+          : calculatorType === 'food'
+            ? <FoodTracking />
+            : <HomeTracking />}
+      </div>
     </div>
   );
 }
