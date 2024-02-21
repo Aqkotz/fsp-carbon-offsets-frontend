@@ -54,7 +54,7 @@ function UserGoalSelection(props) {
   };
 
   return (
-    <Card>
+    <Card variant="outlined">
       <Stack
         direction="row"
         justifyContent="space-between"

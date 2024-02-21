@@ -3,6 +3,7 @@ import { Typography, Stack, Card } from '@mui/joy';
 import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
 import { fetchTeam } from './teamSlice';
+import DonutChart from './doughnutChart';
 
 function Team() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function Team() {
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Team: {team.name} </Typography>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {team.carbonFootprint} </Typography>
       </Card>
+      <DonutChart style={{ width: '10px', height: '10px' }} />
     </Stack>
   );
 }

@@ -35,7 +35,7 @@ function Nav() {
 
   return (
     <Sheet
-      color="success"
+      color="primary"
       variant="soft"
       sx={{
         display: 'flex',
@@ -70,7 +70,7 @@ function Nav() {
         size="lg"
         variant="plain"
         sx={{
-          justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+          justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
         }}
         onClick={() => { dispatch(logout()); navigate('/'); removeToken(); }}
       >LOGOUT

@@ -7,6 +7,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { debounce } from 'lodash';
+import BarChart from './barChart';
 import { addTrip, estimateTrip } from './carbonSlice';
 
 function FlightInput() {
@@ -14,6 +15,7 @@ function FlightInput() {
   const [stops, setStops] = useState(['', '']);
   const [mode, setMode] = useState('');
   const estimate = useSelector((state) => state.carbon.estimate);
+  const loading = estimate === 'loading' || estimate === 'undefined';
   const debouncedApiCallRef = useRef();
 
   if (!stops) {
@@ -37,7 +39,7 @@ function FlightInput() {
   };
 
   useEffect(() => {
-    if (canSubmit() && mode && stops) {
+    if (canSubmit() && stops) {
       debouncedApiCallRef.current(mode, stops);
     }
   }, [mode, stops]);
@@ -73,17 +75,20 @@ function FlightInput() {
       );
     }
     return (
-      <div>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Air: {estimate.air} kg CO2e
-        </Typography>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Train: {estimate.rail} kg CO2e
-        </Typography>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Car: {estimate.car} kg CO2e
-        </Typography>
-      </div>
+      <Card variant="soft" alignItems="center" style={{ width: '100%', height: '400px' }}>
+        {/* <div style={{ width: '100%', height: '400px' }}> */}
+        {/* <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Air: {estimate.air} kg CO2e
+          </Typography>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Train: {estimate.rail} kg CO2e
+          </Typography>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Car: {estimate.car} kg CO2e
+          </Typography> */}
+        <BarChart points={estimate} options={{ maintainAspectRatio: false }} style={{ width: '100%', height: '100%' }} />
+        {/* </div> */}
+      </Card>
     );
   };
 
@@ -129,13 +134,13 @@ function FlightInput() {
           }
 
           return (
-            <ListItem key={`key-${index}`} sx={{ spacing: 2, justifyContent: 'space-between' }}>
-              <ListItemDecorator sx={{ marginBottom: '8px' }}>
+            <ListItem key={`key-${index}`} sx={{ display: 'flex', alignItems: 'right' }}>
+              <ListItemDecorator sx={{ marginBottom: '8px', marginRight: '10px' }}>
                 <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
                   {label}
                 </Typography>
               </ListItemDecorator>
-              <Stack direction="row" alignItems="center" spacing={2} flexGrow={0}>
+              <Stack direction="row" alignItems="center" spacing={1} flexGrow={0}>
                 <Input value={stop} onChange={(e) => { const newStops = [...stops]; newStops[index] = e.target.value; handleStopsChange(newStops); }} sx={{ marginBottom: '8px' }} />
                 <ListItemDecorator>
                   <IconButton aria-label="delete" size="small" onClick={() => { handleStopsChange(stops.filter((s, i) => { return i !== index; })); }}>
@@ -147,10 +152,11 @@ function FlightInput() {
           );
         })}
       </List>
+      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> How will you be traveling? </Typography>
       <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
-        <Option value="air">Plane</Option>
-        <Option value="rail">Train</Option>
-        <Option value="car">Car</Option>
+        <Option value="air">{loading ? 'Air' : `Air: ${estimate.air} kg CO2e`}</Option>
+        <Option value="rail">{loading ? 'Rail' : `Rail: ${estimate.rail} kg CO2e`}</Option>
+        <Option value="car">{loading ? 'Car' : `Car: ${estimate.car} kg CO2e`}</Option>
       </Select>
       {estimatedCarbon()}
       <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>

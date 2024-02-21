@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Typography, Skeleton } from '@mui/joy';
+import {
+  Card, Typography, Skeleton, Stack,
+} from '@mui/joy';
 import { fetchCarbonFootprint } from './carbonSlice';
-import PieActiveArc from './dataVis';
 import TravelDetails from './TravelDetails';
 
 function CarbonFootprint(props) {
@@ -23,16 +24,19 @@ function CarbonFootprint(props) {
     );
   }
   return (
-    <Card>
-      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-        Carbon Footprint
-      </Typography>
-      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-        {kg} kg CO2e
-      </Typography>
-      <TravelDetails />
-      <PieActiveArc points={kg} />
-    </Card>
+    <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
+      <Card variant="soft" style={{ width: '100%' }}>
+        <TravelDetails />
+      </Card>
+      <Card variant="soft" style={{ width: '50%' }}>
+        <Typography level="h3" alignContent="center" component="h1" sx={{ fontWeight: 'md' }}>
+          Your Travel Carbon Footprint
+        </Typography>
+        <Typography level="h1" alignContent="center" component="h1" sx={{ fontWeight: 'md' }}>
+          {Math.floor(kg)} kg CO2e
+        </Typography>
+      </Card>
+    </Stack>
   );
 }
 

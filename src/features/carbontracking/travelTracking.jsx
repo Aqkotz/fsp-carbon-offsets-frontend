@@ -7,7 +7,6 @@ import { fetchTrips } from './carbonSlice';
 import CarbonFootprint from './CarbonFootprint';
 import FlightInput from './FlightInput';
 import logo from '../../img/climatiqWhite.png';
-import { BarChart } from './dataVis';
 
 function CarbonTracking(props) {
   const dispatch = useDispatch();
@@ -20,21 +19,20 @@ function CarbonTracking(props) {
 
   return (
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
+      {/* <Card variant="soft" style={{ width: '100%', postition: 'relative' }}> */}
       <FlightInput />
+      {/* </Card> */}
       <CarbonFootprint />
-      <BarChart />
-      <Card variant="plain"
-        style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0,
-        }}
-      >
+      <Card sx={{ backgroundColor: '#D9D9D9' }} variant="outlined">
         <Stack direction="row"
           alignItems="center"
           justifyContent="flex-end"
         >
+
           <Typography level="h4" component="h1" sx={{ fontWeight: 'md' }}>
             Travel Calculator Powered By
           </Typography>
+
           <Box component="img" src={logo} alt="Logo" sx={{ width: '8%', height: 'auto', padding: '16px' }} />
         </Stack>
       </Card>
