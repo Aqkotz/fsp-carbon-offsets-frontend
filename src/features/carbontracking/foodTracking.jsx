@@ -18,44 +18,56 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
+// Reusable Slider Component
+function FoodSlider({ label, value, onChange }) {
+  return (
+    <Box sx={{ width: '70%' }}>
+      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+        {label}
+      </Typography>
+      <Slider
+        aria-label={label}
+        getAriaValueText={valuetext}
+        step={1}
+        valueLabelDisplay="auto"
+        marks={marks}
+        min={0}
+        max={21}
+        value={value}
+        onChange={onChange}
+      />
+    </Box>
+  );
+}
+
+const defaultFoods = {
+  dairy: 0,
+  meatWhite: 0,
+  meatRed: 0,
+  fish: 0,
+  legumes: 0,
+  vegetables: 0,
+  fruit: 0,
+  bread: 0,
+  alcohol: 0,
+  soft: 0,
+  rice: 0,
+};
+
 export default function FoodTracking() {
   const dispatch = useDispatch();
-  const [foodEmission, setFood] = useState({
-    dairy: '',
-    meatWhite: '',
-    meatRed: '',
-    fish: '',
-    legumes: '',
-    vegetables: '',
-    fruit: '',
-    bread: '',
-    alcohol: '',
-    soft: '',
-    rice: '',
-  });
+  const [foodEmission, setFood] = useState(defaultFoods);
 
   const handleChange = (attribute, value) => {
     setFood((prevState) => ({
       ...prevState,
-      [attribute]: value,
+      [attribute]: Number(value),
     }));
   };
 
   const handleSubmit = () => {
     dispatch(addFood(foodEmission));
-    setFood({
-      dairy: '',
-      whiteMeat: '',
-      redMeat: '',
-      fish: '',
-      legumes: '',
-      vegetables: '',
-      fruit: '',
-      bread: '',
-      alcohol: '',
-      soft: '',
-      rice: '',
-    });
+    setFood(defaultFoods);
   };
 
   return (
@@ -64,202 +76,20 @@ export default function FoodTracking() {
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Food Calculator
         </Typography>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+        <Typography level="h5" component="h2" sx={{ fontWeight: 'md' }}>
           How many times have you consumed the following products this week?
         </Typography>
       </Card>
       <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <Box position="center" sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Dairy
-            </Typography>
-            <Slider
-              aria-label="Dairy"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.dairy}
-              onChange={(e) => handleChange('dairy', e.target.value)}
+        {Object.keys(foodEmission).map((key) => (
+          <Grid item xs={6} key={key}>
+            <FoodSlider
+              label={key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())} // Converts camelCase to Title Case
+              value={foodEmission[key]}
+              onChange={(e) => handleChange(key, e.target.value)}
             />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              White Meat
-            </Typography>
-            <Slider
-              aria-label="White Meat"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.whiteMeat}
-              onChange={(e) => handleChange('meatWhite', e.target.value)}
-            />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Red Meat
-            </Typography>
-            <Slider
-              aria-label="Red Meat"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.redMeat}
-              onChange={(e) => handleChange('meatRed', e.target.value)}
-            />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Fish
-            </Typography>
-            <Slider
-              aria-label="Fish"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.fish}
-              onChange={(e) => handleChange('fish', e.target.value)}
-            />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Legumes
-            </Typography>
-            <Slider
-              aria-label="Legumes"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.legumes}
-              onChange={(e) => handleChange('legumes', e.target.value)}
-            />
-          </Box>
-        </Grid>
-        <Grid item xs={6}>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Vegetables
-            </Typography>
-            <Slider
-              aria-label="Vegetables"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.vegetables}
-              onChange={(e) => handleChange('vegetables', e.target.value)}
-            />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Fruit
-            </Typography>
-            <Slider
-              aria-label="Fruit"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.fruit}
-              onChange={(e) => handleChange('fruit', e.target.value)}
-            />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Bread
-            </Typography>
-            <Slider
-              aria-label="Bread"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.bread}
-              onChange={(e) => handleChange('bread', e.target.value)}
-            />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Alcohol
-            </Typography>
-            <Slider
-              aria-label="Alcohol"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.alcohol}
-              onChange={(e) => handleChange('alcohol', e.target.value)}
-            />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Soft Drinks
-            </Typography>
-            <Slider
-              aria-label="Soft Drinks"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.soft}
-              onChange={(e) => handleChange('soft', e.target.value)}
-            />
-          </Box>
-          <Box sx={{ width: '70%' }}>
-            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              Rice
-            </Typography>
-            <Slider
-              aria-label="Rice"
-              defaultValue={1}
-              getAriaValueText={valuetext}
-              step={1}
-              valueLabelDisplay="auto"
-              marks={marks}
-              min={0}
-              max={21}
-              value={foodEmission.rice}
-              onChange={(e) => handleChange('rice', e.target.value)}
-            />
-          </Box>
-        </Grid>
+          </Grid>
+        ))}
       </Grid>
       <Stack direction="row" justifyContent="center" spacing={2}>
         <Button onClick={handleSubmit}>Add Food Analysis</Button>
