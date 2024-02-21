@@ -10,6 +10,8 @@ const carbonSlice = createSlice({
     kg: 'loading',
     trips: 'loading',
     estimate: 'undefined',
+    weeks: 'loading',
+    house: 'loading',
   },
   reducers: {
     setCarbonFootprint: (state, action) => {
@@ -20,6 +22,12 @@ const carbonSlice = createSlice({
     },
     setEstimate: (state, action) => {
       state.estimate = action.payload;
+    },
+    setFood: (state, action) => {
+      state.weeks = action.payload;
+    },
+    setHouse: (state, action) => {
+      state.house = action.payload;
     },
   },
 });
@@ -106,15 +114,34 @@ export function addEnergy(energy) {
 
 export function fetchFood() {
   return async (dispatch) => {
-    const response = await axios.get(`${ROOT_URL}/posts`, getAuthHeader());
+    dispatch(carbonSlice.actions.setFood('loading'));
+    const response = await axios.get(`${ROOT_URL}/food`, getAuthHeader());
     dispatch(carbonSlice.actions.setFood(response.data));
   };
 }
 
 export function addFood(food) {
   return async (dispatch) => {
-    await axios.post(`${ROOT_URL}/posts`, food, getAuthHeader());
+    dispatch(carbonSlice.actions.setFood('loading'));
+    await axios.post(`${ROOT_URL}/food`, food, getAuthHeader());
     dispatch(fetchFood());
   };
 }
+
+export function fetchHouse() {
+  return async (dispatch) => {
+    dispatch(carbonSlice.actions.setHouse('loading'));
+    const response = await axios.get(`${ROOT_URL}/house`, getAuthHeader());
+    dispatch(carbonSlice.actions.setHouse(response.data));
+  };
+}
+
+export function setHouse(house) {
+  return async (dispatch) => {
+    dispatch(carbonSlice.actions.setHouse('loading'));
+    await axios.post(`${ROOT_URL}/house`, house, getAuthHeader());
+    dispatch(fetchHouse());
+  };
+}
+
 export default carbonSlice.reducer;
