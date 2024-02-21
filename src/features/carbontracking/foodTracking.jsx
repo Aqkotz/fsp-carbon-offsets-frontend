@@ -22,8 +22,8 @@ export default function FoodTracking() {
   const dispatch = useDispatch();
   const [foodEmission, setFood] = useState({
     dairy: '',
-    whiteMeat: '',
-    redMeat: '',
+    meatWhite: '',
+    meatRed: '',
     fish: '',
     legumes: '',
     vegetables: '',
@@ -101,7 +101,7 @@ export default function FoodTracking() {
               min={0}
               max={21}
               value={foodEmission.whiteMeat}
-              onChange={(e) => handleChange('whiteMeat', e.target.value)}
+              onChange={(e) => handleChange('meatWhite', e.target.value)}
             />
           </Box>
           <Box sx={{ width: '70%' }}>
@@ -118,7 +118,7 @@ export default function FoodTracking() {
               min={0}
               max={21}
               value={foodEmission.redMeat}
-              onChange={(e) => handleChange('redMeat', e.target.value)}
+              onChange={(e) => handleChange('meatRed', e.target.value)}
             />
           </Box>
           <Box sx={{ width: '70%' }}>

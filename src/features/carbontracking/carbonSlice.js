@@ -117,4 +117,5 @@ export function addFood(food) {
     dispatch(fetchFood());
   };
 }
+
 export default carbonSlice.reducer;
