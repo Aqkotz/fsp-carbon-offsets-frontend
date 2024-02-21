@@ -1,11 +1,11 @@
 import React from 'react';
 import { Card } from '@mui/joy';
-import DonutChart from '.../team/doughnutChart';
+import totalDonutChart from './totalCarbonDonut';
 
 function carbonVis() {
   return (
     <Card>
-      <DonutChart style={{ width: '10px', height: '10px' }} />
+      <totalDonutChart style={{ width: '10px', height: '10px' }} />
     </Card>
   );
 }
