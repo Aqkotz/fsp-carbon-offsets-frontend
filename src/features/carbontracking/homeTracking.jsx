@@ -29,6 +29,7 @@ function HomeTracking() {
       housingtype: '',
       surfacearea: '',
       age: '',
+      residents: '',
     });
   };
   return (
@@ -47,7 +48,7 @@ function HomeTracking() {
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
         What is the square metreage of your residence?
       </Typography>
-      <input label="Name" value={energy.surfacearea} type="text" onChange={(e) => { handleChange('name', e.target.value); }} />
+      <input label="surfaceArea" value={energy.surfacearea} type="text" onChange={(e) => { handleChange('surfaceArea', e.target.value); }} />
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
         How is your house heated?
       </Typography>
@@ -62,6 +63,14 @@ function HomeTracking() {
         <Option value="propane">Propane</Option>
         <Option value="wood">Firewood</Option>
       </Select>
+      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+        How many people live in your house?
+      </Typography>
+      <input label="residents" value={energy.residents} type="text" onChange={(e) => { handleChange('residents', e.target.value); }} />
+      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+        What year was your house built in?
+      </Typography>
+      <input label="age" value={energy.age} type="text" onChange={(e) => { handleChange('age', e.target.value); }} />
       <Button onClick={handleSubmit}>Add Energy Analysis</Button>
     </Card>
   );

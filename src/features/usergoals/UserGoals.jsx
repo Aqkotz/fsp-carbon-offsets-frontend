@@ -45,30 +45,33 @@ function UserGoals() {
   };
 
   return (
-    <div>
-      <Box m={2}>
+    <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={3}>
+      <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ fontWeight: 'md', width: '100%' }}>
         <SustyGoalInput />
-      </Box>
-      <Box m={2}>
-        <Card variant="plain">
+        <Card variant="plain" sx={{ fontWeight: 'md', width: '50%' }}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Weekly Goals
+            kg CO2e saved
           </Typography>
-          <div className="container_goals">
-            {goals === 'loading' && new Array(3).fill(0).map((_, index) => {
-              return (
-                goalsCardSkeleton()
-              );
-            })}
-            {(goals && goals !== 'loading') && goals.map((goal, index) => {
-              return (
-                <UserGoalSelection key={goal.id} goal={goal} index={index} />
-              );
-            })}
-          </div>
         </Card>
-      </Box>
-    </div>
+      </Stack>
+      <Card sx={{ backgroundColor: 'transparent' }}>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Current Goals
+        </Typography>
+        <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ width: '100%' }}>
+          {goals === 'loading' && new Array(3).fill(0).map((_, index) => {
+            return (
+              goalsCardSkeleton()
+            );
+          })}
+          {(goals && goals !== 'loading') && goals.map((goal, index) => {
+            return (
+              <UserGoalSelection key={goal.id} goal={goal} index={index} />
+            );
+          })}
+        </Stack>
+      </Card>
+    </Stack>
   );
 }
 
