@@ -1,18 +1,51 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import {
-  Sheet, Button, Typography, Box,
-} from '@mui/joy';
+import { Sheet, Button, Box } from '@mui/joy';
 import { logout } from '../user/userSlice';
 import { removeToken } from '../../app/utils';
 import logo from '../../img/Dartmouth_wordmark_Rev.png';
+
+// Creating a reusable NavButton component
+function NavButton({ navigate, path, children }) {
+  return (
+    <Button
+      size="lg"
+      variant="plain"
+      sx={{
+        justifyContent: 'start',
+        width: '100%',
+        marginBottom: '8px',
+        '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+        color: 'white',
+      }}
+      onClick={() => navigate(path)}
+    >
+      {children}
+    </Button>
+  );
+}
 
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const admin = useSelector((state) => state.admin.isAdmin);
+
+  const navItems = [
+    { path: '/', label: 'DASHBOARD' },
+    { path: '/goals', label: 'MY GOALS' },
+    { path: '/dailytracking', label: 'CARBON TRACKING' },
+    { path: '/team', label: 'MY TEAM' },
+    { path: '/helpfulresources', label: 'HELPFUL RESOURCES' },
+    ...(admin ? [{ path: '/admin', label: 'ADMIN' }] : []),
+  ];
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+    removeToken();
+  };
+
   return (
     <Sheet
       color="primary"
@@ -40,70 +73,20 @@ function Nav() {
           padding: '16px',
         }}
       />
-      <Button
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
-        }}
-        onClick={() => navigate('/')}
-      >DASHBOARD
-      </Button>
-      <Button
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
-        }}
-        onClick={() => navigate('/goals')}
-      >MY GOALS
-      </Button>
-      <Button
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
-        }}
-        onClick={() => navigate('/dailytracking')}
-      >CARBON TRACKING
-      </Button>
-      <Button
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
-        }}
-        onClick={() => navigate('/team')}
-      >MY TEAM
-      </Button>
-      <Button
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
-        }}
-        onClick={() => navigate('/helpfulresources')}
-      >HELPFUL RESOURCES
-      </Button>
-      {admin && (
-      <Button
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
-        }}
-        onClick={() => navigate('/admin')}
-      >ADMIN
-      </Button>
-      )}
+      {navItems.map((item) => (
+        <NavButton key={item.path} navigate={navigate} path={item.path}>
+          {item.label}
+        </NavButton>
+      ))}
       <Button
         size="lg"
         variant="plain"
         sx={{
           justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
         }}
-        onClick={() => { dispatch(logout()); navigate('/'); removeToken(); }}
-      >LOGOUT
+        onClick={handleLogout}
+      >
+        LOGOUT
       </Button>
     </Sheet>
   );
