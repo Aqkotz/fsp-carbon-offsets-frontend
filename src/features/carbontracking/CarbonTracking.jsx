@@ -7,6 +7,7 @@ import { fetchTrips } from './carbonSlice';
 import CarbonFootprint from './CarbonFootprint';
 import FlightInput from './FlightInput';
 import logo from '../../img/climatiqWhite.png';
+import { BarChart } from './dataVis';
 
 function CarbonTracking(props) {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function CarbonTracking(props) {
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
       <FlightInput />
       <CarbonFootprint />
+      <BarChart />
       <Card variant="plain"
         style={{
           position: 'absolute', bottom: 0, left: 0, right: 0,

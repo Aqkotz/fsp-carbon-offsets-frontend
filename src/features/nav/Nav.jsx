@@ -1,18 +1,38 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import {
-  Sheet, Button, Typography, Box,
+  Sheet, Button, Box,
 } from '@mui/joy';
 import { logout } from '../user/userSlice';
 import { removeToken } from '../../app/utils';
 import logo from '../../img/Dartmouth_wordmark_Rev.png';
 
+function NavButton({ children, navigateTo }) {
+  const navigate = useNavigate();
+  return (
+    <Button
+      color="neutral"
+      size="lg"
+      variant="plain"
+      sx={{
+        justifyContent: 'start',
+        width: '100%',
+        marginBottom: '8px',
+        '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+      }}
+      onClick={() => navigate(navigateTo)}
+    >
+      {children}
+    </Button>
+  );
+}
+
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const admin = useSelector((state) => state.admin.isAdmin);
+
   return (
     <Sheet
       color="success"
@@ -40,62 +60,12 @@ function Nav() {
           padding: '16px',
         }}
       />
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/goals')}
-      >My Goals
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/carbontracking')}
-      >Carbon Tracking
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/team')}
-      >My Team
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/helpfulresources')}
-      >Helpful Resources
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/')}
-      >Dashboard
-      </Button>
-      {admin && (
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/admin')}
-      >Admin
-      </Button>
-      )}
+      <NavButton navigateTo="/goals">My Goals</NavButton>
+      <NavButton navigateTo="/carbontracking">Carbon Tracking</NavButton>
+      <NavButton navigateTo="/team">My Team</NavButton>
+      <NavButton navigateTo="/helpfulresources">Helpful Resources</NavButton>
+      <NavButton navigateTo="/">Dashboard</NavButton>
+      {admin && <NavButton navigateTo="/admin">Admin</NavButton>}
       <Button color="neutral"
         size="lg"
         variant="plain"

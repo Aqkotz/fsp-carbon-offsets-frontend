@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import {
   BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Sheet from '@mui/joy/Sheet';
-import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
+import { CssVarsProvider } from '@mui/joy/styles';
 import Box from '@mui/joy/Box';
 import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
@@ -38,20 +39,14 @@ function App() {
   }, []);
 
   const token = useSelector((state) => state.user.token);
-  const theme = extendTheme({ cssVarPrefix: 'demo' });
+  // const theme = extendTheme({ cssVarPrefix: 'demo' });
   const navBarWidth = 240;
   const navBarPadding = 16;
   const navBarOffset = navBarWidth + navBarPadding * 2;
 
   if (token) {
     return (
-      <CssVarsProvider
-        defaultMode="dark"
-        theme={theme}
-        colorSchemeSelector="#demo_dark-mode-by-default"
-        modeStorageKey="demo_dark-mode-by-default"
-        disableNestedContext
-      >
+      <CssVarsProvider>
         <div id="demo_dark-mode-by-default">
           <Box sx={{ display: 'flex', height: '100vh', backgroundColor: 'black' }}>
             <Box>

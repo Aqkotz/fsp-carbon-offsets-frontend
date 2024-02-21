@@ -18,7 +18,6 @@ const teamSlice = createSlice({
       state.team = action.payload;
     },
   },
-
 });
 
 export const { setTeam } = teamSlice.actions;

@@ -10,7 +10,6 @@ function Team() {
     dispatch(fetchTeam());
   }, []);
   const team = useSelector((state) => state.team.team);
-  console.log('team', team);
   if (!team) {
     return (
       <JoinTeam />
@@ -20,6 +19,7 @@ function Team() {
     <Stack>
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Team: {team.name} </Typography>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {team.carbonFootprint} </Typography>
       </Card>
     </Stack>
   );
