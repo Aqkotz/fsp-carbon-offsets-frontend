@@ -12,10 +12,11 @@ const carbonSlice = createSlice({
     estimate: 'undefined',
     weeks: 'loading',
     house: 'loading',
+    footprint: 'loading',
   },
   reducers: {
     setCarbonFootprint: (state, action) => {
-      state.kg = action.payload;
+      state.footprint = action.payload;
     },
     setTrips: (state, action) => {
       state.trips = action.payload;
@@ -120,10 +121,10 @@ export function fetchFood() {
   };
 }
 
-export function addFood(food) {
+export function addFood(consumption) {
   return async (dispatch) => {
     dispatch(carbonSlice.actions.setFood('loading'));
-    await axios.post(`${ROOT_URL}/food`, food, getAuthHeader());
+    await axios.post(`${ROOT_URL}/food`, { consumption }, getAuthHeader());
     dispatch(fetchFood());
   };
 }
@@ -139,7 +140,7 @@ export function fetchHouse() {
 export function setHouse(house) {
   return async (dispatch) => {
     dispatch(carbonSlice.actions.setHouse('loading'));
-    await axios.post(`${ROOT_URL}/house`, house, getAuthHeader());
+    await axios.post(`${ROOT_URL}/house`, { house }, getAuthHeader());
     dispatch(fetchHouse());
   };
 }
