@@ -1,20 +1,54 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import {
-  Sheet, Button, Typography, Box,
-} from '@mui/joy';
+import { Sheet, Button, Box } from '@mui/joy';
 import { logout } from '../user/userSlice';
 import { removeToken } from '../../app/utils';
 import logo from '../../img/Dartmouth_wordmark_Rev.png';
 
+// Creating a reusable NavButton component
+function NavButton({ navigate, path, children }) {
+  return (
+    <Button
+      size="lg"
+      variant="plain"
+      sx={{
+        justifyContent: 'start',
+        width: '100%',
+        marginBottom: '8px',
+        '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+        color: 'white',
+      }}
+      onClick={() => navigate(path)}
+    >
+      {children}
+    </Button>
+  );
+}
+
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const admin = useSelector((state) => state.admin.isAdmin);
+
+  const navItems = [
+    { path: '/', label: 'DASHBOARD' },
+    { path: '/goals', label: 'MY GOALS' },
+    { path: '/dailytracking', label: 'CARBON TRACKING' },
+    { path: '/team', label: 'MY TEAM' },
+    { path: '/helpfulresources', label: 'HELPFUL RESOURCES' },
+    ...(admin ? [{ path: '/admin', label: 'ADMIN' }] : []),
+  ];
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+    removeToken();
+  };
+
   return (
     <Sheet
-      color="success"
+      color="primary"
       variant="soft"
       sx={{
         display: 'flex',
@@ -39,50 +73,20 @@ function Nav() {
           padding: '16px',
         }}
       />
-      <Button color="neutral"
+      {navItems.map((item) => (
+        <NavButton key={item.path} navigate={navigate} path={item.path}>
+          {item.label}
+        </NavButton>
+      ))}
+      <Button
         size="lg"
         variant="plain"
         sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
+          justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
         }}
-        onClick={() => navigate('/goals')}
-      >My Goals
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/carbontracking')}
-      >Carbon Tracking
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/team')}
-      >My Team
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', marginBottom: '8px', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => navigate('/discussionboard')}
-      >Discussion Board
-      </Button>
-      <Button color="neutral"
-        size="lg"
-        variant="plain"
-        sx={{
-          justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
-        }}
-        onClick={() => { dispatch(logout()); navigate('/'); removeToken(); }}
-      >LOGOUT
+        onClick={handleLogout}
+      >
+        LOGOUT
       </Button>
     </Sheet>
   );

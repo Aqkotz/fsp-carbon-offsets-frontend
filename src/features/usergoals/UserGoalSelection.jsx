@@ -10,13 +10,12 @@ import { completeGoal, deleteGoal, failGoal } from './userGoalsSlice';
 function UserGoalSelection(props) {
   const dispatch = useDispatch();
   const [changeCompleted, setChangeCompleted] = useState(false);
-  console.log(props.goal.streak);
   const completionSection = () => {
     if (props.goal.completedToday && !changeCompleted) {
       return (
         <div>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Completed!
+            Good job!
           </Typography>
           <Button onClick={() => { setChangeCompleted(true); }}>
             Change Completed
@@ -27,7 +26,7 @@ function UserGoalSelection(props) {
       return (
         <div>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Failed!
+            Try again tomorrow!
           </Typography>
           <Button variant="outlined" sx={{ bgcolor: 'background.surface' }} onClick={() => { setChangeCompleted(true); }}>
             Change Completed
@@ -55,7 +54,7 @@ function UserGoalSelection(props) {
   };
 
   return (
-    <Card>
+    <Card variant="outlined" sx={{ width: '100%' }}>
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -84,22 +83,5 @@ function UserGoalSelection(props) {
     </Card>
   );
 }
-
-// return (
-//   <Card>
-//     <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
-//       Goal {props.index + 1}
-//     </Typography>
-//     <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
-//       {props.goal.description}
-//     </Typography>
-//     {completionSection()}
-//     <Streak goal={props.goal} />
-//     <Button onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
-//       Delete Goal
-//     </Button>
-//   </Card>
-// );
-// }
 
 export default UserGoalSelection;

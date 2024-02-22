@@ -1,8 +1,13 @@
 /* eslint-disable no-param-reassign */
+import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  signinRequest, signupRequest, fetchUser, duoSigninRequest,
+  signinRequest, signupRequest, duoSigninRequest,
 } from './userRequests';
+import { getAuthHeader } from '../../app/utils';
+import { configureAdmin } from '../admin/adminSlice';
+
+const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
 
 const initialState = {
   token: null,
@@ -35,7 +40,10 @@ export const signup = (data, navigate) => async (dispatch) => {
 };
 
 export const getUser = () => async (dispatch) => {
-  dispatch(fetchUser(userSlice.actions));
+  dispatch(userSlice.actions.setUser('loading'));
+  const response = await axios.get(`${ROOT_URL}/user`, getAuthHeader());
+  dispatch(userSlice.actions.setUser(response.data));
+  dispatch(configureAdmin(response.data.adminOf));
 };
 
 export const duoSignin = (ticket, navigate) => async (dispatch) => {

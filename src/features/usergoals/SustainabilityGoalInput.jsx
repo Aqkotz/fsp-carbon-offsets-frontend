@@ -17,7 +17,7 @@ function SustyGoalInput() {
   return (
     <Card variant="outlined"
       sx={{
-        px: 3, py: 1.5, borderRadius: 'sm', backgroundColor: 'background.level1',
+        px: 3, py: 1.5, borderRadius: 'sm', backgroundColor: 'background.level1', width: '100%',
       }}
     >
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>

@@ -1,18 +1,22 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  Typography, Card, Stack, Input, IconButton, Button, List, ListItem, ListItemDecorator, Skeleton,
+  Typography, Card, Stack, Input, IconButton, Button, List, ListItem, ListItemDecorator, Skeleton, Select, Option,
 } from '@mui/joy';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import {
-  setStop, addStop, submitStops, removeStop,
-} from './carbonSlice';
+import { debounce } from 'lodash';
+import BarChart from './barChart';
+import { addTrip, estimateTrip } from './carbonSlice';
 
-function FlightInput(props) {
+function FlightInput() {
   const dispatch = useDispatch();
-  const { stops } = props;
+  const [stops, setStops] = useState(['', '']);
+  const [mode, setMode] = useState('');
+  const estimate = useSelector((state) => state.carbon.estimate);
+  const loading = estimate === 'loading' || estimate === 'undefined';
+  const debouncedApiCallRef = useRef();
 
   if (!stops) {
     return (
@@ -20,18 +24,72 @@ function FlightInput(props) {
     );
   }
 
+  useEffect(() => {
+    debouncedApiCallRef.current = debounce((modeOfTravel, legs) => {
+      dispatch(estimateTrip({ modeOfTravel, legs }));
+    }, 1000);
+  }, []);
+
   const canSubmit = () => {
-    console.log(stops);
+    if (stops.length < 2) {
+      return false;
+    }
     const uniqueStops = [...new Set(stops.map((stop) => stop.toLowerCase()))];
-    return stops.every((stop) => stop.length === 3) && uniqueStops.length === stops.length;
+    return stops.every((stop) => stop.length >= 2) && uniqueStops.length === stops.length;
+  };
+
+  useEffect(() => {
+    if (canSubmit() && stops) {
+      debouncedApiCallRef.current(mode, stops);
+    }
+  }, [mode, stops]);
+
+  const handleStopsChange = (s) => {
+    setStops(s);
+  };
+
+  const handleModeChange = (m) => {
+    setMode(m);
   };
 
   const submit = () => {
     if (canSubmit()) {
-      dispatch(submitStops(stops));
+      dispatch(addTrip({ modeOfTravel: mode, legs: stops }));
     } else {
       console.log('Invalid stops');
     }
+  };
+
+  const estimatedCarbon = () => {
+    if (estimate === 'loading') {
+      return (
+        <div>
+          <Skeleton variant="text" width={100} height={36} />
+          <Skeleton variant="text" width={100} height={36} />
+          <Skeleton variant="text" width={100} height={36} />
+        </div>
+      );
+    } else if (estimate === 'undefined') {
+      return (
+        <div />
+      );
+    }
+    return (
+      <Card variant="soft" alignItems="center" style={{ width: '100%', height: '400px' }}>
+        {/* <div style={{ width: '100%', height: '400px' }}> */}
+        {/* <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Air: {estimate.air} kg CO2e
+          </Typography>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Train: {estimate.rail} kg CO2e
+          </Typography>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Car: {estimate.car} kg CO2e
+          </Typography> */}
+        <BarChart points={estimate} options={{ maintainAspectRatio: false }} style={{ width: '100%', height: '100%' }} />
+        {/* </div> */}
+      </Card>
+    );
   };
 
   if (stops === 'loading') {
@@ -60,9 +118,9 @@ function FlightInput(props) {
     <Card>
       <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Your Flights
+          Trip Planning
         </Typography>
-        <IconButton aria-label="add" onClick={() => { dispatch(addStop('')); }}>
+        <IconButton aria-label="add" onClick={() => { handleStopsChange([...stops, '']); }}>
           <AddIcon />
         </IconButton>
       </Stack>
@@ -76,16 +134,16 @@ function FlightInput(props) {
           }
 
           return (
-            <ListItem key={`key-${index}`} sx={{ spacing: 2, justifyContent: 'space-between' }}>
-              <ListItemDecorator sx={{ marginBottom: '8px' }}>
+            <ListItem key={`key-${index}`} sx={{ display: 'flex', alignItems: 'right' }}>
+              <ListItemDecorator sx={{ marginBottom: '8px', marginRight: '10px' }}>
                 <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
                   {label}
                 </Typography>
               </ListItemDecorator>
-              <Stack direction="row" alignItems="center" spacing={2} flexGrow={0}>
-                <Input value={stop} onChange={(e) => { dispatch(setStop({ index, stop: e.target.value })); }} sx={{ marginBottom: '8px' }} />
+              <Stack direction="row" alignItems="center" spacing={1} flexGrow={0}>
+                <Input value={stop} onChange={(e) => { const newStops = [...stops]; newStops[index] = e.target.value; handleStopsChange(newStops); }} sx={{ marginBottom: '8px' }} />
                 <ListItemDecorator>
-                  <IconButton aria-label="delete" size="small" onClick={() => { dispatch(removeStop(index)); }}>
+                  <IconButton aria-label="delete" size="small" onClick={() => { handleStopsChange(stops.filter((s, i) => { return i !== index; })); }}>
                     <CloseIcon />
                   </IconButton>
                 </ListItemDecorator>
@@ -94,7 +152,14 @@ function FlightInput(props) {
           );
         })}
       </List>
-      <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Save</Button>
+      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> How will you be traveling? </Typography>
+      <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
+        <Option value="air">{loading ? 'Air' : `Air: ${estimate.air} kg CO2e`}</Option>
+        <Option value="rail">{loading ? 'Rail' : `Rail: ${estimate.rail} kg CO2e`}</Option>
+        <Option value="car">{loading ? 'Car' : `Car: ${estimate.car} kg CO2e`}</Option>
+      </Select>
+      {estimatedCarbon()}
+      <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>
     </Card>
   );
 }
