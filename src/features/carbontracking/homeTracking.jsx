@@ -8,7 +8,7 @@ import { setHouse } from './carbonSlice';
 
 function HomeTracking() {
   const dispatch = useDispatch();
-  const [energy, setEnergy] = useState()
+  const [energy, setEnergy] = useState({
     heater: '',
     type: '',
     surface: 0,
