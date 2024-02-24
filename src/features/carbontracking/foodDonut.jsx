@@ -9,7 +9,7 @@ function FoodDonutChart(props) {
     datasets: [
       {
         label: 'Weekly Food Emissions CO2e (kg)',
-        data: [points.alcohol, points.bread, points.dairy, points.fish, points.fruits, points.legumes, points.vegetables, points.meatRed, points.meatWhite, points.rice, points.soft],
+        data: [points.alcohol, points.bread, points.dairy, points.fish, points.fruits, points.legumes, points.vegetables, points.redMeat, points.whiteMeat, points.rice, points.soft],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',

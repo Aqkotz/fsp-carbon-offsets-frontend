@@ -4,8 +4,39 @@ import {
   Card, Typography, Button, ButtonGroup, CardOverflow, CardActions, Stack, IconButton, Box,
 } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
-import Streak from './Streak';
+import Streak from './streak2';
 import { completeGoal, deleteGoal, failGoal } from './userGoalsSlice';
+
+const currentWeek = [
+  {
+    completed: 'past',
+    date: '2022-09-11',
+  },
+  {
+    completed: 'failed',
+    date: '2022-09-12',
+  },
+  {
+    completed: 'completed',
+    date: '2022-09-13',
+  },
+  {
+    completed: 'completed',
+    date: '2022-09-14',
+  },
+  {
+    completed: 'completed',
+    date: '2022-09-15',
+  },
+  {
+    completed: 'future',
+    date: '2022-09-16',
+  },
+  {
+    completed: 'future',
+    date: '2022-09-17',
+  },
+];
 
 function UserGoalSelection(props) {
   const dispatch = useDispatch();
@@ -71,7 +102,7 @@ function UserGoalSelection(props) {
       <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
         {props.goal.description}
       </Typography>
-      <Streak goal={props.goal} />
+      <Streak goal={{ currentWeek }} />
       <CardOverflow sx={{ bgcolor: 'background.level1' }}>
         <Box marginTop={2} marginBottom={0.5}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
