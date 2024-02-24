@@ -16,7 +16,7 @@ function ConsumptionLevel({ label, value, onChange }) {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          color: 'rgb(12, 77, 1, 0.3)',
+          color: 'rgba(195, 191, 191, 0.9)',
         }}
       >
         <Typography
@@ -40,7 +40,7 @@ function ConsumptionLevel({ label, value, onChange }) {
           sx={{
             borderRadius: 'sm',
             boxShadow: 'sm',
-            backgroundColor: 'rgb(12, 77, 1, 0.1)',
+            backgroundColor: 'rgba(195, 191, 191, 0.9)',
           }}
         >
           {['Every Meal', 'Most Meals', 'Some Meals', 'Few Meals', 'Never'].map((name, index) => (
