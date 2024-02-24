@@ -38,4 +38,5 @@ function CarbonFootprint(props) {
     </Stack>
   );
 }
+
 export default CarbonFootprint;
