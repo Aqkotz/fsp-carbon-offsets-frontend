@@ -8,14 +8,15 @@ import TravelDetails from './TravelDetails';
 
 function CarbonFootprint(props) {
   const dispatch = useDispatch();
-  const kg = useSelector((state) => state.carbon.kg);
+  const footprint = useSelector((state) => state.carbon.footprint);
+  console.log(footprint);
   useEffect(() => {
-    if (kg === 'loading') {
+    if (footprint === 'loading') {
       dispatch(fetchCarbonFootprint());
     }
   }, []);
 
-  if (kg === 'loading') {
+  if (footprint === 'loading') {
     return (
       <Card>
         <Skeleton variant="text" width={210} height={32} />
@@ -37,5 +38,4 @@ function CarbonFootprint(props) {
     </Stack>
   );
 }
-
 export default CarbonFootprint;

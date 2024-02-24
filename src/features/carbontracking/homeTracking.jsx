@@ -4,17 +4,16 @@ import {
   Typography, Card, Button, Option, Grid, Radio, RadioGroup, radioClasses,
 } from '@mui/joy';
 import Select from '@mui/joy/Select';
-import { addEnergy } from './carbonSlice';
+import { setHouse } from './carbonSlice';
 
 function HomeTracking() {
   const dispatch = useDispatch();
-  const [energy, setEnergy] = useState({
-    heatingtype: '',
-    housingtype: '',
-    surfacearea: '',
-    age: '',
-    residents: '',
-    time: '',
+  const [energy, setEnergy] = useState()
+    heater: '',
+    type: '',
+    surface: 0,
+    built: '',
+    residents: 0,
   });
 
   const handleChange = (attribute, value) => {
@@ -25,14 +24,14 @@ function HomeTracking() {
   };
 
   const handleSubmit = () => {
-    dispatch(addEnergy(energy));
+    dispatch(setHouse(energy));
     setEnergy({
       heater: '',
       type: '',
-      surface: '',
-      built: '',
-      residents: '',
       time: '',
+      surface: 0,
+      built: '',
+      residents: 0,
     });
   };
 

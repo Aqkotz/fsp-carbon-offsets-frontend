@@ -17,11 +17,11 @@ function DailyTracking() {
     <div style={{ position: 'relative', marginTop: '20px' }}>
       <ToggleButtonGroup
         value={calculatorType}
-        exclusive
+        // exclusive
         onChange={handleChange}
         aria-label="Platform"
         position="sticky"
-        color="primary"
+        color="primary
       >
         <Button variant="outlined"
           sx={{
