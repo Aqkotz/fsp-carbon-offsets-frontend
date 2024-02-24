@@ -25,10 +25,8 @@ function CarbonFootprint(props) {
   }
   return (
     <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
-      <Card variant="soft" style={{ width: '100%' }}>
-        <TravelDetails />
-      </Card>
-      <Card variant="soft" style={{ width: '50%' }}>
+      <TravelDetails />
+      <Card variant="soft" style={{ width: '50%', backgroundColor: 'white' }}>
         <Typography level="h3" alignContent="center" component="h1" sx={{ fontWeight: 'md' }}>
           Your Travel Carbon Footprint
         </Typography>

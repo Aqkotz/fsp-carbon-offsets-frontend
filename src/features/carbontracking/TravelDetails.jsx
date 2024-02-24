@@ -1,10 +1,13 @@
+/* eslint-disable react/no-array-index-key */
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Accordion from '@mui/joy/Accordion';
 import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import AccordionGroup from '@mui/joy/AccordionGroup';
-import { Typography, IconButton, Stack } from '@mui/joy';
+import {
+  Typography, IconButton, Stack, Skeleton, Card,
+} from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
 import BarChart from './barChart';
 import { deleteTrip } from './carbonSlice';
@@ -19,20 +22,50 @@ export default function TravelDetails(props) {
 //   const { air } = potentialCarbonFootprints;
   const trips = useSelector((state) => state.carbon.trips);
   const dispatch = useDispatch();
-  console.log(trips);
-  if (!trips || trips === 'loading') {
+  if (trips.length === 0) {
     return (
-      <div />
+      <Card variant="soft" style={{ width: '100%', backgroundColor: 'transparent' }} />
+    );
+  }
+  if (!trips || trips === 'loading') {
+    // Return skeleton when data is loading or not available
+    return (
+      <Card variant="soft" style={{ width: '100%', backgroundColor: 'white' }}>
+        <AccordionGroup>
+          {[...Array(3)].map((_, index) => (
+            <Skeleton key={index} height={56} animation="wave">
+              <Accordion>
+                <AccordionSummary>
+                  <IconButton disabled>
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography>
+                    <Skeleton width={200} />
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Stack spacing={1}>
+                    <Skeleton height={20} width="80%" />
+                    <Skeleton height={20} width="60%" />
+                    <Skeleton height={20} width="70%" />
+                  </Stack>
+                </AccordionDetails>
+              </Accordion>
+            </Skeleton>
+          ))}
+        </AccordionGroup>
+      </Card>
     );
   }
 
   return (
-    <AccordionGroup>
+    <AccordionGroup sx={{ backgroundColor: 'white' }}>
       {trips.map((trip) => (
-        <Accordion key={trip.origin}>
+        <Accordion key={trip.origin} sx={{ backgroundColor: 'white' }}>
           <Stack
             direction="row"
             alignContent="flex-start"
+            color="white"
           />
           <AccordionSummary alignContent="left">
             <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteTrip(trip)); }}>
@@ -45,6 +78,12 @@ export default function TravelDetails(props) {
           </AccordionSummary>
           <AccordionDetails>
             <BarChart points={trip.potentialCarbonFootprint} />
+            <Typography>
+              You chose to travel by {trip.modeOfTravel}
+            </Typography>
+            <Typography>
+              This produced {trip.actualCarbonFootprint} kg of CO2
+            </Typography>
           </AccordionDetails>
         </Accordion>
       ))}
