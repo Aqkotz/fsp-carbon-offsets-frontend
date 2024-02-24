@@ -75,7 +75,7 @@ function DashBoard() {
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Your Carbon Snapshot
         </Typography>
-        <CarbonPieChart />
+        {/* <CarbonPieChart /> */}
         {/* <CarbonVis /> */}
       </Card>
       <Card variant="plain" sx={{ backgroundColor: 'transparent' }}>
