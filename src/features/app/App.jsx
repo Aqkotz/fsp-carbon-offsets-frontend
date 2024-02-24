@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Sheet from '@mui/joy/Sheet';
 import { CssVarsProvider, extendTheme, ThemeProvider } from '@mui/joy/styles';
 import Box from '@mui/joy/Box';
-import { createTheme } from '@mui/material/styles';
 import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
 import { setToken } from '../user/userSlice';
