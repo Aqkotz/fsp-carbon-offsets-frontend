@@ -80,6 +80,12 @@ function DashBoard() {
         </Typography>
         <CurrentGoals />
       </Card>
+      <Card>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          You have saved _____ kg CO2e
+        </Typography>
+        <CarbonPieChart />
+      </Card>
     </Stack>
   );
 }

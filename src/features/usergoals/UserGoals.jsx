@@ -50,7 +50,7 @@ function UserGoals() {
         <SustyGoalInput />
         <Card variant="plain" sx={{ fontWeight: 'md', width: '50%' }}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            kg CO2e saved
+            {goals.totalCarbonReduction} kg CO2e saved
           </Typography>
         </Card>
       </Stack>

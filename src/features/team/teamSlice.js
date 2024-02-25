@@ -36,4 +36,11 @@ export function joinTeam(joinCode) {
   };
 }
 
+export function fetchLeaderBoard() {
+  return async (dispatch) => {
+    const response = await axios.get(`${ROOT_URL}/teams`, getAuthHeader());
+    dispatch(teamSlice.actions.setTeam(response.data));
+  };
+}
+
 export default teamSlice.reducer;
