@@ -1,13 +1,19 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { getAuthHeader } from '../../app/utils';
 import {
   completeGoalRequest, setGoalRequest, deleteGoalRequest, fetchGoals, failGoalRequest,
 } from './userGoalsRequests';
+
+const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const userGoalsSlice = createSlice({
   name: 'userGoals',
   initialState: {
     goals: 'loading',
+    themes: 'loading',
+    goalOptions: 'loading',
   },
   reducers: {
     setGoalReducer: (state, action) => {
@@ -28,6 +34,12 @@ export const userGoalsSlice = createSlice({
         }
         return g;
       });
+    },
+    setThemes: (state, action) => {
+      state.themes = action.payload;
+    },
+    setGoalOptions: (state, action) => {
+      state.goalOptions = action.payload;
     },
   },
 });
@@ -58,6 +70,18 @@ export const failGoal = (id) => async (dispatch) => {
 export const deleteGoal = (id) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoalReducer('loading'));
   await dispatch(deleteGoalRequest(id, userGoalsSlice.actions));
+};
+
+export const getThemes = () => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setThemes('loading'));
+  const response = await axios.delete(`${ROOT_URL}/themes`, getAuthHeader());
+  dispatch(userGoalsSlice.actions.setThemes(response.data));
+};
+
+export const getGoalsByTheme = (theme) => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setGoalOptions('loading'));
+  const response = await axios.delete(`${ROOT_URL}/goals/${theme}`, getAuthHeader());
+  dispatch(userGoalsSlice.actions.setGoalOptions(response.data));
 };
 
 export default userGoalsSlice.reducer;

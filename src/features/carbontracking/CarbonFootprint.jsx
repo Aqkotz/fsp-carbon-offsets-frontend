@@ -11,12 +11,10 @@ function CarbonFootprint(props) {
   const footprint = useSelector((state) => state.carbon.footprint);
   console.log(footprint);
   useEffect(() => {
-    if (footprint === 'loading') {
-      dispatch(fetchCarbonFootprint());
-    }
+    dispatch(fetchCarbonFootprint());
   }, []);
 
-  if (footprint === 'loading') {
+  if (!footprint || footprint === 'loading') {
     return (
       <Card>
         <Skeleton variant="text" width={210} height={32} />
@@ -28,11 +26,11 @@ function CarbonFootprint(props) {
     <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
       <TravelDetails />
       <Card variant="soft" style={{ width: '50%', backgroundColor: 'white' }}>
-        <Typography level="h3" alignContent="center" component="h1" sx={{ fontWeight: 'md' }}>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Your Travel Carbon Footprint
         </Typography>
-        <Typography level="h1" alignContent="center" component="h1" sx={{ fontWeight: 'md' }}>
-          {Math.floor(footprint.weekly.travel)} kg CO2e
+        <Typography level="h1" component="h1" sx={{ fontWeight: 'md' }}>
+          {Math.floor(footprint.user.weekly.travel)} kg CO2e
         </Typography>
       </Card>
     </Stack>

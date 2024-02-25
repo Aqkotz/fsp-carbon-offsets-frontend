@@ -9,6 +9,7 @@ const teamSlice = createSlice({
   initialState: {
     groupCode: 'loading',
     team: 'loading',
+    leaderboard: 'loading',
   },
   reducers: {
     setCode: (state, action) => {
@@ -16,6 +17,9 @@ const teamSlice = createSlice({
     },
     setTeam: (state, action) => {
       state.team = action.payload;
+    },
+    setLeaderboard: (state, action) => {
+      state.leaderboard = action.payload;
     },
   },
 });
@@ -33,6 +37,13 @@ export function joinTeam(joinCode) {
   return async (dispatch) => {
     const response = await axios.post(`${ROOT_URL}/teams/join`, { joinCode }, getAuthHeader());
     dispatch(teamSlice.actions.setTeam(response.data));
+  };
+}
+
+export function fetchLeaderBoard() {
+  return async (dispatch) => {
+    const response = await axios.get(`${ROOT_URL}/teams`, getAuthHeader());
+    dispatch(teamSlice.actions.setLeaderboard(response.data));
   };
 }
 

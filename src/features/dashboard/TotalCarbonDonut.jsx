@@ -4,7 +4,12 @@ import 'chart.js/auto';
 
 function TotalCarbonDonut(props) {
   const { points } = props;
-  const totalSum = points.travel + points.house + points.food;
+  if (!points) {
+    return (
+      <div />
+    );
+  }
+  const totalSum = points.total;
   const data = {
     labels: ['Day to Day Travel', 'Food', 'Home Emissions'],
     datasets: [

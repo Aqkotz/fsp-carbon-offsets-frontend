@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
 import { fetchTeam } from './teamSlice';
 import DonutChart from './doughnutChart';
+import Leaderboard from './leaderBoard';
 
 function Team() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function Team() {
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {team.carbonFootprint} </Typography>
       </Card>
       <DonutChart style={{ width: '10px', height: '10px' }} />
+      <Leaderboard />
     </Stack>
   );
 }

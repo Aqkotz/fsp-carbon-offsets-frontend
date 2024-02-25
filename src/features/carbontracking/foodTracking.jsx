@@ -61,12 +61,12 @@ function ConsumptionLevel({ label, value, onChange }) {
           }}
         >
           {Object.keys(consumptionNames).map((key, index) => (
-            <React.Fragment key={key}>
+            <div key={key}>
               {index !== 0 && <ListDivider />}
               <ListItem>
                 <Radio id={key} value={key} label={consumptionNames[key]} />
               </ListItem>
-            </React.Fragment>
+            </div>
           ))}
         </List>
       </RadioGroup>

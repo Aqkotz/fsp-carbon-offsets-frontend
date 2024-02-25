@@ -1,59 +1,44 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Typography, Card, Box, Button, ButtonGroup, Option, MenuItem, Select, Stack, selectClasses,
 } from '@mui/joy';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import { setGoal, getGoals } from './userGoalsSlice';
+import {
+  setGoal, getGoals, getThemes, getGoalsByTheme,
+} from './userGoalsSlice';
 
 function DependentDropdown() {
-  const [category, setCategory] = useState('');
-  const [subCategory, setSubCategory] = useState('');
-  const [subCategoryOptions, setSubCategoryOptions] = useState([]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getThemes);
+  }, []);
+  const themes = useSelector((state) => state.userGoals.themes);
+  const goalOptions = useSelector((state) => state.userGoals.goals);
+  const [theme, setTheme] = useState('');
 
-  const initialOptions = {
-    travel: ['Flight', 'Train', 'Bus'],
-    food: ['Fast Food', 'Restaurant', 'Café'],
-    home: ['Cleaning', 'Repair', 'Maintenance'],
-  };
-
-  const handleCategoryChange = (event) => {
+  const handleThemeChange = (event) => {
     const selectedCategory = event.target.value;
-    setCategory(selectedCategory);
-    setSubCategory('');
-    if (initialOptions[selectedCategory]) {
-      setSubCategoryOptions(initialOptions[selectedCategory]);
-    } else {
-      setSubCategoryOptions([]);
+    if (selectedCategory === theme) {
+      dispatch(getGoalsByTheme(selectedCategory));
     }
-  };
-
-  const handleSubCategoryChange = (event) => {
-    setSubCategory(event.target.value);
+    setTheme(selectedCategory);
   };
 
   return (
     <Card variant="outlined">
       <Stack direction="column" spacing={2}>
         <Select
-          value={category}
-          onChange={handleCategoryChange}
+          value={theme}
+          onChange={handleThemeChange}
           label="Category"
         >
-          <MenuItem value="travel">Travel</MenuItem>
-          <MenuItem value="food">Food</MenuItem>
-          <MenuItem value="home">Home</MenuItem>
-        </Select>
-        <Select
-          value={subCategory}
-          onChange={handleSubCategoryChange}
-          label="Sub-Category"
-          disabled={!category || subCategoryOptions.length === 0}
-        >
-          {subCategoryOptions.map((option, index) => (
-            <MenuItem key={index} value={option}>{option}</MenuItem>
+          {themes.map((t) => (
+            <MenuItem key={t} value={t}>
+              {t}
+            </MenuItem>
           ))}
         </Select>
       </Stack>
@@ -78,11 +63,6 @@ function SustyGoalInput() {
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
         What is your sustainability goal?
       </Typography>
-      {/* <Select placeholder="Theme">
-        <Option value="transport">Transport</Option>
-        <Option value="dietary">Dietary</Option>
-        <Option value="waste">Waste</Option>
-      </Select> */}
       <input value={goal} type="text" onChange={(e) => { setGoalState(e.target.value); }} />
       <Button onClick={() => { dispatch(setGoal({ description: goal })); setGoalState(''); }}>
         Add Goal
