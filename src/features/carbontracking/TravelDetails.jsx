@@ -64,10 +64,9 @@ export default function TravelDetails(props) {
         <Accordion key={trip.origin} sx={{ backgroundColor: 'white' }}>
           <Stack
             direction="row"
-            alignContent="flex-start"
             color="white"
           />
-          <AccordionSummary alignContent="left">
+          <AccordionSummary>
             <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteTrip(trip)); }}>
               <CloseIcon fontSize="inherit" />
             </IconButton>

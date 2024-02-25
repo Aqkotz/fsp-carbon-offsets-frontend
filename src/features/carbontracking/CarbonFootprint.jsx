@@ -26,10 +26,10 @@ function CarbonFootprint(props) {
     <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
       <TravelDetails />
       <Card variant="soft" style={{ width: '50%', backgroundColor: 'white' }}>
-        <Typography level="h3" alignContent="center" component="h1" sx={{ fontWeight: 'md' }}>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Your Travel Carbon Footprint
         </Typography>
-        <Typography level="h1" alignContent="center" component="h1" sx={{ fontWeight: 'md' }}>
+        <Typography level="h1" component="h1" sx={{ fontWeight: 'md' }}>
           {Math.floor(footprint.user.weekly.travel)} kg CO2e
         </Typography>
       </Card>
