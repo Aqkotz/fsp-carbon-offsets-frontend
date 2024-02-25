@@ -33,7 +33,7 @@ const carbonSlice = createSlice({
   },
 });
 
-export const { setCarbonFootprint, setTrips, setEstimate, setFood, setHouse } = carbonSlice.actions;
+export const { setCarbonFootprint, setTrips, setEstimate } = carbonSlice.actions;
 
 export function fetchCarbonFootprint() {
   return async (dispatch) => {
