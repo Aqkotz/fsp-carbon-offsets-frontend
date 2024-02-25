@@ -32,10 +32,11 @@ function CarbonFootprint(props) {
           Your Travel Carbon Footprint
         </Typography>
         <Typography level="h1" alignContent="center" component="h1" sx={{ fontWeight: 'md' }}>
-          {Math.floor(kg)} kg CO2e
+          {Math.floor(footprint.weekly.travel)} kg CO2e
         </Typography>
       </Card>
     </Stack>
   );
 }
+
 export default CarbonFootprint;

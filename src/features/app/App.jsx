@@ -29,7 +29,6 @@ function FallBack() {
 }
 
 function App() {
-  console.log('App');
   const dispatch = useDispatch();
   useEffect(() => {
     const token = getToken();
@@ -39,8 +38,6 @@ function App() {
   }, []);
 
   const token = useSelector((state) => state.user.token);
-  console.log(token);
-  console.log('token');
   const navBarWidth = 240;
   const navBarPadding = 16;
   const navBarOffset = navBarWidth + navBarPadding * 2;
@@ -88,7 +85,6 @@ function App() {
   });
 
   if (token) {
-    console.log('token');
     return (
       <CssVarsProvider theme={theme}>
         <Box sx={{ display: 'flex', height: '100vh', Color: '#D9D9D9' }}>

@@ -5,9 +5,25 @@ import {
 } from '@mui/joy';
 import { addFood } from './carbonSlice';
 
+const consumptionLevels = {
+  everyMeal: 21,
+  mostMeals: 14,
+  someMeals: 7,
+  fewMeals: 3,
+  never: 0,
+};
+
+const consumptionNames = {
+  everyMeal: 'Every Meal',
+  mostMeals: 'Most Meals',
+  someMeals: 'Some Meals',
+  fewMeals: 'Few Meals',
+  never: 'Never',
+};
+
 // Reusable Slider Component
 function ConsumptionLevel({ label, value, onChange }) {
-  const [orientation] = React.useState('vertical');
+  // Use the `value` prop directly to control the RadioGroup.
   return (
     <Box sx={{ minWidth: 240 }}>
       <Box
@@ -31,23 +47,24 @@ function ConsumptionLevel({ label, value, onChange }) {
         aria-labelledby="consumption-level-label"
         overlay
         name="consumption-level"
-        defaultValue="Every Meal"
+        value={value} // Controlled component: use `value` prop to set the current value.
+        onChange={onChange} // Update state based on user interaction.
       >
         <List
           component="div"
           variant="soft"
-          orientation={orientation}
+          orientation="vertical"
           sx={{
             borderRadius: 'sm',
             boxShadow: 'sm',
             backgroundColor: 'rgba(195, 191, 191, 0.9)',
           }}
         >
-          {['Every Meal', 'Most Meals', 'Some Meals', 'Few Meals', 'Never'].map((name, index) => (
-            <React.Fragment key={name}>
+          {Object.keys(consumptionNames).map((key, index) => (
+            <React.Fragment key={key}>
               {index !== 0 && <ListDivider />}
               <ListItem>
-                <Radio id={name} value={name} label={name} />
+                <Radio id={key} value={key} label={consumptionNames[key]} />
               </ListItem>
             </React.Fragment>
           ))}
@@ -58,32 +75,37 @@ function ConsumptionLevel({ label, value, onChange }) {
 }
 
 const defaultFoods = {
-  dairy: 0,
-  whiteMeat: 0,
-  redMeat: 0,
-  fish: 0,
-  legumes: 0,
-  vegetables: 0,
-  fruit: 0,
-  bread: 0,
-  alcohol: 0,
-  soft: 0,
-  rice: 0,
+  dairy: 'everyMeal',
+  whiteMeat: 'everyMeal',
+  redMeat: 'everyMeal',
+  fish: 'everyMeal',
+  legumes: 'everyMeal',
+  vegetables: 'everyMeal',
+  fruit: 'everyMeal',
+  bread: 'everyMeal',
+  alcohol: 'everyMeal',
+  soft: 'everyMeal',
+  rice: 'everyMeal',
 };
 
 export default function FoodTracking() {
   const dispatch = useDispatch();
-  const [foodEmission, setFood] = useState(defaultFoods);
+  const [food, setFood] = useState(defaultFoods);
+  console.log(food);
 
   const handleChange = (attribute, value) => {
     setFood((prevState) => ({
       ...prevState,
-      [attribute]: Number(value),
+      [attribute]: value,
     }));
   };
 
   const handleSubmit = () => {
-    dispatch(addFood(foodEmission));
+    const f = Object.keys(food).reduce((acc, key) => {
+      acc[key] = consumptionLevels[food[key]];
+      return acc;
+    }, {});
+    dispatch(addFood(f));
     setFood(defaultFoods);
   };
 
@@ -102,11 +124,11 @@ export default function FoodTracking() {
           How many times have you consumed the following products this week?
         </Typography>
         <Grid container spacing={3}>
-          {Object.keys(foodEmission).map((key) => (
+          {Object.keys(food).map((key) => (
             <Grid item xs={6} key={key}>
               <ConsumptionLevel
                 label={key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())} // Converts camelCase to Title Case
-                value={foodEmission[key]}
+                value={food[key]}
                 onChange={(e) => handleChange(key, e.target.value)}
               />
             </Grid>
