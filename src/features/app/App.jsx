@@ -14,7 +14,7 @@ import { setToken } from '../user/userSlice';
 import Header from './Header';
 import { getToken } from '../../app/utils';
 import Team from '../team/Team';
-import DailyTracking from '../carbontracking/dailyTracking';
+import DailyTracking from '../carbontracking/DailyTracking';
 import SignedInUser from '../user/SignedInUser';
 import LandingPage from '../landingpage/LandingPage';
 import DashBoard from '../dashboard/DashBoard';
@@ -40,7 +40,6 @@ function App() {
 
   const token = useSelector((state) => state.user.token);
   console.log(token);
-  console.log('token');
   const navBarWidth = 240;
   const navBarPadding = 16;
   const navBarOffset = navBarWidth + navBarPadding * 2;
@@ -61,7 +60,7 @@ function App() {
             900: '#093a01',
           },
           secondary: {
-            50: '##D9D9D9',
+            50: '#D9D9D9',
             100: '#D9D9D9',
             200: '##D9D9D9',
             300: '#4886D0',

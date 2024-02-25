@@ -21,7 +21,7 @@ function DailyTracking() {
         onChange={handleChange}
         aria-label="Platform"
         position="sticky"
-        color="primary
+        color="primary"
       >
         <Button variant="outlined"
           sx={{

@@ -56,11 +56,7 @@ function CarbonPieChart() {
         </Button>
       </ToggleButtonGroup>
       <div style={{ marginTop: '20px' }}> {/* Add marginTop */}
-        {pieType && pieType === 'weekly'
-          ? <TotalCarbonDonut points={footprint.weekly} />
-          : pieType === 'allTime'
-            ? <TotalCarbonDonut points={footprint.allTime} />
-            : <TotalCarbonDonut points={footprint.team} />}
+        {pieType && <TotalCarbonDonut points={footprint[pieType]} />}
       </div>
     </div>
   );
