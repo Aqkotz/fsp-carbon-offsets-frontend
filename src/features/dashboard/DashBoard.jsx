@@ -19,11 +19,11 @@ function CarbonPieChart() {
     <div style={{ position: 'relative', marginTop: '20px' }}>
       <ToggleButtonGroup
         value={pieType}
-        exclusive
+        // exclusive
         onChange={handleChange}
         aria-label="Platform"
         position="sticky"
-        zIndex="999"
+        // zIndex="999"
         color="primary"
       >
         <Button variant="outlined"
