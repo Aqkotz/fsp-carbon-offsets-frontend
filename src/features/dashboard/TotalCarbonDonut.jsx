@@ -15,7 +15,7 @@ function TotalCarbonDonut(props) {
     datasets: [
       {
         label: 'Total Carbon Emissions CO2e (kg)',
-        data: [points.travel, points.house, points.food],
+        data: [points.travel, points.food, points.house],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',

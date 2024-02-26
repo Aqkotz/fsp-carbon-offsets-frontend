@@ -13,7 +13,7 @@ import { setToken } from '../user/userSlice';
 import Header from './Header';
 import { getToken } from '../../app/utils';
 import Team from '../team/Team';
-import DailyTracking from '../carbontracking/DailyTracking';
+import DailyTracking from '../carbontracking/dailyTracking';
 import SignedInUser from '../user/SignedInUser';
 import LandingPage from '../landingpage/LandingPage';
 import DashBoard from '../dashboard/DashBoard';

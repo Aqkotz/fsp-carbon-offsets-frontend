@@ -41,7 +41,6 @@ export const signup = (data, navigate) => async (dispatch) => {
 
 export const getUser = () => async (dispatch) => {
   dispatch(userSlice.actions.setUser('loading'));
-  console.log(getAuthHeader());
   const response = await axios.get(`${ROOT_URL}/user`, getAuthHeader());
   dispatch(userSlice.actions.setUser(response.data));
   dispatch(configureAdmin(response.data.adminOf));
