@@ -15,7 +15,18 @@ function CarbonPieChart({ footprint }) {
     setPieType({ type: user, time: frequency });
   };
 
-  console.log(pieType);
+  if (!footprint || footprint === 'loading') {
+    return (
+      <Card>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Your Carbon Snapshot
+        </Typography>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Loading...
+        </Typography>
+      </Card>
+    );
+  }
 
   return (
     <div style={{ position: 'relative', marginTop: '20px' }}>
@@ -65,7 +76,7 @@ function CarbonPieChart({ footprint }) {
         </Button>
       </ToggleButtonGroup>
       <div style={{ marginTop: '20px' }}>
-        {pieType && <TotalCarbonDonut points={footprint[pieType.user][pieType.time]} />}
+        {pieType && <TotalCarbonDonut points={footprint[pieType.type][pieType.time]} />}
       </div>
     </div>
   );
