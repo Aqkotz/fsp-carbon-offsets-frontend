@@ -17,7 +17,7 @@ function Streak(props) {
         <Card variant="plain">
           <img src={greenCheck}
             alt="Check Mark"
-            style={{ width: '1rem', height: '1rem' }}
+            style={{ width: '2rem', height: '2rem' }}
           />
         </Card>
       );
@@ -26,7 +26,7 @@ function Streak(props) {
         <Card variant="plain">
           <img src={redX}
             alt="X Mark"
-            style={{ width: '1rem', height: '1rem' }}
+            style={{ width: '2rem', height: '2rem' }}
           />
         </Card>
       );
@@ -35,7 +35,7 @@ function Streak(props) {
         <Card variant="plain">
           <img src={greyCheck}
             alt="Check Mark"
-            style={{ width: '1rem', height: '1rem' }}
+            style={{ width: '2rem', height: '2rem' }}
           />
         </Card>
       );
@@ -44,16 +44,16 @@ function Streak(props) {
       <Card variant="plain">
         <img src={greyCheck}
           alt="Check Mark"
-          style={{ width: '1rem', height: '1rem' }}
+          style={{ width: '2rem', height: '2rem' }}
         />
       </Card>
     );
   };
 
   const content = currentWeek.map((day, i) => (
-    <Card key={day.date}>
+    <Card key={day.date} variant="plain" sx={{ p: 0 }}>
       <Stack direction="column" alignItems="center">
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+        <Typography level="h5" component="h1" sx={{ fontWeight: 'md' }}>
           {daysOfWeek[i]}
         </Typography>
         {dayCard(day.status)}
@@ -62,7 +62,7 @@ function Streak(props) {
   ));
 
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack direction="row" spacing={0.001}>
       {content}
     </Stack>
   );

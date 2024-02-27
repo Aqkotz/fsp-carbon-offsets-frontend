@@ -40,7 +40,22 @@ const currentWeek = [
 
 function UserGoalSelection(props) {
   const dispatch = useDispatch();
+  const { theme } = props.goal;
   const [changeCompleted, setChangeCompleted] = useState(false);
+
+  const getColorByTheme = () => {
+    switch (theme) {
+      case 'food':
+        return 'rgba(227, 108, 108, 1)';
+      case 'travel':
+        return 'rgba(189, 108, 227, 1)';
+      case 'house':
+        return 'rgba(100, 209, 216, 0.75)';
+      default:
+        return '#FFFFFF';
+    }
+  };
+  const color = getColorByTheme(theme);
   const completionSection = () => {
     if (props.goal.completedToday && !changeCompleted) {
       return (
@@ -95,6 +110,11 @@ function UserGoalSelection(props) {
         <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
           Goal {props.index + 1}
         </Typography>
+        <Card variant="soft" sx={{ bgcolor: color }}>
+          <Typography level="h5" component="h1" sx={{ fontWeight: 'md', width: '200%' }}>
+            {theme}
+          </Typography>
+        </Card>
         <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
           <CloseIcon fontSize="inherit" />
         </IconButton>
@@ -102,9 +122,7 @@ function UserGoalSelection(props) {
       <Typography level="h5" component="h2" sx={{ fontWeight: 'md' }}>
         {props.goal.description}
       </Typography>
-      <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2}>
-        <Streak goal={{ currentWeek }} />
-      </Stack>
+      <Streak goal={{ currentWeek }} />
       <CardOverflow sx={{ bgcolor: 'background.level1' }}>
         <Box marginTop={2} marginBottom={0.5}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
