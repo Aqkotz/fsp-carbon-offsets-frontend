@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Card, Stack, Box, Typography,
+  Card, Stack, Typography,
 } from '@mui/joy';
 import greyCheck from '../../img/GreyCheck.png';
-// import yellowCheck from '../../img/YellowCheck.png';
 import greenCheck from '../../img/GreenCheck.png';
 import redX from '../../img/RedX.png';
 
 function Streak(props) {
   const { currentWeek } = props.goal;
+  console.log(currentWeek);
   const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   const dayCard = (day) => {
@@ -17,7 +17,7 @@ function Streak(props) {
         <Card variant="plain">
           <img src={greenCheck}
             alt="Check Mark"
-            style={{ width: '1rem', height: '1rem' }}
+            style={{ width: '2rem', height: '2rem' }}
           />
         </Card>
       );
@@ -26,7 +26,7 @@ function Streak(props) {
         <Card variant="plain">
           <img src={redX}
             alt="X Mark"
-            style={{ width: '1rem', height: '1rem' }}
+            style={{ width: '2rem', height: '2rem' }}
           />
         </Card>
       );
@@ -35,7 +35,7 @@ function Streak(props) {
         <Card variant="plain">
           <img src={greyCheck}
             alt="Check Mark"
-            style={{ width: '1rem', height: '1rem' }}
+            style={{ width: '2rem', height: '2rem' }}
           />
         </Card>
       );
@@ -44,28 +44,26 @@ function Streak(props) {
       <Card variant="plain">
         <img src={greyCheck}
           alt="Check Mark"
-          style={{ width: '1rem', height: '1rem' }}
+          style={{ width: '2rem', height: '2rem' }}
         />
       </Card>
     );
   };
 
-  const content = currentWeek.map((day, i) => {
-    return (
-      <Box key={day.date} sx={{ width: '1rem', height: '1rem' }}>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+  const content = currentWeek.map((day, i) => (
+    <Card key={day.date} variant="plain" sx={{ p: 0 }}>
+      <Stack direction="column" alignItems="center">
+        <Typography level="h5" component="h1" sx={{ fontWeight: 'md' }}>
           {daysOfWeek[i]}
         </Typography>
         {dayCard(day.status)}
-      </Box>
-    );
-  });
+      </Stack>
+    </Card>
+  ));
 
   return (
-    <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2}>
-      <Card>
-        {content}
-      </Card>
+    <Stack direction="row" spacing={0.001}>
+      {content}
     </Stack>
   );
 }
