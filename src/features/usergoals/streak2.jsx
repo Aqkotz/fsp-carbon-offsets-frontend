@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Card, Stack, Box, Typography,
+  Card, Stack, Typography,
 } from '@mui/joy';
 import greyCheck from '../../img/GreyCheck.png';
-// import yellowCheck from '../../img/YellowCheck.png';
 import greenCheck from '../../img/GreenCheck.png';
 import redX from '../../img/RedX.png';
 
 function Streak(props) {
   const { currentWeek } = props.goal;
+  console.log(currentWeek);
   const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   const dayCard = (day) => {
@@ -50,22 +50,20 @@ function Streak(props) {
     );
   };
 
-  const content = currentWeek.map((day, i) => {
-    return (
-      <Box key={day.date} sx={{ width: '1rem', height: '1rem' }}>
+  const content = currentWeek.map((day, i) => (
+    <Card key={day.date}>
+      <Stack direction="column" alignItems="center">
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           {daysOfWeek[i]}
         </Typography>
         {dayCard(day.status)}
-      </Box>
-    );
-  });
+      </Stack>
+    </Card>
+  ));
 
   return (
-    <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2}>
-      <Card>
-        {content}
-      </Card>
+    <Stack direction="row" spacing={2}>
+      {content}
     </Stack>
   );
 }

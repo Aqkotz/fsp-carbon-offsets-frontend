@@ -13,19 +13,34 @@ import {
 function DependentDropdown() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getThemes);
+    dispatch(getThemes());
   }, []);
   const themes = useSelector((state) => state.userGoals.themes);
-  const goalOptions = useSelector((state) => state.userGoals.goals);
+  const goalOptions = useSelector((state) => state.userGoals.goalOptions);
   const [theme, setTheme] = useState('');
-
-  const handleThemeChange = (event) => {
-    const selectedCategory = event.target.value;
-    if (selectedCategory === theme) {
-      dispatch(getGoalsByTheme(selectedCategory));
+  const [tempGoal, setTempGoal] = useState('');
+  useEffect(() => {
+    if (theme) {
+      dispatch(getGoalsByTheme(theme));
     }
-    setTheme(selectedCategory);
+  }, [theme]);
+
+  const handleThemeChange = (e, n) => {
+    setTheme(n);
   };
+
+  const handleSubmit = () => {
+    const selectedGoal = goalOptions.find((goal) => goal.description === tempGoal);
+    if (selectedGoal) {
+      dispatch(setGoal(selectedGoal));
+    }
+  };
+
+  if (!themes || themes === 'loading') {
+    return (
+      <div />
+    );
+  }
 
   return (
     <Card variant="outlined">
@@ -36,11 +51,27 @@ function DependentDropdown() {
           label="Category"
         >
           {themes.map((t) => (
-            <MenuItem key={t} value={t}>
+            <Option key={t} value={t}>
               {t}
-            </MenuItem>
+            </Option>
           ))}
         </Select>
+        {(goalOptions && goalOptions !== 'loading') && (
+        <Select
+          value={tempGoal}
+          label="Goal"
+          onChange={(e, n) => { console.log(n); setTempGoal(n); }}
+        >
+          {goalOptions.map((g) => (
+            <Option key={g.description} value={g.description}>
+              {g.description}
+            </Option>
+          ))}
+        </Select>
+        )}
+        <Button onClick={() => { dispatch(handleSubmit()); }}>
+          Add Goal
+        </Button>
       </Stack>
     </Card>
   );
@@ -49,11 +80,6 @@ function DependentDropdown() {
 export { DependentDropdown };
 
 function SustyGoalInput() {
-  const [goal, theme, setGoalState] = useState('');
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getGoals());
-  }, []);
   return (
     <Card variant="outlined"
       sx={{
@@ -63,10 +89,7 @@ function SustyGoalInput() {
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
         What is your sustainability goal?
       </Typography>
-      <input value={goal} type="text" onChange={(e) => { setGoalState(e.target.value); }} />
-      <Button onClick={() => { dispatch(setGoal({ description: goal })); setGoalState(''); }}>
-        Add Goal
-      </Button>
+      <DependentDropdown />
     </Card>
   );
 }

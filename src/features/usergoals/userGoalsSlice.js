@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { getAuthHeader } from '../../app/utils';
 import {
   completeGoalRequest, setGoalRequest, deleteGoalRequest, fetchGoals, failGoalRequest,
 } from './userGoalsRequests';
@@ -74,13 +73,13 @@ export const deleteGoal = (id) => async (dispatch) => {
 
 export const getThemes = () => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setThemes('loading'));
-  const response = await axios.delete(`${ROOT_URL}/themes`, getAuthHeader());
+  const response = await axios.get(`${ROOT_URL}/themes`);
   dispatch(userGoalsSlice.actions.setThemes(response.data));
 };
 
 export const getGoalsByTheme = (theme) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoalOptions('loading'));
-  const response = await axios.delete(`${ROOT_URL}/goals/${theme}`, getAuthHeader());
+  const response = await axios.get(`${ROOT_URL}/goals/${theme}`);
   dispatch(userGoalsSlice.actions.setGoalOptions(response.data));
 };
 

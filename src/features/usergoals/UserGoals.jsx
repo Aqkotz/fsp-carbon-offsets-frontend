@@ -61,12 +61,14 @@ function UserGoals() {
         <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ width: '100%' }}>
           {goals === 'loading' && new Array(3).fill(0).map((_, index) => {
             return (
-              goalsCardSkeleton()
+              <div key={index}>
+                { goalsCardSkeleton() }
+              </div>
             );
           })}
           {(goals && goals !== 'loading') && goals.map((goal, index) => {
             return (
-              <UserGoalSelection key={goal.id} goal={goal} index={index} />
+              <UserGoalSelection key={goal._id} goal={goal} index={index} />
             );
           })}
         </Stack>

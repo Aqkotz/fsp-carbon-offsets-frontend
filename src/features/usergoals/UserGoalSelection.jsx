@@ -99,10 +99,12 @@ function UserGoalSelection(props) {
           <CloseIcon fontSize="inherit" />
         </IconButton>
       </Stack>
-      <Typography level="h5" component="h5" sx={{ fontWeight: 'md' }}>
+      <Typography level="h5" component="h2" sx={{ fontWeight: 'md' }}>
         {props.goal.description}
       </Typography>
-      <Streak goal={{ currentWeek }} />
+      <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2}>
+        <Streak goal={{ currentWeek }} />
+      </Stack>
       <CardOverflow sx={{ bgcolor: 'background.level1' }}>
         <Box marginTop={2} marginBottom={0.5}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
