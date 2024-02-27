@@ -45,7 +45,7 @@ export const setGoalStatusForDay = (id, status) => async (dispatch) => {
 };
 
 export const deleteGoal = (id) => async (dispatch) => {
-  dispatch(userGoalsSlice.actions.setGoalReducer('loading'));
+  dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
   await dispatch(deleteGoalRequest(id, userGoalsSlice.actions));
 };
 
