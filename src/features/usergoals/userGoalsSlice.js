@@ -41,6 +41,7 @@ export const setGoal = (goal) => async (dispatch) => {
 export const setGoalStatusForDay = (id, status) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
   await axios.post(`${ROOT_URL}/goals/status/${id}`, { status }, getAuthHeader());
+  await dispatch(fetchGoals(userGoalsSlice.actions));
 };
 
 export const deleteGoal = (id) => async (dispatch) => {
