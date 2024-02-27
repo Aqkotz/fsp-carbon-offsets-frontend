@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -5,7 +6,7 @@ import {
 } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
 import Streak from './streak2';
-import { completeGoal, deleteGoal, failGoal } from './userGoalsSlice';
+import { deleteGoal, setGoalStatusForDay } from './userGoalsSlice';
 
 const currentWeek = [
   {
@@ -85,10 +86,10 @@ function UserGoalSelection(props) {
         <Box m={1}>
           <CardActions buttonFlex="1">
             <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-              <Button onClick={() => { dispatch(completeGoal(props.goal.id)); }}>
+              <Button onClick={() => { dispatch(); }}>
                 Yes!
               </Button>
-              <Button onClick={() => { dispatch(failGoal(props.goal.id)); }}>
+              <Button onClick={() => { dispatch(); }}>
                 No!
               </Button>
             </ButtonGroup>
