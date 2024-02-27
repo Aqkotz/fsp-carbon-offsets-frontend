@@ -47,11 +47,11 @@ function UserGoalSelection(props) {
   const getColorByTheme = () => {
     switch (theme) {
       case 'food':
-        return 'rgba(227, 108, 108, 1)';
+        return 'rgba(227, 108, 108, 0.7)';
       case 'travel':
-        return 'rgba(189, 108, 227, 1)';
+        return 'rgba(189, 108, 227, 0.7)';
       case 'house':
-        return 'rgba(100, 209, 216, 0.75)';
+        return 'rgba(100, 209, 216, 0.7)';
       default:
         return '#FFFFFF';
     }
@@ -105,23 +105,27 @@ function UserGoalSelection(props) {
       <Stack
         direction="row"
         justifyContent="space-between"
-        alignItems="flex-start"
+        alignItems="center" // Align items to center vertically
         spacing={2}
       >
-        <Typography level="h2" component="h2" sx={{ fontWeight: 'md' }}>
-          Goal {props.index + 1}
-        </Typography>
-        <Card variant="soft" sx={{ bgcolor: color }}>
-          <Typography level="h5" component="h1" sx={{ fontWeight: 'md', width: '200%' }}>
-            {theme}
-          </Typography>
-        </Card>
+        {/* Center the theme card and stretch across 80% */}
+        <Stack sx={{ width: '80%' }} justifyContent="center" alignItems="center">
+          <Card variant="soft" sx={{ bgcolor: color, width: '90%', mx: 'auto' }}> {/* Making the card thinner and centering the text */}
+            <Typography level="h5" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}> {/* Centering the text */}
+              {theme.toUpperCase()}
+            </Typography>
+          </Card>
+        </Stack>
         <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
           <CloseIcon fontSize="inherit" />
         </IconButton>
       </Stack>
-      <Typography level="h5" component="h2" sx={{ fontWeight: 'md' }}>
+      <Typography level="h5" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
         {props.goal.description}
+      </Typography>
+      <Typography level="h1" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
+        <span style={{ fontSize: '4rem' }}>{props.goal.streakLength}</span>
+        <span style={{ fontSize: '1.5rem' }}>  DAYS</span>
       </Typography>
       <Streak goal={{ currentWeek }} />
       <CardOverflow sx={{ bgcolor: 'background.level1' }}>
