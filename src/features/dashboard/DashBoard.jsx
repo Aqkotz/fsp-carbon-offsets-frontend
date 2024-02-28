@@ -5,7 +5,7 @@ import {
   Typography, Card, Stack, ToggleButtonGroup, Button,
 } from '@mui/joy';
 import CurrentGoals from '../usergoals/currentGoals';
-import TotalCarbonDonut from './totalCarbonDonut';
+import TotalCarbonDonut from './TotalCarbonDonut';
 import { fetchCarbonFootprint } from '../carbontracking/carbonSlice';
 
 function CarbonPieChart({ footprint }) {
