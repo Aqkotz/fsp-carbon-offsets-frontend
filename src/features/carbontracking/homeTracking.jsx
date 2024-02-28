@@ -80,7 +80,7 @@ function HomeTracking() {
                   label="surfaceArea"
                   value={energy.area}
                   type="text"
-                  onChange={(e) => { handleChange('area', e.target.value); }}
+                  onChange={(e) => { handleChange('surface', e.target.value); }}
                 />
               </Card>
             </Grid>
@@ -151,7 +151,7 @@ function HomeTracking() {
                     value="old"
                     label="No"
                     sx={{ [`& .${radioClasses.radio}`]: { position: 'relative' } }}
-                    onChange={(e) => { handleChange('age', e.target.value); }}
+                    onChange={(e) => { handleChange('built', e.target.value); }}
                   />
                 </RadioGroup>
               </Card>

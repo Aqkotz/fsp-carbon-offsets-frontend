@@ -17,7 +17,7 @@ function UserGoals() {
 
   const goalsCardSkeleton = () => {
     return (
-      <Card>
+      <Card sx={{ minWidth: '450px' }}>
         <Stack
           direction="row"
           justifyContent="space-between"
