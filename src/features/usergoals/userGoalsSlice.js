@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getAuthHeader } from '../../app/utils';
+import { fetchCarbonFootprint } from '../carbontracking/carbonSlice';
 
 const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -36,13 +37,14 @@ export const fetchGoals = () => async (dispatch) => {
 export const setGoal = (goal) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
   await axios.post(`${ROOT_URL}/goals`, goal, getAuthHeader());
-  await dispatch(fetchGoals());
+  dispatch(fetchGoals());
 };
 
 export const setGoalStatusForDay = (id, status) => async (dispatch) => {
   const response = await axios.post(`${ROOT_URL}/goals/status/${id}`, { status }, getAuthHeader());
   if (response.data !== 'goal already set for today') {
-    await dispatch(fetchGoals());
+    dispatch(fetchGoals());
+    dispatch(fetchCarbonFootprint());
   }
 };
 
@@ -50,6 +52,7 @@ export const deleteGoal = (id) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
   await axios.delete(`${ROOT_URL}/goals/${id}`, getAuthHeader());
   dispatch(fetchGoals());
+  dispatch(fetchCarbonFootprint());
 };
 
 export const getThemes = () => async (dispatch) => {

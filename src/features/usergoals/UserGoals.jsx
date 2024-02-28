@@ -6,14 +6,16 @@ import {
 import UserGoalSelection from './UserGoalSelection';
 import SustyGoalInput from './SustainabilityGoalInput';
 import { fetchGoals } from './userGoalsSlice';
+import { fetchCarbonFootprint } from '../carbontracking/carbonSlice';
 
 function UserGoals() {
-  const goals = useSelector((state) => state.userGoals.goals);
-  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchGoals());
+    dispatch(fetchCarbonFootprint());
   }, []);
+  const goals = useSelector((state) => state.userGoals.goals);
+  const footprint = useSelector((state) => state.carbon.footprint);
 
   const goalsCardSkeleton = () => {
     return (
@@ -51,7 +53,7 @@ function UserGoals() {
         <SustyGoalInput />
         <Card variant="plain" sx={{ fontWeight: 'md', width: '50%' }}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            {user?.carbonFootprint?.reduction?.total} kg CO2e saved
+            {footprint?.user?.reduction?.total ?? 0} kg CO2e saved
           </Typography>
         </Card>
       </Stack>

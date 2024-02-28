@@ -74,18 +74,7 @@ function FlightInput() {
     }
     return (
       <Card variant="plain" alignItems="center" style={{ width: '90%', height: '400px' }}>
-        {/* <div style={{ width: '100%', height: '400px' }}> */}
-        {/* <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Air: {estimate.air} kg CO2e
-          </Typography>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Train: {estimate.rail} kg CO2e
-          </Typography>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Car: {estimate.car} kg CO2e
-          </Typography> */}
         <BarChart points={estimate} options={{ maintainAspectRatio: false }} style={{ width: '100%', height: '100%' }} />
-        {/* </div> */}
       </Card>
     );
   };
