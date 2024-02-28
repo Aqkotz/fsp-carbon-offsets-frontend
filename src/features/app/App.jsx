@@ -106,7 +106,7 @@ function App() {
                   <Route path="/dailytracking" element={<DailyTracking />} />
                   <Route path="/team" element={<Team />} />
                   <Route path="/admin" element={<Admin />} />
-                  <Route path="/helpfulresources" element={<HelpfulResources />} />
+                  {/* <Route path="/helpfulresources" element={<HelpfulResources />} /> */}
                   <Route path="*" element={<FallBack />} />
                 </Routes>
               </Sheet>
