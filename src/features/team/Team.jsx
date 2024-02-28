@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
 import { fetchTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
-import TotalCarbonDonut from '../dashboard/totalCarbonDonut';
+import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
 function CarbonPieChart({ footprint }) {
   const [pieType, setPieType] = useState('weekly');
