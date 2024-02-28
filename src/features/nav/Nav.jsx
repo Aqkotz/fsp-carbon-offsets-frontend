@@ -36,7 +36,7 @@ function Nav() {
     { path: '/goals', label: 'MY GOALS' },
     { path: '/dailytracking', label: 'CARBON TRACKING' },
     { path: '/team', label: 'MY TEAM' },
-    { path: '/helpfulresources', label: 'HELPFUL RESOURCES' },
+    // { path: '/helpfulresources', label: 'HELPFUL RESOURCES' },
     ...(admin ? [{ path: '/admin', label: 'ADMIN' }] : []),
   ];
 
