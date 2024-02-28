@@ -4,13 +4,13 @@ import {
   Card, Box, Skeleton, CardActions, ButtonGroup, Stack,
 } from '@mui/joy';
 import UserGoalSelection from './UserGoalSelection';
-import { getGoals } from './userGoalsSlice';
+import { fetchGoals } from './userGoalsSlice';
 
 function CurrentGoals() {
   const goals = useSelector((state) => state.userGoals.goals);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getGoals());
+    dispatch(fetchGoals());
   }, []);
 
   const goalsCardSkeleton = () => {

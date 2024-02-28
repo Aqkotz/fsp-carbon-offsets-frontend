@@ -91,7 +91,6 @@ const defaultFoods = {
 export default function FoodTracking() {
   const dispatch = useDispatch();
   const [food, setFood] = useState(defaultFoods);
-  console.log(food);
 
   const handleChange = (attribute, value) => {
     setFood((prevState) => ({

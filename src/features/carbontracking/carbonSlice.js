@@ -84,7 +84,6 @@ export function updateTrip(trip) {
 
 export function estimateTrip(trip) {
   return async (dispatch) => {
-    console.log(trip);
     dispatch(carbonSlice.actions.setEstimate('loading'));
     const response = await axios.post(`${ROOT_URL}/trips/estimate`, trip, getAuthHeader());
     dispatch(carbonSlice.actions.setEstimate(response.data));

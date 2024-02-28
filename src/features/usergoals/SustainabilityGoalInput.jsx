@@ -7,7 +7,7 @@ import {
 } from '@mui/joy';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import {
-  setGoal, getGoals, getThemes, getGoalsByTheme,
+  setGoal, fetchGoals, getThemes, getGoalsByTheme,
 } from './userGoalsSlice';
 
 function DependentDropdown() {
@@ -60,7 +60,7 @@ function DependentDropdown() {
         <Select
           value={tempGoal}
           label="Goal"
-          onChange={(e, n) => { console.log(n); setTempGoal(n); }}
+          onChange={(e, n) => { setTempGoal(n); }}
         >
           {goalOptions.map((g) => (
             <Option key={g.description} value={g.description}>

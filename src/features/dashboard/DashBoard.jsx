@@ -85,12 +85,12 @@ function CarbonPieChart({ footprint }) {
 export { CarbonPieChart };
 
 function DashBoard() {
+  const userInfo = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCarbonFootprint());
   }, []);
   const footprint = useSelector((state) => state.carbon.footprint);
-  console.log(footprint);
 
   if (!footprint || footprint === 'loading') {
     return (
@@ -122,9 +122,8 @@ function DashBoard() {
       </Card>
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          You have saved _____ kg CO2e
+          You have produced {userInfo.carbonFootprint.allTime.total} kg CO2e
         </Typography>
-        <CarbonPieChart />
       </Card>
     </Stack>
   );
