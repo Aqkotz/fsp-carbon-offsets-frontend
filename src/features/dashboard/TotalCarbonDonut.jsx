@@ -2,15 +2,20 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 
-function totalDonutChart(props) {
+function TotalCarbonDonut(props) {
   const { points } = props;
-  const totalSum = points.travel + points.house + points.food;
+  if (!points) {
+    return (
+      <div />
+    );
+  }
+  const totalSum = points.total;
   const data = {
     labels: ['Day to Day Travel', 'Food', 'Home Emissions'],
     datasets: [
       {
         label: 'Total Carbon Emissions CO2e (kg)',
-        data: [points.travelD2D, points.house, points.food],
+        data: [points.travel, points.food, points.house],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -34,7 +39,7 @@ function totalDonutChart(props) {
       },
       title: {
         display: true,
-        text: 'Our Team Carbon Footprint',
+        text: 'Total Carbon Footprint',
       },
       afterDraw: (chart) => {
         const { ctx } = chart;
@@ -56,4 +61,4 @@ function totalDonutChart(props) {
   return <Doughnut data={data} options={options} />;
 }
 
-export default totalDonutChart;
+export default TotalCarbonDonut;

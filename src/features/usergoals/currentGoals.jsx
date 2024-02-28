@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Card, Typography, Box, Skeleton, CardActions, ButtonGroup, Stack,
+  Card, Box, Skeleton, CardActions, ButtonGroup, Stack,
 } from '@mui/joy';
 import UserGoalSelection from './UserGoalSelection';
-import SustyGoalInput from './SustainabilityGoalInput';
 import { fetchGoals } from './userGoalsSlice';
 
-function UserGoals() {
+function CurrentGoals() {
   const goals = useSelector((state) => state.userGoals.goals);
-  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchGoals());
@@ -17,7 +15,7 @@ function UserGoals() {
 
   const goalsCardSkeleton = () => {
     return (
-      <Card sx={{ minWidth: '450px' }}>
+      <Card>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -36,8 +34,8 @@ function UserGoals() {
         <Box m={1}>
           <CardActions buttonFlex="1">
             <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-              <Skeleton variant="rectangular" width="33%" height={36} />
-              <Skeleton variant="rectangular" width="33%" height={36} />
+              <Skeleton variant="rectangular" width={60} height={36} />
+              <Skeleton variant="rectangular" width={60} height={36} />
             </ButtonGroup>
           </CardActions>
         </Box>
@@ -47,29 +45,18 @@ function UserGoals() {
 
   return (
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={3}>
-      <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ fontWeight: 'md', width: '100%' }}>
-        <SustyGoalInput />
-        <Card variant="plain" sx={{ fontWeight: 'md', width: '50%' }}>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            {user?.carbonFootprint?.reduction?.total} kg CO2e saved
-          </Typography>
-        </Card>
-      </Stack>
       <Card sx={{ backgroundColor: 'transparent' }}>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Current Goals
-        </Typography>
         <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ width: '100%' }}>
           {goals === 'loading' && new Array(3).fill(0).map((_, index) => {
             return (
               <div key={index}>
-                { goalsCardSkeleton() }
+                {goalsCardSkeleton()}
               </div>
             );
           })}
           {(goals && goals !== 'loading') && goals.map((goal, index) => {
             return (
-              <UserGoalSelection key={goal._id} goal={goal} index={index} />
+              <UserGoalSelection key={goal.id} goal={goal} index={index} />
             );
           })}
         </Stack>
@@ -78,4 +65,4 @@ function UserGoals() {
   );
 }
 
-export default UserGoals;
+export default CurrentGoals;

@@ -8,6 +8,7 @@ import HomeTracking from './homeTracking';
 
 function DailyTracking() {
   const [calculatorType, setCalculatorType] = useState('travel');
+
   const handleChange = (event) => {
     setCalculatorType(event.target.value);
   };
@@ -20,11 +21,36 @@ function DailyTracking() {
         onChange={handleChange}
         aria-label="Platform"
         position="sticky"
-        // zIndex="999"
+        color="primary"
       >
-        <Button value="travel">TRAVEL</Button>
-        <Button value="food">FOOD</Button>
-        <Button value="house">HOME</Button>
+        <Button variant="outlined"
+          sx={{
+            justifyContent: 'start',
+            '&:hover': { backgroundColor: 'rgba(195, 191, 191, 0.7)' },
+            color: 'black',
+            borderColor: 'black', // Change outline color to black
+          }}
+          value="travel"
+        >TRAVEL
+        </Button>
+        <Button sx={{
+          justifyContent: 'start',
+          '&:hover': { backgroundColor: 'rgba(195, 191, 191, 0.7)' },
+          color: 'black',
+          borderColor: 'black', // Change outline color to black
+        }}
+          value="food"
+        >FOOD
+        </Button>
+        <Button sx={{
+          justifyContent: 'start',
+          '&:hover': { backgroundColor: 'rgba(195, 191, 191, 0.7)' },
+          color: 'black',
+          borderColor: 'black', // Change outline color to black
+        }}
+          value="house"
+        >HOME
+        </Button>
       </ToggleButtonGroup>
       <div style={{ marginTop: '20px' }}> {/* Add marginTop */}
         {calculatorType && calculatorType === 'travel'

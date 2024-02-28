@@ -55,8 +55,6 @@ function FlightInput() {
   const submit = () => {
     if (canSubmit()) {
       dispatch(addTrip({ modeOfTravel: mode, legs: stops }));
-    } else {
-      console.log('Invalid stops');
     }
   };
 
@@ -75,7 +73,7 @@ function FlightInput() {
       );
     }
     return (
-      <Card variant="soft" alignItems="center" style={{ width: '100%', height: '400px' }}>
+      <Card variant="plain" alignItems="center" style={{ width: '90%', height: '400px' }}>
         {/* <div style={{ width: '100%', height: '400px' }}> */}
         {/* <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
             Air: {estimate.air} kg CO2e
@@ -115,52 +113,59 @@ function FlightInput() {
   }
 
   return (
-    <Card>
-      <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
+    <div>
+      <Card sx={{ backgroundColor: 'transparent' }}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Trip Planning
+          Travel Calculator
         </Typography>
-        <IconButton aria-label="add" onClick={() => { handleStopsChange([...stops, '']); }}>
-          <AddIcon />
-        </IconButton>
-      </Stack>
-      <List>
-        {stops && stops.map((stop, index) => {
-          let label = `Stop ${index}`;
-          if (index === 0) {
-            label = 'Origin';
-          } else if (index === stops.length - 1) {
-            label = 'Destination';
-          }
+      </Card>
+      <Card>
+        <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Trip Planning
+          </Typography>
+          <IconButton aria-label="add" onClick={() => { handleStopsChange([...stops, '']); }}>
+            <AddIcon />
+          </IconButton>
+        </Stack>
+        <List>
+          {stops && stops.map((stop, index) => {
+            let label = `Stop ${index}`;
+            if (index === 0) {
+              label = 'Origin';
+            } else if (index === stops.length - 1) {
+              label = 'Destination';
+            }
 
-          return (
-            <ListItem key={`key-${index}`} sx={{ display: 'flex', alignItems: 'right' }}>
-              <ListItemDecorator sx={{ marginBottom: '8px', marginRight: '10px' }}>
-                <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-                  {label}
-                </Typography>
-              </ListItemDecorator>
-              <Stack direction="row" alignItems="center" spacing={1} flexGrow={0}>
-                <Input value={stop} onChange={(e) => { const newStops = [...stops]; newStops[index] = e.target.value; handleStopsChange(newStops); }} sx={{ marginBottom: '8px' }} />
-                <ListItemDecorator>
-                  <IconButton aria-label="delete" size="small" onClick={() => { handleStopsChange(stops.filter((s, i) => { return i !== index; })); }}>
-                    <CloseIcon />
-                  </IconButton>
+            return (
+              <ListItem key={`key-${index}`} sx={{ display: 'flex', alignItems: 'right' }}>
+                <ListItemDecorator sx={{ marginBottom: '8px', marginRight: '10px' }}>
+                  <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+                    {label}
+                  </Typography>
                 </ListItemDecorator>
-              </Stack>
-            </ListItem>
-          );
-        })}
-      </List>
-      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> How will you be traveling? </Typography>
-      <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
-        <Option value="air">{loading ? 'Air' : `Air: ${estimate.air} kg CO2e`}</Option>
-        <Option value="rail">{loading ? 'Rail' : `Rail: ${estimate.rail} kg CO2e`}</Option>
-        <Option value="car">{loading ? 'Car' : `Car: ${estimate.car} kg CO2e`}</Option>
-      </Select>
-      {estimatedCarbon()}
-      <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>
-    </Card>
+                <Stack direction="row" alignItems="center" spacing={1} flexGrow={0}>
+                  <Input value={stop} onChange={(e) => { const newStops = [...stops]; newStops[index] = e.target.value; handleStopsChange(newStops); }} sx={{ marginBottom: '8px' }} />
+                  <ListItemDecorator>
+                    <IconButton aria-label="delete" size="small" onClick={() => { handleStopsChange(stops.filter((s, i) => { return i !== index; })); }}>
+                      <CloseIcon />
+                    </IconButton>
+                  </ListItemDecorator>
+                </Stack>
+              </ListItem>
+            );
+          })}
+        </List>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> How will you be traveling? </Typography>
+        <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
+          <Option value="air">{loading ? 'Air' : `Air: ${estimate.air} kg CO2e`}</Option>
+          <Option value="rail">{loading ? 'Rail' : `Rail: ${estimate.rail} kg CO2e`}</Option>
+          <Option value="car">{loading ? 'Car' : `Car: ${estimate.car} kg CO2e`}</Option>
+        </Select>
+        {estimatedCarbon()}
+        <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>
+      </Card>
+    </div>
   );
 }
 

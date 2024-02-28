@@ -21,9 +21,8 @@ export default function TravelDetails(props) {
         <Accordion key={week.week}>
           <Stack
             direction="row"
-            alignContent="flex-start"
           />
-          <AccordionSummary alignContent="left">
+          <AccordionSummary>
             <Typography>
               {week.week}
             </Typography>

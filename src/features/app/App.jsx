@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Sheet from '@mui/joy/Sheet';
 import { CssVarsProvider, extendTheme, ThemeProvider } from '@mui/joy/styles';
 import Box from '@mui/joy/Box';
-import { createTheme } from '@mui/material/styles';
 import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
 import { setToken } from '../user/userSlice';
@@ -39,8 +38,6 @@ function App() {
   }, []);
 
   const token = useSelector((state) => state.user.token);
-  console.log(token);
-  console.log('token');
   const navBarWidth = 240;
   const navBarPadding = 16;
   const navBarOffset = navBarWidth + navBarPadding * 2;
@@ -51,7 +48,7 @@ function App() {
           primary: {
             50: '#0C4D01',
             100: '#0C4D01',
-            200: '#1db902',
+            200: 'rgb(12, 77, 1, 0.3)',
             300: '#127502',
             400: '#21d503',
             500: '#1bae02',
@@ -61,7 +58,7 @@ function App() {
             900: '#093a01',
           },
           secondary: {
-            50: '##D9D9D9',
+            50: '#D9D9D9',
             100: '#D9D9D9',
             200: '##D9D9D9',
             300: '#4886D0',
@@ -109,7 +106,7 @@ function App() {
                   <Route path="/dailytracking" element={<DailyTracking />} />
                   <Route path="/team" element={<Team />} />
                   <Route path="/admin" element={<Admin />} />
-                  <Route path="/helpfulresources" element={<HelpfulResources />} />
+                  {/* <Route path="/helpfulresources" element={<HelpfulResources />} /> */}
                   <Route path="*" element={<FallBack />} />
                 </Routes>
               </Sheet>
