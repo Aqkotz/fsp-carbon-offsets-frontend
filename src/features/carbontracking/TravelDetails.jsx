@@ -59,33 +59,35 @@ export default function TravelDetails(props) {
   }
 
   return (
-    <AccordionGroup sx={{ backgroundColor: 'white' }}>
-      {trips.map((trip) => (
-        <Accordion key={trip.origin} sx={{ backgroundColor: 'white' }}>
-          <Stack
-            direction="row"
-            color="white"
-          />
-          <AccordionSummary>
-            <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteTrip(trip)); }}>
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-            <Typography>
-              {trip.origin} to {trip.destination}
-            </Typography>
-            <Stack />
-          </AccordionSummary>
-          <AccordionDetails>
-            <BarChart points={trip.potentialCarbonFootprint} />
-            <Typography>
-              You chose to travel by {trip.modeOfTravel}
-            </Typography>
-            <Typography>
-              This produced {trip.actualCarbonFootprint} kg of CO2
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      ))}
-    </AccordionGroup>
+    <Card variant="soft" style={{ width: '100%', backgroundColor: 'white' }}>
+      <AccordionGroup sx={{ backgroundColor: 'white' }}>
+        {trips.map((trip) => (
+          <Accordion key={trip.origin} sx={{ backgroundColor: 'white' }}>
+            <Stack
+              direction="row"
+              color="white"
+            />
+            <AccordionSummary>
+              <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteTrip(trip)); }}>
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+              <Typography>
+                {trip.origin} to {trip.destination}
+              </Typography>
+              <Stack />
+            </AccordionSummary>
+            <AccordionDetails>
+              <BarChart points={trip.potentialCarbonFootprint} />
+              <Typography>
+                You chose to travel by {trip.modeOfTravel}
+              </Typography>
+              <Typography>
+                This produced {trip.actualCarbonFootprint} kg of CO2
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </AccordionGroup>
+    </Card>
   );
 }
