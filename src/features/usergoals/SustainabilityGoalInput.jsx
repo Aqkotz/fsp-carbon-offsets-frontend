@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Typography, Card, Box, Button, ButtonGroup, Option, MenuItem, Select, Stack, selectClasses,
 } from '@mui/joy';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import {
-  setGoal, fetchGoals, getThemes, getGoalsByTheme,
+  setGoal, getThemes, getGoalsByTheme,
 } from './userGoalsSlice';
 
 function DependentDropdown() {
@@ -29,7 +28,14 @@ function DependentDropdown() {
     setTheme(n);
   };
 
+  const canSubmit = () => {
+    return tempGoal !== '' && theme !== '';
+  };
+
   const handleSubmit = () => {
+    if (!canSubmit()) {
+      return;
+    }
     const selectedGoal = goalOptions.find((goal) => goal.description === tempGoal);
     if (selectedGoal) {
       dispatch(setGoal(selectedGoal));
@@ -69,7 +75,7 @@ function DependentDropdown() {
           ))}
         </Select>
         )}
-        <Button onClick={() => { dispatch(handleSubmit()); }}>
+        <Button onClick={handleSubmit} disabled={!canSubmit()}>
           Add Goal
         </Button>
       </Stack>

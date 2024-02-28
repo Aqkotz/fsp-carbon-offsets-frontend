@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Typography, Card, Stack, ToggleButtonGroup, Button,
+  Typography, Card, Stack, ToggleButtonGroup, Button, Box,
 } from '@mui/joy';
 import CurrentGoals from '../usergoals/currentGoals';
 import TotalCarbonDonut from './TotalCarbonDonut';
@@ -85,7 +85,6 @@ function CarbonPieChart({ footprint }) {
 export { CarbonPieChart };
 
 function DashBoard() {
-  const userInfo = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCarbonFootprint());
@@ -111,7 +110,11 @@ function DashBoard() {
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Your Carbon Snapshot
         </Typography>
-        {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
+        <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
+          <Box sx={{ width: '33%' }} />
+          {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
+          <Box sx={{ width: '33%' }} />
+        </Stack>
         {/* <CarbonVis /> */}
       </Card>
       <Card variant="plain" sx={{ backgroundColor: 'transparent' }}>
@@ -122,7 +125,7 @@ function DashBoard() {
       </Card>
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          You have produced {userInfo.carbonFootprint.allTime.total} kg CO2e
+          You have produced {footprint.user.allTime.total} kg CO2e
         </Typography>
       </Card>
     </Stack>
