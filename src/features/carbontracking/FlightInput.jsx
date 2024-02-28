@@ -55,8 +55,6 @@ function FlightInput() {
   const submit = () => {
     if (canSubmit()) {
       dispatch(addTrip({ modeOfTravel: mode, legs: stops }));
-    } else {
-      console.log('Invalid stops');
     }
   };
 

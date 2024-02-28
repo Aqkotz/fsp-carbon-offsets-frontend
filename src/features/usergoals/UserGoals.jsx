@@ -5,13 +5,14 @@ import {
 } from '@mui/joy';
 import UserGoalSelection from './UserGoalSelection';
 import SustyGoalInput from './SustainabilityGoalInput';
-import { getGoals } from './userGoalsSlice';
+import { fetchGoals } from './userGoalsSlice';
 
 function UserGoals() {
   const goals = useSelector((state) => state.userGoals.goals);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getGoals());
+    dispatch(fetchGoals());
   }, []);
 
   const goalsCardSkeleton = () => {
@@ -50,7 +51,7 @@ function UserGoals() {
         <SustyGoalInput />
         <Card variant="plain" sx={{ fontWeight: 'md', width: '50%' }}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            {goals.totalCarbonReduction} kg CO2e saved
+            {user?.carbonFootprint?.reduction?.total} kg CO2e saved
           </Typography>
         </Card>
       </Stack>

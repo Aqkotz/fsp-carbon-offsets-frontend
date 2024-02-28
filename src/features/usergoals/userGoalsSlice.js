@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { setGoalRequest, deleteGoalRequest, fetchGoals } from './userGoalsRequests';
 import { getAuthHeader } from '../../app/utils';
 
 const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
@@ -28,25 +27,29 @@ export const userGoalsSlice = createSlice({
 
 export const { setGoalsReducer, setGoalCompleted, setGoalFailed } = userGoalsSlice.actions;
 
-export const getGoals = () => async (dispatch) => {
+export const fetchGoals = () => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
-  await dispatch(fetchGoals(userGoalsSlice.actions));
+  const response = await axios.get(`${ROOT_URL}/goals`, getAuthHeader());
+  dispatch(userGoalsSlice.actions.setGoalsReducer(response.data));
 };
 
 export const setGoal = (goal) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
-  await dispatch(setGoalRequest(goal, userGoalsSlice.actions));
+  await axios.post(`${ROOT_URL}/goals`, goal, getAuthHeader());
+  await dispatch(fetchGoals());
 };
 
 export const setGoalStatusForDay = (id, status) => async (dispatch) => {
-  dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
-  await axios.post(`${ROOT_URL}/goals/status/${id}`, { status }, getAuthHeader());
-  await dispatch(fetchGoals(userGoalsSlice.actions));
+  const response = await axios.post(`${ROOT_URL}/goals/status/${id}`, { status }, getAuthHeader());
+  if (response.data !== 'goal already set for today') {
+    await dispatch(fetchGoals());
+  }
 };
 
 export const deleteGoal = (id) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
-  await dispatch(deleteGoalRequest(id, userGoalsSlice.actions));
+  await axios.delete(`${ROOT_URL}/goals/${id}`, getAuthHeader());
+  dispatch(fetchGoals());
 };
 
 export const getThemes = () => async (dispatch) => {
