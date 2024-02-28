@@ -14,11 +14,11 @@ const consumptionLevels = {
 };
 
 const consumptionNames = {
-  everyMeal: 'Every Meal',
-  mostMeals: 'Most Meals',
-  someMeals: 'Some Meals',
-  fewMeals: 'Few Meals',
-  never: 'Never',
+  everyMeal: 'Every Meal (21+)',
+  mostMeals: 'Most Meals (14-20)',
+  someMeals: 'Some Meals (7-13)',
+  fewMeals: 'Few Meals (3-6)',
+  never: 'Never (0-3)',
 };
 
 // Reusable Slider Component
