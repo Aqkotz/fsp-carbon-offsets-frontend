@@ -8,7 +8,6 @@ import redX from '../../img/RedX.png';
 
 function Streak(props) {
   const { currentWeek } = props.goal;
-  console.log(currentWeek);
   const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   const dayCard = (day) => {
@@ -56,15 +55,17 @@ function Streak(props) {
         <Typography level="h5" component="h1" sx={{ fontWeight: 'md' }}>
           {daysOfWeek[i]}
         </Typography>
-        {dayCard(day.status)}
+        {dayCard(day.completed)}
       </Stack>
     </Card>
   ));
 
   return (
-    <Stack direction="row" spacing={0.001}>
-      {content}
-    </Stack>
+    <Card variant="plain" align-content="center">
+      <Stack direction="row">
+        {content}
+      </Stack>
+    </Card>
   );
 }
 

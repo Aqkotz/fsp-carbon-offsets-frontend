@@ -57,51 +57,9 @@ function UserGoalSelection(props) {
     }
   };
   const color = getColorByTheme(theme);
-  const completionSection = () => {
-    if (props.goal.completedToday && !changeCompleted) {
-      return (
-        <div>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Good job!
-          </Typography>
-          <Button onClick={() => { setChangeCompleted(true); }}>
-            Change Completed
-          </Button>
-        </div>
-      );
-    } else if (props.goal.failed && !changeCompleted) {
-      return (
-        <div>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Try again tomorrow!
-          </Typography>
-          <Button variant="outlined" sx={{ bgcolor: 'background.surface' }} onClick={() => { setChangeCompleted(true); }}>
-            Change Completed
-          </Button>
-        </div>
-      );
-    }
-    return (
-      <div>
-        <Box m={1}>
-          <CardActions buttonFlex="1">
-            <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-              <Button onClick={() => { dispatch(); }}>
-                Yes!
-              </Button>
-              <Button onClick={() => { dispatch(); }}>
-                No!
-              </Button>
-            </ButtonGroup>
-          </CardActions>
-        </Box>
-      </div>
-
-    );
-  };
 
   return (
-    <Card variant="outlined" sx={{ width: '100%' }}>
+    <Card variant="outlined" sx={{ width: '33%', position: 'relative', minWidth: '450px' }}>
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -116,25 +74,38 @@ function UserGoalSelection(props) {
             </Typography>
           </Card>
         </Stack>
-        <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteGoal(props.goal.id)); }}>
+        <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteGoal(props.goal._id)); }}>
           <CloseIcon fontSize="inherit" />
         </IconButton>
       </Stack>
       <Typography level="h5" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
-        {props.goal.description}
+        {props.goal.description.toUpperCase()}
       </Typography>
-      <Typography level="h1" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
-        <span style={{ fontSize: '4rem' }}>{props.goal.streakLength}</span>
-        <span style={{ fontSize: '1.5rem' }}>  DAYS</span>
-      </Typography>
-      <Streak goal={{ currentWeek }} />
+      <Card variant="plain">
+        <Typography level="h1" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
+          <span style={{ fontSize: '4rem' }}>{props.goal.streakLength}</span>
+          <span style={{ fontSize: '1.3rem' }}>  DAY STREAK</span>
+        </Typography>
+      </Card>
+      <Streak goal={props.goal} />
       <CardOverflow sx={{ bgcolor: 'background.level1' }}>
         <Box marginTop={2} marginBottom={0.5}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
             Did you complete your goal today?
           </Typography>
         </Box>
-        {completionSection()}
+        <Box m={1}>
+          <CardActions buttonFlex="1">
+            <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
+              <Button onClick={() => { dispatch(setGoalStatusForDay(props.goal._id, 'completed')); }}>
+                Yes!
+              </Button>
+              <Button onClick={() => { dispatch(setGoalStatusForDay(props.goal._id, 'failed')); }}>
+                No!
+              </Button>
+            </ButtonGroup>
+          </CardActions>
+        </Box>
       </CardOverflow>
     </Card>
   );

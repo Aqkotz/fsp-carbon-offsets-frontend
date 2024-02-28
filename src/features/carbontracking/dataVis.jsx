@@ -27,7 +27,6 @@ export default function PieActiveArc(props) {
 
 export function SimpleBarChart(props) {
   const { points } = props;
-  console.log('points', points);
   const data = [
     { data: points.air, label: 'Air', id: 'airId' },
     { data: points.rail, label: 'Rail', id: 'railId' },

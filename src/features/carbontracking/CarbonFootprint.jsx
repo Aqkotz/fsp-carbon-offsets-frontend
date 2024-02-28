@@ -9,7 +9,6 @@ import TravelDetails from './TravelDetails';
 function CarbonFootprint(props) {
   const dispatch = useDispatch();
   const footprint = useSelector((state) => state.carbon.footprint);
-  console.log(footprint);
   useEffect(() => {
     dispatch(fetchCarbonFootprint());
   }, []);
