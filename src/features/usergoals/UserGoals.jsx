@@ -36,8 +36,8 @@ function UserGoals() {
         <Box m={1}>
           <CardActions buttonFlex="1">
             <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-              <Skeleton variant="rectangular" width={60} height={36} />
-              <Skeleton variant="rectangular" width={60} height={36} />
+              <Skeleton variant="rectangular" width="33%" height={36} />
+              <Skeleton variant="rectangular" width="33%" height={36} />
             </ButtonGroup>
           </CardActions>
         </Box>
