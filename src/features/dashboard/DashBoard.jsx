@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Typography, Card, Stack, ToggleButtonGroup, Button, Box,
+  Typography, Card, Stack, ToggleButtonGroup, Button,
 } from '@mui/joy';
 import CurrentGoals from '../usergoals/currentGoals';
 import TotalCarbonDonut from './TotalCarbonDonut';
+import TeamRing from '../team/TeamRing';
 import { fetchCarbonFootprint } from '../carbontracking/carbonSlice';
 
 function CarbonPieChart({ footprint }) {
@@ -111,9 +112,13 @@ function DashBoard() {
           Your Carbon Snapshot
         </Typography>
         <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
-          <Box sx={{ width: '33%' }} />
           {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
-          <Box sx={{ width: '33%' }} />
+          <Card sx={{ width: '30%' }}>
+            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+              You have produced {footprint.user.allTime.total} kg CO2e
+            </Typography>
+          </Card>
+          <TeamRing />
         </Stack>
         {/* <CarbonVis /> */}
       </Card>
@@ -122,11 +127,6 @@ function DashBoard() {
           Your Goals
         </Typography>
         <CurrentGoals />
-      </Card>
-      <Card>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          You have produced {footprint.user.allTime.total} kg CO2e
-        </Typography>
       </Card>
     </Stack>
   );

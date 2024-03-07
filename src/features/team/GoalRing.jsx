@@ -15,7 +15,7 @@ function FitnessRings({ data }) {
     // Define the arc for the single ring
     const arc = d3.arc()
       .innerRadius(radius * 0.6)
-      .outerRadius(radius * 0.9)
+      .outerRadius(radius * 0.7)
       .startAngle(0)
       .cornerRadius(10);
 
@@ -27,19 +27,27 @@ function FitnessRings({ data }) {
       .attr('class', 'ring')
       .attr('transform', `translate(${width / 2},${height / 2})`);
 
-    // Append path element for the ring
-    ring.append('path')
-      .attr('d', (d) => arc({
-        startAngle: 0,
-        endAngle: (d.value / d.maxValue) * Math.PI * 2,
-      }))
-      .attr('fill', data[0].color); // Color for the ring based on data
-
     // Add text label for the ring
     ring.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', 5)
       .text(data[0].label);
+
+    // Append path element for the ring
+    ring.append('path')
+      .attr('d', (d) => arc({
+        startAngle: 0,
+        endAngle: Math.PI * 2,
+      }))
+      .attr('fill', '#ccc'); // Grey color for the entire ring
+
+    // Append another path element for the filled portion of the ring
+    ring.append('path')
+      .attr('d', (d) => arc({
+        startAngle: 0,
+        endAngle: (data[0].value / data[0].maxValue) * Math.PI * 2,
+      }))
+      .attr('fill', data[0].color); // Color for the filled portion
   }, [data]);
 
   return (
