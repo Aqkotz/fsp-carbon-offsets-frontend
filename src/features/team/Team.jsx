@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
 import { fetchTeam, leaveTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
-import TeamRing from './TeamRing';
+// import TeamRing from './TeamRing';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
 function CarbonPieChart({ footprint }) {
@@ -74,6 +74,8 @@ function Team() {
   const [leaveTeamModalOpen, setLeaveTeamModalOpen] = useState(false);
   const team = useSelector((state) => state.team.team);
   const carbonFootprint = team?.carbonFootprint?.allTime?.total;
+  // const carbonWeeklyReduction = team?.carbonFootprint?.weekly?.reduction;
+  // const carbonGoal = team?.carbonGoal?;
 
   if (!team) {
     return (
@@ -111,7 +113,7 @@ function Team() {
       <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
         <CarbonPieChart footprint={team.carbonFootprint} />
         <Leaderboard />
-        <TeamRing />
+        {/* <TeamRing props={team.carbonFootprint, team.carbonGoal} /> */}
       </Stack>
     </Stack>
   );
