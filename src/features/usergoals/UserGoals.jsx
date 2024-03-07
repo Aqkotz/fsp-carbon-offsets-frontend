@@ -5,6 +5,7 @@ import {
 } from '@mui/joy';
 import UserGoalSelection from './UserGoalSelection';
 import SustyGoalInput from './SustainabilityGoalInput';
+import CustomGoal from './CustomGoal';
 import { fetchGoals } from './userGoalsSlice';
 import { fetchCarbonFootprint } from '../carbontracking/carbonSlice';
 
@@ -51,7 +52,8 @@ function UserGoals() {
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={3}>
       <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ fontWeight: 'md', width: '100%' }}>
         <SustyGoalInput />
-        <Card variant="plain" sx={{ fontWeight: 'md', width: '50%' }}>
+        <CustomGoal />
+        <Card variant="plain" sx={{ fontWeight: 'md', width: '20%' }}>
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
             {footprint?.user?.reduction?.total ?? 0} kg CO2e saved
           </Typography>
