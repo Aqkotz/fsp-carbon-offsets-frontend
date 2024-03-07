@@ -63,6 +63,7 @@ export function addTrip(trip) {
     dispatch(carbonSlice.actions.setTrips('loading'));
     await axios.post(`${ROOT_URL}/trips`, trip, getAuthHeader());
     dispatch(fetchTrips());
+    dispatch(fetchCarbonFootprint());
   };
 }
 
@@ -71,6 +72,7 @@ export function removeTrip(trip) {
     dispatch(carbonSlice.actions.setTrips('loading'));
     await axios.delete(`${ROOT_URL}/trips/${trip.id}`, getAuthHeader());
     dispatch(fetchTrips());
+    dispatch(fetchCarbonFootprint());
   };
 }
 
@@ -79,6 +81,7 @@ export function updateTrip(trip) {
     dispatch(carbonSlice.actions.setTrips('loading'));
     await axios.put(`${ROOT_URL}/trips/${trip.id}`, trip, getAuthHeader());
     dispatch(fetchTrips());
+    dispatch(fetchCarbonFootprint());
   };
 }
 
@@ -98,19 +101,6 @@ export function deleteTrip(trip) {
     dispatch(fetchCarbonFootprint());
   };
 }
-export function fetchEnergy() {
-  return async (dispatch) => {
-    const response = await axios.get(`${ROOT_URL}/posts`, getAuthHeader());
-    dispatch(carbonSlice.actions.setSuggestions(response.data));
-  };
-}
-
-export function addEnergy(energy) {
-  return async (dispatch) => {
-    await axios.post(`${ROOT_URL}/posts`, energy, getAuthHeader());
-    dispatch(fetchEnergy());
-  };
-}
 
 export function fetchFood() {
   return async (dispatch) => {
@@ -125,6 +115,7 @@ export function addFood(consumption) {
     dispatch(carbonSlice.actions.setFood('loading'));
     await axios.post(`${ROOT_URL}/food`, { consumption }, getAuthHeader());
     dispatch(fetchFood());
+    dispatch(fetchCarbonFootprint());
   };
 }
 
@@ -141,6 +132,7 @@ export function setHouse(house) {
     dispatch(carbonSlice.actions.setHouse('loading'));
     await axios.post(`${ROOT_URL}/house`, { house }, getAuthHeader());
     dispatch(fetchHouse());
+    dispatch(fetchCarbonFootprint());
   };
 }
 
