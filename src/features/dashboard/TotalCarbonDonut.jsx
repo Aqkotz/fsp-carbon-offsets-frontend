@@ -11,7 +11,7 @@ function TotalCarbonDonut(props) {
   }
   const totalSum = points.total;
   const data = {
-    labels: ['Day to Day Travel', 'Food', 'Home Emissions'],
+    labels: ['Travel', 'Food', 'Home Emissions'],
     datasets: [
       {
         label: 'Total Carbon Emissions CO2e (kg)',
@@ -58,7 +58,7 @@ function TotalCarbonDonut(props) {
     },
   };
 
-  return <Doughnut data={data} options={options} />;
+  return <Doughnut data={data} options={options} sx={{ width: '100px', height: 'auto' }} />;
 }
 
 export default TotalCarbonDonut;
