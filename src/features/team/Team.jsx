@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Typography, Stack, Card, ToggleButtonGroup, Button,
+  Typography, Stack, Card, ToggleButtonGroup, Button, Modal, ModalDialog,
 } from '@mui/joy';
 import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
-import { fetchTeam } from './teamSlice';
+import { fetchTeam, leaveTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
@@ -63,24 +63,49 @@ function CarbonPieChart({ footprint }) {
 }
 
 export { CarbonPieChart };
+
 function Team() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTeam());
   }, []);
+
+  const [leaveTeamModalOpen, setLeaveTeamModalOpen] = useState(false);
   const team = useSelector((state) => state.team.team);
   const carbonFootprint = team?.carbonFootprint?.allTime?.total;
+
   if (!team) {
     return (
       <JoinTeam />
     );
   }
+
   return (
     <Stack>
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Team: {team.name} </Typography>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {carbonFootprint} </Typography>
+        <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
+          <Button onClick={() => setLeaveTeamModalOpen(true)} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Leave Team</Button>
+        </Stack>
       </Card>
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={leaveTeamModalOpen}
+        onClose={() => setLeaveTeamModalOpen(false)}
+      >
+        <ModalDialog>
+          <Typography id="modal-title" level="h4" component="h2" sx={{ mb: 2 }}>
+            Are you sure?
+          </Typography>
+          <Typography id="modal-description" sx={{ mb: 2 }}>
+            This action will remove you from the team. You can rejoin with the join code.
+          </Typography>
+          <Button onClick={() => dispatch(leaveTeam())} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Leave Team</Button>
+          <Button onClick={() => setLeaveTeamModalOpen(false)}>Close</Button>
+        </ModalDialog>
+      </Modal>
       {/* <DonutChart style={{ width: '10px', height: '10px' }} /> */}
       <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
         <CarbonPieChart footprint={team.carbonFootprint} />
