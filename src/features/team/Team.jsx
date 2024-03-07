@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Typography, Stack, Card, ToggleButtonGroup, Button, Modal, ModalDialog,
+  Typography, Stack, Card, ToggleButtonGroup, Button, Modal, ModalDialog, Skeleton,
 } from '@mui/joy';
 import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
@@ -76,6 +76,19 @@ function Team() {
   const carbonFootprint = team?.carbonFootprint?.allTime?.total;
   // const carbonWeeklyReduction = team?.carbonFootprint?.weekly?.reduction;
   // const carbonGoal = team?.carbonGoal?;
+
+  if (team === 'loading') {
+    return (
+      <Card>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          <Skeleton variant="text" />
+        </Typography>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md', width: '50%' }}>
+          <Skeleton variant="text" />
+        </Typography>
+      </Card>
+    );
+  }
 
   if (!team) {
     return (

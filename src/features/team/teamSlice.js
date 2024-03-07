@@ -43,4 +43,11 @@ export function leaveTeam() {
   };
 }
 
+export function createTeam(team) {
+  return async (dispatch) => {
+    await axios.post(`${ROOT_URL}/teams`, team, getAuthHeader());
+    dispatch(fetchTeam());
+  };
+}
+
 export default teamSlice.reducer;
