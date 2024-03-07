@@ -5,8 +5,13 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Sheet from '@mui/joy/Sheet';
-import { CssVarsProvider, extendTheme, ThemeProvider } from '@mui/joy/styles';
+import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
 import Box from '@mui/joy/Box';
+import {
+  Experimental_CssVarsProvider as MaterialCssVarsProvider,
+  experimental_extendTheme as extendMaterialTheme,
+  THEME_ID,
+} from '@mui/material/styles';
 import Nav from '../nav/Nav';
 import UserGoals from '../usergoals/UserGoals';
 import { setToken } from '../user/userSlice';
@@ -85,37 +90,40 @@ function App() {
   });
 
   if (token) {
+    const materialTheme = extendMaterialTheme();
     return (
-      <CssVarsProvider theme={theme}>
-        <Box sx={{ display: 'flex', height: '100vh', Color: '#D9D9D9' }}>
-          <Box>
-            <Box component="main" sx={{ overflow: 'auto' }}>
-              <Sheet
-                sx={{
-                  width: `calc(100vw - ${navBarOffset}px - 32px)`,
-                  minHeight: 'calc(100vh - 80px)',
-                  padding: '16px',
-                  marginTop: '80px',
-                  marginLeft: `${navBarOffset}px`,
-                  backgroundColor: '#D9D9D9',
-                }}
-              >
-                <Routes>
-                  <Route path="/" element={<DashBoard />} />
-                  <Route path="/goals" element={<UserGoals />} />
-                  <Route path="/dailytracking" element={<DailyTracking />} />
-                  <Route path="/team" element={<Team />} />
-                  <Route path="/admin" element={<Admin />} />
-                  {/* <Route path="/helpfulresources" element={<HelpfulResources />} /> */}
-                  <Route path="*" element={<FallBack />} />
-                </Routes>
-              </Sheet>
+      <MaterialCssVarsProvider theme={{ [THEME_ID]: materialTheme }}>
+        <CssVarsProvider theme={theme}>
+          <Box sx={{ display: 'flex', height: '100vh', Color: '#D9D9D9' }}>
+            <Box>
+              <Box component="main" sx={{ overflow: 'auto' }}>
+                <Sheet
+                  sx={{
+                    width: `calc(100vw - ${navBarOffset}px - 32px)`,
+                    minHeight: 'calc(100vh - 80px)',
+                    padding: '16px',
+                    marginTop: '80px',
+                    marginLeft: `${navBarOffset}px`,
+                    backgroundColor: '#D9D9D9',
+                  }}
+                >
+                  <Routes>
+                    <Route path="/" element={<DashBoard />} />
+                    <Route path="/goals" element={<UserGoals />} />
+                    <Route path="/dailytracking" element={<DailyTracking />} />
+                    <Route path="/team" element={<Team />} />
+                    <Route path="/admin" element={<Admin />} />
+                    {/* <Route path="/helpfulresources" element={<HelpfulResources />} /> */}
+                    <Route path="*" element={<FallBack />} />
+                  </Routes>
+                </Sheet>
+              </Box>
+              <Header navBarOffset={navBarOffset} />
             </Box>
-            <Header navBarOffset={navBarOffset} />
+            <Nav navBarWidth={navBarWidth} navBarPadding={navBarPadding} />
           </Box>
-          <Nav navBarWidth={navBarWidth} navBarPadding={navBarPadding} />
-        </Box>
-      </CssVarsProvider>
+        </CssVarsProvider>
+      </MaterialCssVarsProvider>
     );
   } else {
     return (

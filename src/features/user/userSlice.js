@@ -1,13 +1,11 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  signinRequest, signupRequest, duoSigninRequest,
-} from './userRequests';
-import { getAuthHeader } from '../../app/utils';
+import { getAuthHeader, storeToken } from '../../app/utils';
 import { configureAdmin } from '../admin/adminSlice';
 
 const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
+const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
 const initialState = {
   token: null,
@@ -31,14 +29,6 @@ const userSlice = createSlice({
   },
 });
 
-export const signin = ({ email, password }, navigate) => async (dispatch) => {
-  dispatch(signinRequest({ email, password }, navigate, userSlice.actions));
-};
-
-export const signup = (data, navigate) => async (dispatch) => {
-  dispatch(signupRequest(data, navigate, userSlice.actions));
-};
-
 export const getUser = () => async (dispatch) => {
   dispatch(userSlice.actions.setUser('loading'));
   const response = await axios.get(`${ROOT_URL}/user`, getAuthHeader());
@@ -47,7 +37,11 @@ export const getUser = () => async (dispatch) => {
 };
 
 export const duoSignin = (ticket, navigate) => async (dispatch) => {
-  dispatch(duoSigninRequest(ticket, navigate, userSlice.actions));
+  const response = await axios.post(`${ROOT_URL}/validate`, { ticket, service: CLIENT_URL });
+  storeToken(response.data.token);
+  dispatch(userSlice.actions.setToken(response.data.token));
+  dispatch(userSlice.actions.setUser({ name: response.data.name, netid: response.data.netid }));
+  navigate('/');
 };
 
 export const {

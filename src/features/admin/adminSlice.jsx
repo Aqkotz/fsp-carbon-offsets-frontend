@@ -37,6 +37,15 @@ export const fetchJoinCode = () => async (dispatch) => {
   dispatch(setJoinCode(response.data));
 };
 
+export const deleteTeam = (navigate) => async (dispatch) => {
+  await axios.delete(`${ROOT_URL}/teams`, getAuthHeader());
+  dispatch(setTeam('loading'));
+  dispatch(setJoinCode('loading'));
+  dispatch(adminSlice.actions.setIsAdmin(false));
+  dispatch(fetchTeam());
+  navigate('/');
+};
+
 export const configureAdmin = (admin) => async (dispatch) => {
   dispatch(setIsAdmin(admin));
   if (admin) {
