@@ -75,4 +75,14 @@ export const addTeamGoals = (goal) => async (dispatch) => {
   dispatch(addTeamGoal());
 };
 
+export const transferOwnership = (newOwner) => async (dispatch) => {
+  await axios.post(`${ROOT_URL}/teams/transfer`, { newOwner }, getAuthHeader());
+  dispatch(fetchTeam());
+};
+
+export const addAdmin = (newAdmin) => async (dispatch) => {
+  await axios.post(`${ROOT_URL}/teams/admin`, { newAdmin }, getAuthHeader());
+  dispatch(fetchTeam());
+};
+
 export default adminSlice.reducer;
