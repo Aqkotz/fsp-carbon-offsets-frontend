@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  Typography, Card, Button, Option, Grid, Radio, RadioGroup, radioClasses,
+  Typography, Card, Button, Option, Grid, Radio, RadioGroup, radioClasses, Skeleton,
 } from '@mui/joy';
 import Select from '@mui/joy/Select';
 import { setHouse } from './carbonSlice';
 
 function HomeTracking() {
+  const footprint = useSelector((state) => state.carbon.footprint);
   const dispatch = useDispatch();
   const [energy, setEnergy] = useState({
     heater: '',
@@ -34,12 +35,28 @@ function HomeTracking() {
       residents: 0,
     });
   };
+  if (!footprint || footprint === 'loading') {
+    return (
+      <Card>
+        <Skeleton variant="text" width={210} height={32} />
+        <Skeleton variant="text" width={100} height={28} />
+      </Card>
+    );
+  }
 
   return (
     <div>
       <Card sx={{ backgroundColor: 'transparent' }}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Home Energy Analysis
+        </Typography>
+      </Card>
+      <Card variant="soft" style={{ width: '50%', backgroundColor: 'white', marginBottom: '10px' }}>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Your Weekly Home Carbon Footprint
+        </Typography>
+        <Typography level="h1" component="h1" sx={{ fontWeight: 'md' }}>
+          {Math.floor(footprint.user.weekly.house)} kg CO2e
         </Typography>
       </Card>
       <Card variant="outlined" style={{ minHeight: '300px' }}>

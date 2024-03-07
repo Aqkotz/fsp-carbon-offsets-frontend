@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Card, Typography, Stack, Button, Grid, Box, List, ListItem, ListDivider, Radio, RadioGroup,
 } from '@mui/joy';
@@ -89,6 +89,7 @@ const defaultFoods = {
 };
 
 export default function FoodTracking() {
+  const footprint = useSelector((state) => state.carbon.footprint);
   const dispatch = useDispatch();
   const [food, setFood] = useState(defaultFoods);
 
@@ -113,6 +114,14 @@ export default function FoodTracking() {
       <Card sx={{ backgroundColor: 'transparent' }}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Food Calculator
+        </Typography>
+      </Card>
+      <Card variant="soft" style={{ width: '50%', backgroundColor: 'white', marginBottom: '10px' }}>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Your Weekly Food Carbon Footprint
+        </Typography>
+        <Typography level="h1" component="h1" sx={{ fontWeight: 'md' }}>
+          {Math.floor(footprint.user.weekly.food)} kg CO2e
         </Typography>
       </Card>
       <Card sx={{ backgroundColor: 'white' }}>
