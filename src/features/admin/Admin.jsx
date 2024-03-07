@@ -2,77 +2,92 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Card, Typography, Stack, Skeleton, Sheet, Table, Modal, ModalDialog, Input, Button,
+  Card, Typography, Stack, Skeleton, Sheet, Table, Modal, ModalDialog, Input, Button, Select, Option,
 } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
-import { fetchJoinCode, fetchTeam, deleteTeam } from './adminSlice';
+import {
+  fetchJoinCode, fetchTeam, deleteTeam, transferOwnership, addAdmin,
+} from './adminSlice';
 
-// function JoinCodeCard({ joinCode }) {
-//   const teamStatus = useSelector((state) => state.team.team.members);
-//   if (joinCode === 'loading') {
-//     return (
-//       <Card>
-//         <Skeleton width="100px" />
-//         <Skeleton width="120px" />
-//       </Card>
-//     );
-//   }
-//   if (!teamStatus || teamStatus === 'loading') {
-//     return (
-//       <Card variant="plain" style={{ position: 'relative', marginTop: '20px', width: '50%' }}>
-//         <Sheet sx={{ width: '100%' }}>
-//           <Table>
-//             <thead>
-//               <tr>
-//                 <th style={{ width: '10%' }}>Team Member</th>
-//                 <th style={{ width: '10%' }}>Carbon Footprint Reductions (kg CO2)</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               <tr>
-//                 <td>Loading...</td>
-//                 <td>Loading...</td>
-//                 <td>Loading...</td>
-//               </tr>
-//             </tbody>
-//           </Table>
-//         </Sheet>
-//       </Card>
-//     );
-//   }
-//   return (
-//     <Stack>
-//       <Card>
-//         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-//           Join Code:
-//         </Typography>
-//         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-//           {joinCode}
-//         </Typography>
-//       </Card>
-//       <Card variant="plain" style={{ position: 'relative', marginTop: '20px', width: '50%' }}>
-//         <Sheet sx={{ width: '100%' }}>
-//           <Table>
-//             <thead>
-//               <tr>
-//                 <th style={{ width: '25%' }}>Team Member</th>
-//                 <th style={{ width: '50%' }}>Carbon Footprint Reductions (kg CO2)</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {teamStatus.map((item, index) => (
-//                 <tr key={index}>
-//                   <td style={{ width: '25%' }}> {item.name}</td>
-//                   <td style={{ width: '50%' }}>{item.carbonReduction}</td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </Table>
-//         </Sheet>
-//       </Card>
-//     </Stack>
-//   );
-// }
+function MembersCard() {
+  const dispatch = useDispatch();
+  const team = useSelector((state) => state.admin.team);
+  const { members } = team;
+
+  const handleRoleChange = (role, user) => {
+    if (role === 'owner') {
+      dispatch(transferOwnership(user._id));
+    } else if (role === 'admin') {
+      dispatch(addAdmin(user._id));
+    }
+  };
+
+  const roleForUser = (user) => {
+    if (team.owner === user.id) {
+      return 'owner';
+    }
+    if (user.adminOf) {
+      return 'admin';
+    }
+    return 'member';
+  };
+
+  if (!members || members === 'loading') {
+    return (
+      <Card variant="plain" style={{ position: 'relative' }}>
+        <Sheet sx={{ width: '100%' }}>
+          <Table>
+            <thead>
+              <tr>
+                <th style={{ width: '10%' }}>Team Member</th>
+                <th style={{ width: '10%' }}>Carbon Footprint Reductions (kg CO2)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Loading...</td>
+                <td>Loading...</td>
+                <td>Loading...</td>
+              </tr>
+            </tbody>
+          </Table>
+        </Sheet>
+      </Card>
+    );
+  }
+  return (
+    <Stack>
+      <Card variant="plain" style={{ position: 'relative' }}>
+        <Sheet sx={{ width: '100%' }}>
+          <Table>
+            <thead>
+              <tr>
+                <th style={{ width: '25%' }}>Team Member</th>
+                <th style={{ width: '50%' }}>Carbon Footprint Reductions (kg CO2)</th>
+                <th style={{ width: '25%' }}>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {members.map((item, index) => (
+                <tr key={index}>
+                  <td style={{ width: '25%' }}> {item.name}</td>
+                  <td style={{ width: '50%' }}> {item.carbonReduction}</td>
+                  <td style={{ width: '25%' }}>
+                    <Select placeholder="Mode of Travel" onChange={(e, n) => { handleRoleChange(n, item); }} value={roleForUser(item)}>
+                      <Option value="member">Member</Option>
+                      <Option value="admin">Admin</Option>
+                      <Option value="owner">Owner</Option>
+                    </Select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Sheet>
+      </Card>
+    </Stack>
+  );
+}
 
 function Admin() {
   const dispatch = useDispatch();
@@ -113,6 +128,7 @@ function Admin() {
             </Typography>
           </Stack>
         </Card>
+        <MembersCard sx={{ width: '67%' }} />
       </Stack>
       <Modal
         aria-labelledby="modal-title"
