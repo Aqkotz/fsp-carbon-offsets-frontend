@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
 import { fetchTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
+import TeamRing from './TeamRing';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
 function CarbonPieChart({ footprint }) {
@@ -85,6 +86,7 @@ function Team() {
       <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
         <CarbonPieChart footprint={team.carbonFootprint} />
         <Leaderboard />
+        <TeamRing />
       </Stack>
     </Stack>
   );
