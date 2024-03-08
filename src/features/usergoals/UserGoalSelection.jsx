@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Card, Typography, Button, ButtonGroup, CardOverflow, CardActions, Stack, IconButton, Box,
+  Card, Typography, Button, ButtonGroup, CardOverflow, CardActions, Stack, IconButton, Box, Modal, ModalDialog,
 } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
 import Streak from './streak2';
@@ -43,6 +43,7 @@ function UserGoalSelection(props) {
   const dispatch = useDispatch();
   const { theme } = props.goal;
   const [changeCompleted, setChangeCompleted] = useState(false);
+  const [leaveModalOpen, setLeaveModalOpen] = useState(false);
 
   const getColorByTheme = () => {
     switch (theme) {
@@ -74,10 +75,24 @@ function UserGoalSelection(props) {
             </Typography>
           </Card>
         </Stack>
-        <IconButton aria-label="delete" size="small" onClick={() => { dispatch(deleteGoal(props.goal._id)); }}>
+        <IconButton aria-label="delete" size="small" onClick={() => setLeaveModalOpen(true)}>
           <CloseIcon fontSize="inherit" />
         </IconButton>
       </Stack>
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={leaveModalOpen}
+        onClose={() => setLeaveModalOpen(false)}
+      >
+        <ModalDialog>
+          <Typography id="modal-title" level="h4" component="h2" sx={{ mb: 2 }}>
+            Are you sure?
+          </Typography>
+          <Button onClick={() => { dispatch(deleteGoal(props.goal._id)); }} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Delete Goal</Button>
+          <Button onClick={() => setLeaveModalOpen(false)}>Log as past goal</Button>
+        </ModalDialog>
+      </Modal>
       <Typography level="h5" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
         {props.goal.description.toUpperCase()}
       </Typography>
@@ -89,7 +104,7 @@ function UserGoalSelection(props) {
       </Card>
       <Streak goal={props.goal} />
       <CardOverflow sx={{ bgcolor: 'background.level1' }}>
-        <Box marginTop={2} marginBottom={0.5}>
+        <Box marginTop={2} marginBottom={0.5} display="flex" justifyContent="center">
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
             Did you complete your goal today?
           </Typography>

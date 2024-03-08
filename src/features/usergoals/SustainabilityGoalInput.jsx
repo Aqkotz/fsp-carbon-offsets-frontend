@@ -2,8 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import AddIcon from '@mui/icons-material/Add';
 import {
-  Typography, Card, Box, Button, ButtonGroup, Option, MenuItem, Select, Stack, selectClasses,
+  Typography, Card, Box, Button, ButtonGroup, Option, MenuItem, Select, Stack, selectClasses, IconButton, Modal, ModalDialog,
 } from '@mui/joy';
 import {
   setGoal, getThemes, getGoalsByTheme,
@@ -86,16 +87,25 @@ function DependentDropdown() {
 export { DependentDropdown };
 
 function SustyGoalInput() {
+  const [leaveModalOpen, setLeaveModalOpen] = useState(false);
   return (
-    <Card variant="outlined"
-      sx={{
-        px: 3, py: 1.5, borderRadius: 'sm', backgroundColor: 'background.level1', width: '50%',
-      }}
-    >
-      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-        What is your sustainability goal?
-      </Typography>
-      <DependentDropdown />
+    <Card variant="filled">
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Button type="button" onClick={() => setLeaveModalOpen(true)}> Predefined Goals <AddIcon style={{ fontSize: 40 }} /></Button>
+      </Stack>
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={leaveModalOpen}
+        onClose={() => setLeaveModalOpen(false)}
+      >
+        <ModalDialog sx={{ width: '40%', maxHeight: '80%' }}>
+          <Typography sx={{ fontSize: '20px' }}>
+            What is your sustainability goal?
+          </Typography>
+          <DependentDropdown />
+        </ModalDialog>
+      </Modal>
     </Card>
   );
 }
