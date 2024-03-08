@@ -6,12 +6,13 @@ import {
 } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import {
-  fetchJoinCode, fetchTeam, deleteTeam, transferOwnership, addAdmin,
+  fetchJoinCode, deleteTeam, transferOwnership, addAdmin, removeAdmin,
 } from './adminSlice';
+import { fetchTeam } from '../team/teamSlice';
 
 function MembersCard() {
   const dispatch = useDispatch();
-  const team = useSelector((state) => state.admin.team);
+  const team = useSelector((state) => state.team.team);
   const { members } = team;
 
   const handleRoleChange = (role, user) => {
@@ -19,6 +20,8 @@ function MembersCard() {
       dispatch(transferOwnership(user._id));
     } else if (role === 'admin') {
       dispatch(addAdmin(user._id));
+    } else if (role === 'member') {
+      dispatch(removeAdmin(user._id));
     }
   };
 
@@ -96,7 +99,7 @@ function Admin() {
     dispatch(fetchJoinCode());
     dispatch(fetchTeam());
   }, []);
-  const team = useSelector((state) => state.admin.team);
+  const team = useSelector((state) => state.team.team);
   const joinCode = useSelector((state) => state.admin.joinCode);
   const [deleteTeamModalOpen, setDeleteTeamModalOpen] = useState(false);
   const [deleteTeamInput, setDeleteTeamInput] = useState('');

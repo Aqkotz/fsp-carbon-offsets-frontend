@@ -1,21 +1,18 @@
 import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
 import { getAuthHeader } from '../../app/utils';
+import { fetchTeam } from '../team/teamSlice';
 
 const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const adminSlice = createSlice({
   name: 'admin',
   initialState: {
-    team: 'loading',
     isAdmin: false,
     joinCode: 'loading',
     setTeamGoal: 'loading',
   },
   reducers: {
-    setTeam: (state, action) => {
-      state.team = action.payload;
-    },
     setIsAdmin: (state, action) => {
       state.isAdmin = action.payload;
     },
@@ -34,11 +31,6 @@ export const adminSlice = createSlice({
 export const {
   setIsAdmin, setTeam, setJoinCode, setTeamGoal, addTeamGoal,
 } = adminSlice.actions;
-
-export const fetchTeam = () => async (dispatch) => {
-  const response = await axios.get(`${ROOT_URL}/teams`, getAuthHeader());
-  dispatch(setTeam(response.data));
-};
 
 export const fetchJoinCode = () => async (dispatch) => {
   dispatch(setJoinCode('loading'));
@@ -82,6 +74,11 @@ export const transferOwnership = (newOwner) => async (dispatch) => {
 
 export const addAdmin = (newAdmin) => async (dispatch) => {
   await axios.post(`${ROOT_URL}/teams/admin`, { newAdmin }, getAuthHeader());
+  dispatch(fetchTeam());
+};
+
+export const removeAdmin = (oldAdmin) => async (dispatch) => {
+  await axios.delete(`${ROOT_URL}/teams/admin`, { oldAdmin }, getAuthHeader());
   dispatch(fetchTeam());
 };
 

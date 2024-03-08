@@ -57,7 +57,7 @@ export const deleteGoal = (id) => async (dispatch) => {
 
 export const getThemes = () => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setThemes('loading'));
-  const response = await axios.get(`${ROOT_URL}/themes`);
+  const response = await axios.get(`${ROOT_URL}/goals/themes`);
   dispatch(userGoalsSlice.actions.setThemes(response.data));
 };
 

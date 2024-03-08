@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
 import { fetchTeam, leaveTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
-// import TeamRing from './TeamRing';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
 function CarbonPieChart({ footprint }) {

@@ -24,8 +24,10 @@ export const { setTeam } = teamSlice.actions;
 
 export function fetchTeam() {
   return async (dispatch) => {
+    console.log('fetching team');
     const response = await axios.get(`${ROOT_URL}/teams`, getAuthHeader());
     dispatch(teamSlice.actions.setTeam(response.data));
+    console.log(response.data);
   };
 }
 
