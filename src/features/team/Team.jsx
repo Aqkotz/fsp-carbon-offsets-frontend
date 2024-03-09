@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import {
   Typography, Stack, Card, ToggleButtonGroup, Button, Modal, ModalDialog, Skeleton,
 } from '@mui/joy';
 import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
-import { fetchTeam, leaveTeam } from './teamSlice';
+import { fetchTeam, leaveTeam, testRequest } from './teamSlice';
 import Leaderboard from './leaderBoard';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
@@ -67,7 +68,8 @@ export { CarbonPieChart };
 function Team() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchTeam());
+    dispatch(testRequest());
+    // dispatch(fetchTeam());
   }, []);
 
   const [leaveTeamModalOpen, setLeaveTeamModalOpen] = useState(false);
