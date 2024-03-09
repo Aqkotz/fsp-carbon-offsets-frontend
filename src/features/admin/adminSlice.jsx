@@ -84,7 +84,7 @@ export const addAdmin = (newAdmin) => async (dispatch) => {
 };
 
 export const removeAdmin = (oldAdmin) => async (dispatch) => {
-  await axios.delete(`${ROOT_URL}/teams/admin`, { oldAdmin }, getAuthHeader());
+  await axios.delete(`${ROOT_URL}/teams/admin/${oldAdmin}`, getAuthHeader());
   dispatch(fetchTeam());
 };
 

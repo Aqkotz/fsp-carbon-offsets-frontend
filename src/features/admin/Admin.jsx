@@ -10,7 +10,7 @@ import {
 } from './adminSlice';
 import { fetchTeam } from '../team/teamSlice';
 
-function MembersCard() {
+function MembersCard({ owner }) {
   const dispatch = useDispatch();
   const team = useSelector((state) => state.team.team);
   const { members } = team;
@@ -76,11 +76,14 @@ function MembersCard() {
                   <td style={{ width: '25%' }}> {item.name}</td>
                   <td style={{ width: '50%' }}> {item.carbonReduction}</td>
                   <td style={{ width: '25%' }}>
-                    <Select placeholder="Mode of Travel" onChange={(e, n) => { handleRoleChange(n, item); }} value={roleForUser(item)}>
-                      <Option value="member">Member</Option>
-                      <Option value="admin">Admin</Option>
-                      <Option value="owner">Owner</Option>
-                    </Select>
+                    {roleForUser(item) === 'owner' ? <Typography>Owner</Typography>
+                      : (
+                        <Select placeholder="Mode of Travel" onChange={(e, n) => { handleRoleChange(n, item); }} value={roleForUser(item)}>
+                          <Option value="member">Member</Option>
+                          <Option value="admin">Admin</Option>
+                          {owner && <Option value="owner">Owner</Option>}
+                        </Select>
+                      )}
                   </td>
                 </tr>
               ))}
@@ -140,7 +143,7 @@ function Admin() {
             </Typography>
           </Stack>
         </Card>
-        <MembersCard sx={{ width: '67%' }} />
+        <MembersCard sx={{ width: '67%' }} owner={owner} />
       </Stack>
       <Modal
         aria-labelledby="modal-title"
