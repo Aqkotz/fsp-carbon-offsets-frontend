@@ -9,12 +9,16 @@ export const adminSlice = createSlice({
   name: 'admin',
   initialState: {
     isAdmin: false,
+    isOwner: false,
     joinCode: 'loading',
     setTeamGoal: 'loading',
   },
   reducers: {
     setIsAdmin: (state, action) => {
       state.isAdmin = action.payload;
+    },
+    setIsOwner: (state, action) => {
+      state.isOwner = action.payload;
     },
     setJoinCode: (state, action) => {
       state.joinCode = action.payload;
@@ -29,7 +33,7 @@ export const adminSlice = createSlice({
 });
 
 export const {
-  setIsAdmin, setTeam, setJoinCode, setTeamGoal, addTeamGoal,
+  setIsAdmin, setTeam, setJoinCode, setTeamGoal, addTeamGoal, setIsOwner,
 } = adminSlice.actions;
 
 export const fetchJoinCode = () => async (dispatch) => {
@@ -43,12 +47,14 @@ export const deleteTeam = (navigate) => async (dispatch) => {
   dispatch(setTeam('loading'));
   dispatch(setJoinCode('loading'));
   dispatch(adminSlice.actions.setIsAdmin(false));
+  dispatch(adminSlice.actions.setIsOwner(false));
   dispatch(fetchTeam());
   navigate('/');
 };
 
-export const configureAdmin = (admin) => async (dispatch) => {
+export const configureAdmin = (admin, owner) => async (dispatch) => {
   dispatch(setIsAdmin(admin));
+  dispatch(setIsOwner(owner));
   if (admin) {
     dispatch(fetchTeam());
     dispatch(fetchJoinCode());

@@ -100,6 +100,7 @@ function Admin() {
     dispatch(fetchTeam());
   }, []);
   const team = useSelector((state) => state.team.team);
+  const owner = useSelector((state) => state.admin.isOwner);
   const joinCode = useSelector((state) => state.admin.joinCode);
   const [deleteTeamModalOpen, setDeleteTeamModalOpen] = useState(false);
   const [deleteTeamInput, setDeleteTeamInput] = useState('');
@@ -112,12 +113,20 @@ function Admin() {
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
       <Card>
         <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Admin For: {team === 'loading' ? <Skeleton variant="text" /> : team.name}
-          </Typography>
+          {owner ? (
+            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+              Owner Of: {team === 'loading' ? <Skeleton variant="text" /> : team.name}
+            </Typography>
+          ) : (
+            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+              Admin Of: {team === 'loading' ? <Skeleton variant="text" /> : team.name}
+            </Typography>
+          )}
+          {owner && (
           <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
             <Button onClick={() => setDeleteTeamModalOpen(true)} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Delete Team</Button>
           </Stack>
+          )}
         </Stack>
       </Card>
       <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>

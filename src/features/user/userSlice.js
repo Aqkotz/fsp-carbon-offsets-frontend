@@ -33,7 +33,7 @@ export const getUser = () => async (dispatch) => {
   dispatch(userSlice.actions.setUser('loading'));
   const response = await axios.get(`${ROOT_URL}/user`, getAuthHeader());
   dispatch(userSlice.actions.setUser(response.data));
-  dispatch(configureAdmin(response.data.adminOf));
+  dispatch(configureAdmin(response.data.adminOf, response.data.isOwner));
 };
 
 export const duoSignin = (ticket, navigate) => async (dispatch) => {
