@@ -68,7 +68,7 @@ function UserGoalSelection(props) {
         spacing={2}
       >
         {/* Center the theme card and stretch across 80% */}
-        <Box sx={{ width: 10, height: 10 }} />
+        <Card variant="filled" sx={{ width: 10, height: 10 }} />
         <Card variant="soft" alignItems="center" sx={{ bgcolor: color, width: '90%', mx: 'auto' }}> {/* Making the card thinner and centering the text */}
           <Typography level="h5" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}> {/* Centering the text */}
             {theme.toUpperCase()}
