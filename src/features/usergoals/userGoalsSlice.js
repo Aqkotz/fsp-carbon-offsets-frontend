@@ -40,7 +40,7 @@ export const fetchGoals = () => async (dispatch) => {
 
 export const fetchPastGoals = () => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setPastGoals('loading'));
-  const response = await axios.get(`${ROOT_URL}/goals/past`, getAuthHeader());
+  const response = await axios.get(`${ROOT_URL}/pastgoals`, getAuthHeader());
   dispatch(userGoalsSlice.actions.setPastGoals(response.data));
 };
 
