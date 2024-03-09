@@ -48,6 +48,7 @@ export const addPastGoal = (id) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setPastGoals('loading'));
   await axios.post(`${ROOT_URL}/goals/past/${id}`, {}, getAuthHeader());
   dispatch(fetchPastGoals());
+  dispatch(fetchGoals());
 };
 
 export const setGoal = (goal) => async (dispatch) => {
