@@ -6,7 +6,7 @@ import {
 import UserGoalSelection from './UserGoalSelection';
 import SustyGoalInput from './SustainabilityGoalInput';
 import CustomGoal from './CustomGoal';
-import { fetchGoals } from './userGoalsSlice';
+import { fetchGoals, fetchPastGoals } from './userGoalsSlice';
 import { fetchCarbonFootprint } from '../carbontracking/carbonSlice';
 
 function UserGoals() {
@@ -14,8 +14,10 @@ function UserGoals() {
   useEffect(() => {
     dispatch(fetchGoals());
     dispatch(fetchCarbonFootprint());
+    dispatch(fetchPastGoals());
   }, []);
   const goals = useSelector((state) => state.userGoals.goals);
+  const pastGoals = useSelector((state) => state.userGoals.pastGoals);
   const footprint = useSelector((state) => state.carbon.footprint);
 
   const goalsCardSkeleton = () => {
@@ -51,7 +53,7 @@ function UserGoals() {
   return (
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={3}>
       <Stack direction="row" justifyContent="flex-start" spacing={2} sx={{ fontWeight: 'md', alignItems: 'stretch' }}>
-        <Card variant="filled" sx={{ width: '35%' }}>
+        <Card variant="filled" sx={{ width: '30%', minWidth: '350px' }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Typography sx={{ fontWeight: 'md', fontSize: '40px' }}>
               Add<br />Goals
@@ -74,9 +76,11 @@ function UserGoals() {
         </Card>
       </Stack>
       <Card sx={{ backgroundColor: 'transparent' }}>
+        {goals.length > 0 && (
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Current Goals
         </Typography>
+        )}
         <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ width: '100%' }}>
           {goals === 'loading' && new Array(3).fill(0).map((_, index) => {
             return (
@@ -86,6 +90,25 @@ function UserGoals() {
             );
           })}
           {(goals && goals !== 'loading') && goals.map((goal, index) => {
+            return (
+              <UserGoalSelection key={goal._id} goal={goal} index={index} />
+            );
+          })}
+        </Stack>
+        {pastGoals.length > 0 && (
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Past Goals
+        </Typography>
+        )}
+        <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ width: '100%' }}>
+          {pastGoals === 'loading' && new Array(3).fill(0).map((_, index) => {
+            return (
+              <div key={index}>
+                { goalsCardSkeleton() }
+              </div>
+            );
+          })}
+          {(pastGoals && pastGoals !== 'loading') && pastGoals.map((goal, index) => {
             return (
               <UserGoalSelection key={goal._id} goal={goal} index={index} />
             );
