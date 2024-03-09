@@ -50,13 +50,27 @@ function UserGoals() {
 
   return (
     <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={3}>
-      <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ fontWeight: 'md', width: '100%' }}>
-        <SustyGoalInput />
-        <CustomGoal />
-        <Card variant="plain" sx={{ fontWeight: 'md', width: '20%' }}>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            {footprint?.user?.reduction?.total ?? 0} kg CO2e saved
-          </Typography>
+      <Stack direction="row" justifyContent="flex-start" spacing={2} sx={{ fontWeight: 'md', alignItems: 'stretch' }}>
+        <Card variant="filled" sx={{ width: '35%' }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Typography sx={{ fontWeight: 'md', fontSize: '40px' }}>
+              Add<br />Goals
+            </Typography>
+            <Stack direction="column" justifyContent="flex-end" alignItems="center" spacing={2}>
+              <SustyGoalInput />
+              <CustomGoal />
+            </Stack>
+          </Stack>
+        </Card>
+        <Card variant="plain" sx={{ fontWeight: 'md' }}>
+          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+            <Typography sx={{ fontWeight: 'md', fontSize: '60px', marginTop: '10px' }}>
+              {footprint?.user?.reduction?.total ?? 0}
+            </Typography>
+            <Typography sx={{ fontWeight: 'md', fontSize: '25px' }}>
+              kg CO2e saved
+            </Typography>
+          </Stack>
         </Card>
       </Stack>
       <Card sx={{ backgroundColor: 'transparent' }}>
