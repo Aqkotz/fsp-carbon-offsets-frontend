@@ -18,6 +18,7 @@ function UserGoals() {
   }, []);
   const goals = useSelector((state) => state.userGoals.goals);
   const pastGoals = useSelector((state) => state.userGoals.pastGoals);
+  console.log(pastGoals);
   const footprint = useSelector((state) => state.carbon.footprint);
 
   const goalsCardSkeleton = () => {
