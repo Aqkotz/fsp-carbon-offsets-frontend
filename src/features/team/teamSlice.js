@@ -31,6 +31,15 @@ export function fetchTeam() {
   };
 }
 
+export function testRequest() {
+  return async (dispatch) => {
+    console.log('test request');
+    const response = await axios.get(`${ROOT_URL}/testrequest`, getAuthHeader());
+    console.log(response.data);
+    dispatch(teamSlice.actions.setTeam(response.data));
+  };
+}
+
 export function joinTeam(joinCode) {
   return async (dispatch) => {
     const response = await axios.post(`${ROOT_URL}/teams/join`, { joinCode }, getAuthHeader());
