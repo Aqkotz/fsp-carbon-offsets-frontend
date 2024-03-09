@@ -60,7 +60,7 @@ function UserGoalSelection(props) {
   const color = getColorByTheme(theme);
 
   return (
-    <Card variant="outlined" sx={{ width: '33%', position: 'relative', minWidth: '450px' }}>
+    <Card variant="outlined" sx={{ position: 'relative', minWidth: '450px' }}>
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -68,14 +68,13 @@ function UserGoalSelection(props) {
         spacing={2}
       >
         {/* Center the theme card and stretch across 80% */}
-        <Stack sx={{ width: '80%' }} justifyContent="center" alignItems="center">
-          <Card variant="soft" sx={{ bgcolor: color, width: '90%', mx: 'auto' }}> {/* Making the card thinner and centering the text */}
-            <Typography level="h5" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}> {/* Centering the text */}
-              {theme.toUpperCase()}
-            </Typography>
-          </Card>
-        </Stack>
-        <IconButton aria-label="delete" size="small" onClick={() => setLeaveModalOpen(true)}>
+        <Box sx={{ width: 10, height: 10 }} />
+        <Card variant="soft" alignItems="center" sx={{ bgcolor: color, width: '90%', mx: 'auto' }}> {/* Making the card thinner and centering the text */}
+          <Typography level="h5" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}> {/* Centering the text */}
+            {theme.toUpperCase()}
+          </Typography>
+        </Card>
+        <IconButton aria-label="delete" sx={{ width: 10, height: 10 }} onClick={() => setLeaveModalOpen(true)}>
           <CloseIcon fontSize="inherit" />
         </IconButton>
       </Stack>
@@ -93,13 +92,13 @@ function UserGoalSelection(props) {
           <Button onClick={() => setLeaveModalOpen(false)}>Log as past goal</Button>
         </ModalDialog>
       </Modal>
-      <Typography level="h5" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
+      <Typography level="h5" component="h2" sx={{ fontWeight: 'bold', textAlign: 'center', fontSize: '1.5rem' }}>
         {props.goal.description.toUpperCase()}
       </Typography>
       <Card variant="plain">
         <Typography level="h1" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
           <span style={{ fontSize: '4rem' }}>{props.goal.streakLength}</span>
-          <span style={{ fontSize: '1.3rem' }}>  DAY STREAK</span>
+          <span style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>  DAY STREAK</span>
         </Typography>
       </Card>
       <Streak goal={props.goal} />

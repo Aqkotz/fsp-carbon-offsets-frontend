@@ -61,11 +61,9 @@ function Streak(props) {
   ));
 
   return (
-    <Card variant="plain" align-content="center">
-      <Stack direction="row">
-        {content}
-      </Stack>
-    </Card>
+    <Stack direction="row">
+      {content}
+    </Stack>
   );
 }
 

@@ -13,7 +13,7 @@ function Streak(props) {
       );
     }
     return (
-      <Card variant="plain" key={i}>
+      <Card variant="plain" key={i} sx={{ pading: '2px' }}>
         <span role="img" style={{ fontSize: '1rem' }} aria-label="x-mark">❌</span>
       </Card>
     );
