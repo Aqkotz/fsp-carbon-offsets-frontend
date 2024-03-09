@@ -13,11 +13,16 @@ import { fetchTeam } from '../team/teamSlice';
 function MembersCard({ owner }) {
   const dispatch = useDispatch();
   const team = useSelector((state) => state.team.team);
+  const [transferModalOpen, setTransferModalOpen] = useState(false);
+  const [transferInput, setTransferInput] = useState('');
+  const [transferName, setTransferName] = useState('');
   const { members } = team;
 
   const handleRoleChange = (role, user) => {
     if (role === 'owner') {
-      dispatch(transferOwnership(user._id));
+      setTransferInput(user._id);
+      setTransferName(user.name);
+      setTransferModalOpen(true);
     } else if (role === 'admin') {
       dispatch(addAdmin(user._id));
     } else if (role === 'member') {
@@ -58,6 +63,14 @@ function MembersCard({ owner }) {
       </Card>
     );
   }
+
+  const sortedMembers = [...members].sort((a, b) => {
+    const priority = { owner: 1, admin: 2, member: 3 };
+    const roleA = roleForUser(a);
+    const roleB = roleForUser(b);
+    return priority[roleA] - priority[roleB];
+  });
+
   return (
     <Stack>
       <Card variant="plain" style={{ position: 'relative' }}>
@@ -71,7 +84,7 @@ function MembersCard({ owner }) {
               </tr>
             </thead>
             <tbody>
-              {members.map((item, index) => (
+              {sortedMembers.map((item, index) => (
                 <tr key={index}>
                   <td style={{ width: '25%' }}> {item.name}</td>
                   <td style={{ width: '50%' }}> {item.carbonReduction}</td>
@@ -91,6 +104,23 @@ function MembersCard({ owner }) {
           </Table>
         </Sheet>
       </Card>
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={transferModalOpen}
+        onClose={() => setTransferModalOpen(false)}
+      >
+        <ModalDialog>
+          <Typography id="modal-title" level="h4" component="h2" sx={{ mb: 2 }}>
+            Are you sure?
+          </Typography>
+          <Typography id="modal-description" sx={{ mb: 2 }}>
+            This action will make {transferName} the owner of the team.
+          </Typography>
+          <Button onClick={() => dispatch(transferOwnership(transferInput))} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Transfer Ownership</Button>
+          <Button onClick={() => setTransferModalOpen(false)}>Close</Button>
+        </ModalDialog>
+      </Modal>
     </Stack>
   );
 }

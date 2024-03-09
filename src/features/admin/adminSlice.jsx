@@ -76,6 +76,7 @@ export const addTeamGoals = (goal) => async (dispatch) => {
 export const transferOwnership = (newOwner) => async (dispatch) => {
   await axios.post(`${ROOT_URL}/teams/transfer`, { newOwner }, getAuthHeader());
   dispatch(fetchTeam());
+  dispatch(adminSlice.actions.setIsOwner(false));
 };
 
 export const addAdmin = (newAdmin) => async (dispatch) => {
