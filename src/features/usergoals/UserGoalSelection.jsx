@@ -6,42 +6,12 @@ import {
 } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
 import Streak from './streak2';
-import { deleteGoal, setGoalStatusForDay } from './userGoalsSlice';
-
-const currentWeek = [
-  {
-    completed: 'past',
-    date: '2022-09-11',
-  },
-  {
-    completed: 'failed',
-    date: '2022-09-12',
-  },
-  {
-    completed: 'completed',
-    date: '2022-09-13',
-  },
-  {
-    completed: 'completed',
-    date: '2022-09-14',
-  },
-  {
-    completed: 'completed',
-    date: '2022-09-15',
-  },
-  {
-    completed: 'future',
-    date: '2022-09-16',
-  },
-  {
-    completed: 'future',
-    date: '2022-09-17',
-  },
-];
+import { deleteGoal, setGoalStatusForDay, addPastGoal } from './userGoalsSlice';
 
 function UserGoalSelection(props) {
   const dispatch = useDispatch();
   const { theme } = props.goal;
+  const { past } = props;
   const [changeCompleted, setChangeCompleted] = useState(false);
   const [leaveModalOpen, setLeaveModalOpen] = useState(false);
 
@@ -60,7 +30,8 @@ function UserGoalSelection(props) {
   const color = getColorByTheme(theme);
 
   return (
-    <Card variant="outlined" sx={{ position: 'relative', minWidth: '450px' }}>
+    <Card variant="outlined" sx={{ position: 'relative', minWidth: '450px', width: '33%' }}>
+      {!past && (
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -78,6 +49,15 @@ function UserGoalSelection(props) {
           <CloseIcon fontSize="inherit" />
         </IconButton>
       </Stack>
+      )}
+      {past && (
+        <Card variant="soft" alignItems="center" sx={{ bgcolor: color, width: '90%', mx: 'auto' }}> {/* Making the card thinner and centering the text */}
+          <Typography level="h5" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}> {/* Centering the text */}
+            {theme.toUpperCase()}
+          </Typography>
+        </Card>
+      )}
+      {!past && (
       <Modal
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
@@ -89,20 +69,41 @@ function UserGoalSelection(props) {
             Are you sure?
           </Typography>
           <Button onClick={() => { dispatch(deleteGoal(props.goal._id)); }} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Delete Goal</Button>
-          <Button onClick={() => setLeaveModalOpen(false)}>Log as past goal</Button>
+          <Button onClick={() => {
+            setLeaveModalOpen(false);
+            dispatch(addPastGoal(props.goal._id));
+          }}
+          >Log as past goal
+          </Button>
         </ModalDialog>
       </Modal>
+      )}
       <Typography level="h5" component="h2" sx={{ fontWeight: 'bold', textAlign: 'center', fontSize: '1.5rem' }}>
         {props.goal.description.toUpperCase()}
       </Typography>
+      {!past && (
       <Card variant="plain">
         <Typography level="h1" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
           <span style={{ fontSize: '4rem' }}>{props.goal.streakLength}</span>
           <span style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>  DAY STREAK</span>
         </Typography>
       </Card>
-      <Streak goal={props.goal} />
-      <CardOverflow sx={{ bgcolor: 'background.level1' }}>
+      )}
+      {past && (
+        <Card variant="plain">
+          <Typography level="h1" component="h2" sx={{ fontWeight: 'md', textAlign: 'center' }}>
+            <span style={{ fontSize: '4rem' }}>{props.goal.carbonReduction}</span>
+            <span style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>  KG CO2 SAVED</span>
+          </Typography>
+        </Card>
+      )}
+      {!past && (
+      <Card variant="plain" alignItems="center">
+        <Streak goal={props.goal} />
+      </Card>
+      )}
+      {!past && (
+      <CardOverflow sx={{ bgcolor: 'background.level1', bottom: 0 }}>
         <Box marginTop={2} marginBottom={0.5} display="flex" justifyContent="center">
           <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
             Did you complete your goal today?
@@ -121,6 +122,7 @@ function UserGoalSelection(props) {
           </CardActions>
         </Box>
       </CardOverflow>
+      )}
     </Card>
   );
 }
