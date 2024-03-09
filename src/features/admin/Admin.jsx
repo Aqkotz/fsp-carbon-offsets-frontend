@@ -17,7 +17,6 @@ function MembersCard({ owner }) {
   const [transferInput, setTransferInput] = useState('');
   const [transferName, setTransferName] = useState('');
   const { members } = team;
-  console.log(members);
 
   const handleRoleChange = (role, user) => {
     if (role === 'owner') {
