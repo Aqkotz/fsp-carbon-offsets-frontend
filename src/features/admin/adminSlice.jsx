@@ -76,6 +76,7 @@ export const addTeamGoals = (goal) => async (dispatch) => {
 export const transferOwnership = (newOwner) => async (dispatch) => {
   await axios.post(`${ROOT_URL}/teams/transfer`, { newOwner }, getAuthHeader());
   dispatch(fetchTeam());
+  dispatch(adminSlice.actions.setIsOwner(false));
 };
 
 export const addAdmin = (newAdmin) => async (dispatch) => {
@@ -84,7 +85,7 @@ export const addAdmin = (newAdmin) => async (dispatch) => {
 };
 
 export const removeAdmin = (oldAdmin) => async (dispatch) => {
-  await axios.delete(`${ROOT_URL}/teams/admin`, { oldAdmin }, getAuthHeader());
+  await axios.delete(`${ROOT_URL}/teams/admin/${oldAdmin}`, getAuthHeader());
   dispatch(fetchTeam());
 };
 

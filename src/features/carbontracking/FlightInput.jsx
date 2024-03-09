@@ -87,7 +87,7 @@ function FlightInput() {
           <Skeleton variant="circular" width={40} height={40} />
         </Stack>
         <List>
-          {[...new Array(2)].map((_, index) => ( // Assuming 3 skeleton list items
+          {[...new Array(2)].map((_, index) => (
             <ListItem key={`skeleton-${index}`} sx={{ spacing: 2, justifyContent: 'space-between' }}>
               <ListItemDecorator>
                 <Skeleton variant="text" width={100} height={28} />
