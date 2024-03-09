@@ -18,6 +18,7 @@ function UserGoals() {
   }, []);
   const goals = useSelector((state) => state.userGoals.goals);
   const pastGoals = useSelector((state) => state.userGoals.pastGoals);
+  console.log(pastGoals);
   const footprint = useSelector((state) => state.carbon.footprint);
 
   const goalsCardSkeleton = () => {
@@ -100,7 +101,13 @@ function UserGoals() {
           Past Goals
         </Typography>
         )}
-        <Stack direction="row" justifyContent="flex-start" spacing={3} sx={{ width: '100%' }}>
+        <Stack
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '40px',
+          }}
+        >
           {pastGoals === 'loading' && new Array(3).fill(0).map((_, index) => {
             return (
               <div key={index}>
@@ -110,7 +117,7 @@ function UserGoals() {
           })}
           {(pastGoals && pastGoals !== 'loading') && pastGoals.map((goal, index) => {
             return (
-              <UserGoalSelection key={goal._id} goal={goal} index={index} />
+              <UserGoalSelection key={goal._id} goal={goal} index={index} past />
             );
           })}
         </Stack>
