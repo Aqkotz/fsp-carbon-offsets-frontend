@@ -37,10 +37,6 @@ function BarChart(props) {
     scales: {
       y: {
         beginAtZero: true,
-        axisLabel: {
-          display: true,
-          labelString: 'kg CO2e',
-        },
       },
     },
     plugins: {
