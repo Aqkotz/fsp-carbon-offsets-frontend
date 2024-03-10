@@ -60,15 +60,18 @@ function UserGoals() {
               Add<br />Goals
             </Typography>
             <Stack direction="column" justifyContent="flex-end" alignItems="center" spacing={2}>
-              <SustyGoalInput />
-              <CustomGoal />
+              <SustyGoalInput disabled={!goals || goals.length >= 3} />
+              <CustomGoal disabled={!goals || goals.length >= 3} />
+              <Typography sx={{ fontWeight: 'md', fontSize: '10px' }}>
+                *You can only have 3 active goals at a time
+              </Typography>
             </Stack>
           </Stack>
         </Card>
         <Card variant="plain" sx={{ fontWeight: 'md' }}>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
             <Typography sx={{ fontWeight: 'md', fontSize: '60px', marginTop: '10px' }}>
-              {footprint?.user?.reduction?.total ?? 0}
+              {(footprint?.user?.reduction?.total ?? 0).toFixed(1)}
             </Typography>
             <Typography sx={{ fontWeight: 'md', fontSize: '25px' }}>
               kg CO2e saved

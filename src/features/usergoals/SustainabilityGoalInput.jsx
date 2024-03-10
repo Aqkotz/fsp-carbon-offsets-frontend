@@ -94,12 +94,12 @@ function DependentDropdown(props) {
 
 export { DependentDropdown };
 
-function SustyGoalInput() {
+function SustyGoalInput(props) {
   const [leaveModalOpen, setLeaveModalOpen] = useState(false);
   return (
     <Card variant="filled">
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Button type="button" onClick={() => setLeaveModalOpen(true)}> Predefined Goals <AddIcon style={{ fontSize: 40 }} /></Button>
+        <Button type="button" disabled={props.disabled} onClick={() => setLeaveModalOpen(true)}> Predefined Goals <AddIcon style={{ fontSize: 40 }} /></Button>
       </Stack>
       <Modal
         aria-labelledby="modal-title"

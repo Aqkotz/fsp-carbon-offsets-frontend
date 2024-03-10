@@ -9,7 +9,7 @@ import {
   setGoal,
 } from './userGoalsSlice';
 
-function CustomGoal() {
+function CustomGoal(props) {
   const dispatch = useDispatch();
   const [leaveModalOpen, setLeaveModalOpen] = useState(false);
   const [theme, setTheme] = useState('');
@@ -31,7 +31,7 @@ function CustomGoal() {
   return (
     <Card variant="filled" padding="0px">
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Button type="button" onClick={() => setLeaveModalOpen(true)}>Add Custom Goal <AddIcon style={{ fontSize: 40 }} /></Button>
+        <Button type="button" disabled={props.disabled} onClick={() => setLeaveModalOpen(true)}>Add Custom Goal <AddIcon style={{ fontSize: 40 }} /></Button>
       </Stack>
       <Modal
         aria-labelledby="modal-title"

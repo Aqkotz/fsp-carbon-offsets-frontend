@@ -98,7 +98,7 @@ function Team() {
     <Stack>
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Team: {team.name} </Typography>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {carbonFootprint.toFixed(2)} </Typography>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {carbonFootprint.toFixed(2)} kg CO2e</Typography>
         <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
           <Button onClick={() => setLeaveTeamModalOpen(true)} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Leave Team</Button>
         </Stack>
