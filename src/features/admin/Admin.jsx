@@ -6,9 +6,9 @@ import {
 } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import {
-  fetchJoinCode, deleteTeam, transferOwnership, addAdmin, removeAdmin,
+  fetchJoinCode, deleteTeam, transferOwnership, addAdmin, removeAdmin, addTeamGoal,
 } from './adminSlice';
-import { fetchTeam } from '../team/teamSlice';
+import { testRequest } from '../team/teamSlice';
 
 function MembersCard({ owner }) {
   const dispatch = useDispatch();
@@ -130,16 +130,24 @@ function Admin() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchJoinCode());
-    dispatch(fetchTeam());
+    dispatch(testRequest());
   }, []);
   const team = useSelector((state) => state.team.team);
   const owner = useSelector((state) => state.admin.isOwner);
   const joinCode = useSelector((state) => state.admin.joinCode);
   const [deleteTeamModalOpen, setDeleteTeamModalOpen] = useState(false);
   const [deleteTeamInput, setDeleteTeamInput] = useState('');
+  const [addGoalModalOpen, setAddGoalModalOpen] = useState(false);
+  const [goalInput, setGoalInput] = useState(0);
 
   const canDeleteTeam = () => {
     return team.name !== '' && deleteTeamInput === team.name;
+  };
+
+  const submitGoal = () => {
+    dispatch(addTeamGoal(goalInput));
+    setAddGoalModalOpen(false);
+    setGoalInput(0);
   };
 
   return (
@@ -193,11 +201,32 @@ function Admin() {
           <Button onClick={() => setDeleteTeamModalOpen(false)}>Close</Button>
         </ModalDialog>
       </Modal>
-      <Card>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Add Team Goal
-        </Typography>
-      </Card>
+      <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2}>
+        <Card>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Add Team Goal
+          </Typography>
+          <Button onClick={() => setAddGoalModalOpen(true)}>Add Goal</Button>
+        </Card>
+      </Stack>
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={addGoalModalOpen}
+        onClose={() => setAddGoalModalOpen(false)}
+      >
+        <ModalDialog>
+          <Typography id="modal-title" level="h4" component="h2" sx={{ mb: 2 }}>
+            Add Team Weekly Goal
+          </Typography>
+          <Typography id="modal-description" sx={{ mb: 2 }}>
+            What is the carbon reduction goal for this week? (kg CO2e)
+          </Typography>
+          <Input value={goalInput} onChange={(e) => setGoalInput(e.target.value)} placeholder="carbon reduction for this week" />
+          <Button onClick={() => submitGoal()} sx={{ backgroundColor: 'green', '&:hover': { backgroundColor: 'darkgreen' } }}>Add Goal</Button>
+          <Button onClick={() => setAddGoalModalOpen(false)}>Close</Button>
+        </ModalDialog>
+      </Modal>
     </Stack>
   );
 }
