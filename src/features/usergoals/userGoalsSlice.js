@@ -69,6 +69,7 @@ export const deleteGoal = (id) => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setGoals('loading'));
   await axios.delete(`${ROOT_URL}/goals/${id}`, getAuthHeader());
   dispatch(fetchGoals());
+  dispatch(fetchPastGoals());
   dispatch(fetchCarbonFootprint());
 };
 
