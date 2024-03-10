@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
 import { leaveTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
+import TeamRing from './TeamRing';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
 function CarbonPieChart({ footprint }) {
@@ -123,7 +124,15 @@ function Team() {
       <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
         <CarbonPieChart footprint={team.carbonFootprint} />
         <Leaderboard />
-        {/* <TeamRing props={team.carbonFootprint, team.carbonGoal} /> */}
+        {team.teamGoal === 'loading' ? (
+          <Card>
+            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+              No Team Goal Set
+            </Typography>
+          </Card>
+        ) : team.teamGoal && team.teamGoal !== 'loading' && (
+        <TeamRing points={team.teamGoal} />
+        )}
       </Stack>
     </Stack>
   );

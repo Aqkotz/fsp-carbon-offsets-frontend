@@ -91,6 +91,7 @@ function DashBoard() {
     dispatch(fetchCarbonFootprint());
   }, []);
   const footprint = useSelector((state) => state.carbon.footprint);
+  const team = useSelector((state) => state.team.team);
 
   if (!footprint || footprint === 'loading') {
     return (
@@ -118,7 +119,15 @@ function DashBoard() {
               You have produced {footprint.user.allTime.total} kg CO2e
             </Typography>
           </Card>
-          <TeamRing />
+          {team.teamGoal === 'loading' ? (
+            <Card>
+              <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+                No Team Goal Set
+              </Typography>
+            </Card>
+          ) : team.teamGoal && team.teamGoal !== 'loading' && (
+          <TeamRing points={team.teamGoal} />
+          )}
         </Stack>
         {/* <CarbonVis /> */}
       </Card>
