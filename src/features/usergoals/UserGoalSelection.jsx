@@ -18,11 +18,11 @@ function UserGoalSelection(props) {
   const getColorByTheme = () => {
     switch (theme) {
       case 'food':
-        return 'rgba(227, 108, 108, 0.7)';
+        return 'rgba(9, 145, 104, 0.7)';
       case 'travel':
-        return 'rgba(189, 108, 227, 0.7)';
+        return 'rgba(15, 21, 145, 0.4)';
       case 'house':
-        return 'rgba(100, 209, 216, 0.7)';
+        return 'rgba(114, 194, 193, 0.7)';
       default:
         return '#FFFFFF';
     }

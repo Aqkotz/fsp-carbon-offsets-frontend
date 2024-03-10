@@ -193,6 +193,11 @@ function Admin() {
           <Button onClick={() => setDeleteTeamModalOpen(false)}>Close</Button>
         </ModalDialog>
       </Modal>
+      <Card>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+          Add Team Goal
+        </Typography>
+      </Card>
     </Stack>
   );
 }
