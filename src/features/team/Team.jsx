@@ -5,7 +5,7 @@ import {
 } from '@mui/joy';
 import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
-import { fetchTeam, leaveTeam, testRequest } from './teamSlice';
+import { leaveTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
@@ -67,10 +67,6 @@ export { CarbonPieChart };
 
 function Team() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(testRequest());
-    // dispatch(fetchTeam());
-  }, []);
 
   const [leaveTeamModalOpen, setLeaveTeamModalOpen] = useState(false);
   const team = useSelector((state) => state.team.team);
@@ -101,7 +97,7 @@ function Team() {
     <Stack>
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Team: {team.name} </Typography>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {carbonFootprint} </Typography>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {carbonFootprint.toFixed(2)} </Typography>
         <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
           <Button onClick={() => setLeaveTeamModalOpen(true)} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Leave Team</Button>
         </Stack>

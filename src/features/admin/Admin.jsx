@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   fetchJoinCode, deleteTeam, transferOwnership, addAdmin, removeAdmin, addTeamGoal,
 } from './adminSlice';
-import { testRequest } from '../team/teamSlice';
 
 function MembersCard({ owner }) {
   const dispatch = useDispatch();
@@ -87,7 +86,7 @@ function MembersCard({ owner }) {
               {sortedMembers.map((item, index) => (
                 <tr key={index}>
                   <td style={{ width: '25%' }}> {item.name}</td>
-                  <td style={{ width: '50%' }}> {item.carbonReduction}</td>
+                  <td style={{ width: '50%' }}> {item?.carbonFootprint?.reduction?.total}</td>
                   <td style={{ width: '25%' }}>
                     {roleForUser(item) === 'owner' ? <Typography>Owner</Typography>
                       : (
@@ -130,22 +129,24 @@ function Admin() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchJoinCode());
-    dispatch(testRequest());
   }, []);
   const team = useSelector((state) => state.team.team);
+  console.log(team);
   const owner = useSelector((state) => state.admin.isOwner);
   const joinCode = useSelector((state) => state.admin.joinCode);
   const [deleteTeamModalOpen, setDeleteTeamModalOpen] = useState(false);
   const [deleteTeamInput, setDeleteTeamInput] = useState('');
   const [addGoalModalOpen, setAddGoalModalOpen] = useState(false);
-  const [goalInput, setGoalInput] = useState(0);
+  const [goalInput, setGoalInput] = useState('');
 
   const canDeleteTeam = () => {
     return team.name !== '' && deleteTeamInput === team.name;
   };
 
   const submitGoal = () => {
-    dispatch(addTeamGoal(goalInput));
+    dispatch(addTeamGoal({
+      carbonReduction: goalInput,
+    }));
     setAddGoalModalOpen(false);
     setGoalInput(0);
   };
@@ -222,7 +223,7 @@ function Admin() {
           <Typography id="modal-description" sx={{ mb: 2 }}>
             What is the carbon reduction goal for this week? (kg CO2e)
           </Typography>
-          <Input value={goalInput} onChange={(e) => setGoalInput(e.target.value)} placeholder="carbon reduction for this week" />
+          <Input value={goalInput} type="number" onChange={(e) => setGoalInput(e.target.value)} placeholder="carbon reduction for this week" />
           <Button onClick={() => submitGoal()} sx={{ backgroundColor: 'green', '&:hover': { backgroundColor: 'darkgreen' } }}>Add Goal</Button>
           <Button onClick={() => setAddGoalModalOpen(false)}>Close</Button>
         </ModalDialog>
