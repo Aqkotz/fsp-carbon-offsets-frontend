@@ -39,7 +39,7 @@ function Header(props) {
     <Box
       sx={{
         width: `calc(100vw - ${props.navBarOffset}px)`,
-        opacity: 1,
+        opacity: 0.99,
         borderBottom: '1px solid',
         borderColor: 'divider',
         backgroundColor: 'secondary.50',
