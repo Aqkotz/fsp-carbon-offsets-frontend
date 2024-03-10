@@ -76,7 +76,24 @@ function CustomGoal() {
           <Typography id="modal-description" sx={{ mb: 2 }}>
             Set New Goal
           </Typography>
-          <Button disabled={!canSubmit()} onClick={() => dispatch(submitGoal())} sx={{ backgroundColor: 'green', '&:hover': { backgroundColor: 'green' } }}>Set Goal</Button>
+          <Button
+            disabled={!canSubmit()}
+            onClick={() => {
+              submitGoal();
+              setLeaveModalOpen(false);
+              setTheme('');
+              setDescription('');
+              setCarbonReduction(0);
+            }}
+            sx={{
+              backgroundColor: 'green',
+              '&:hover': {
+                backgroundColor: 'green',
+              },
+            }}
+          >
+            Set Goal
+          </Button>
         </ModalDialog>
       </Modal>
     </Card>
