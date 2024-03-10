@@ -11,7 +11,6 @@ export const adminSlice = createSlice({
     isAdmin: false,
     isOwner: false,
     joinCode: 'loading',
-    setTeamGoal: 'loading',
   },
   reducers: {
     setIsAdmin: (state, action) => {
@@ -26,14 +25,11 @@ export const adminSlice = createSlice({
     setTeamGoal: (state, action) => {
       state.teamGoal = action.payload;
     },
-    addTeamGoal: (state, action) => {
-      state.teamGoal = action.payload;
-    },
   },
 });
 
 export const {
-  setIsAdmin, setTeam, setJoinCode, setTeamGoal, addTeamGoal, setIsOwner,
+  setIsAdmin, setTeam, setJoinCode, setTeamGoal, setIsOwner,
 } = adminSlice.actions;
 
 export const fetchJoinCode = () => async (dispatch) => {
@@ -67,10 +63,9 @@ export const fetchTeamGoals = () => async (dispatch) => {
   dispatch(setTeamGoal(response.data));
 };
 
-export const addTeamGoals = (goal) => async (dispatch) => {
-  dispatch(addTeamGoal('loading'));
-  await axios.post(`${ROOT_URL}/teams`, goal, getAuthHeader());
-  dispatch(addTeamGoal());
+export const addTeamGoal = (goal) => async (dispatch) => {
+  await axios.post(`${ROOT_URL}/teams/goal`, { goal }, getAuthHeader());
+  dispatch(fetchTeam());
 };
 
 export const transferOwnership = (newOwner) => async (dispatch) => {
