@@ -1,23 +1,23 @@
 import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
 import { getAuthHeader } from '../../app/utils';
+import { fetchTeam } from '../team/teamSlice';
 
 const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const adminSlice = createSlice({
   name: 'admin',
   initialState: {
-    team: 'loading',
     isAdmin: false,
+    isOwner: false,
     joinCode: 'loading',
-    setTeamGoal: 'loading',
   },
   reducers: {
-    setTeam: (state, action) => {
-      state.team = action.payload;
-    },
     setIsAdmin: (state, action) => {
       state.isAdmin = action.payload;
+    },
+    setIsOwner: (state, action) => {
+      state.isOwner = action.payload;
     },
     setJoinCode: (state, action) => {
       state.joinCode = action.payload;
@@ -25,20 +25,12 @@ export const adminSlice = createSlice({
     setTeamGoal: (state, action) => {
       state.teamGoal = action.payload;
     },
-    addTeamGoal: (state, action) => {
-      state.teamGoal = action.payload;
-    },
   },
 });
 
 export const {
-  setIsAdmin, setTeam, setJoinCode, setTeamGoal, addTeamGoal,
+  setIsAdmin, setTeam, setJoinCode, setTeamGoal, setIsOwner,
 } = adminSlice.actions;
-
-export const fetchTeam = () => async (dispatch) => {
-  const response = await axios.get(`${ROOT_URL}/teams`, getAuthHeader());
-  dispatch(setTeam(response.data));
-};
 
 export const fetchJoinCode = () => async (dispatch) => {
   dispatch(setJoinCode('loading'));
@@ -51,12 +43,14 @@ export const deleteTeam = (navigate) => async (dispatch) => {
   dispatch(setTeam('loading'));
   dispatch(setJoinCode('loading'));
   dispatch(adminSlice.actions.setIsAdmin(false));
+  dispatch(adminSlice.actions.setIsOwner(false));
   dispatch(fetchTeam());
   navigate('/');
 };
 
-export const configureAdmin = (admin) => async (dispatch) => {
+export const configureAdmin = (admin, owner) => async (dispatch) => {
   dispatch(setIsAdmin(admin));
+  dispatch(setIsOwner(owner));
   if (admin) {
     dispatch(fetchTeam());
     dispatch(fetchJoinCode());
@@ -69,19 +63,24 @@ export const fetchTeamGoals = () => async (dispatch) => {
   dispatch(setTeamGoal(response.data));
 };
 
-export const addTeamGoals = (goal) => async (dispatch) => {
-  dispatch(addTeamGoal('loading'));
-  await axios.post(`${ROOT_URL}/teams`, goal, getAuthHeader());
-  dispatch(addTeamGoal());
+export const addTeamGoal = (goal) => async (dispatch) => {
+  await axios.post(`${ROOT_URL}/teams/goal`, { goal }, getAuthHeader());
+  dispatch(fetchTeam());
 };
 
 export const transferOwnership = (newOwner) => async (dispatch) => {
   await axios.post(`${ROOT_URL}/teams/transfer`, { newOwner }, getAuthHeader());
   dispatch(fetchTeam());
+  dispatch(adminSlice.actions.setIsOwner(false));
 };
 
 export const addAdmin = (newAdmin) => async (dispatch) => {
   await axios.post(`${ROOT_URL}/teams/admin`, { newAdmin }, getAuthHeader());
+  dispatch(fetchTeam());
+};
+
+export const removeAdmin = (oldAdmin) => async (dispatch) => {
+  await axios.delete(`${ROOT_URL}/teams/admin/${oldAdmin}`, getAuthHeader());
   dispatch(fetchTeam());
 };
 

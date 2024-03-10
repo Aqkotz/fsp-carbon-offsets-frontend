@@ -29,7 +29,6 @@ function CarbonTracking(props) {
           <Typography level="h4" component="h1" sx={{ fontWeight: 'md' }}>
             Travel Calculator Powered By
           </Typography>
-
           <Box component="img" src={logo} alt="Logo" sx={{ width: '8%', height: 'auto', padding: '16px' }} />
         </Stack>
       </Card>

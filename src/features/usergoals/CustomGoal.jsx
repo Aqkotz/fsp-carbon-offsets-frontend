@@ -9,7 +9,7 @@ import {
   setGoal,
 } from './userGoalsSlice';
 
-function CustomGoal() {
+function CustomGoal(props) {
   const dispatch = useDispatch();
   const [leaveModalOpen, setLeaveModalOpen] = useState(false);
   const [theme, setTheme] = useState('');
@@ -29,17 +29,10 @@ function CustomGoal() {
   };
 
   return (
-    <Stack>
-      <Card sx={{ width: '50%' }}>
-        <Stack direction="column" justifyContent="space-between" alignItems="center">
-          <Typography level="h3" component="h3" sx={{ fontWeight: 'md' }}>
-            Add Custom Goal
-          </Typography>
-          <IconButton aria-label="delete" size="small" onClick={() => setLeaveModalOpen(true)}>
-            <AddIcon fontSize="inherit" />
-          </IconButton>
-        </Stack>
-      </Card>
+    <Card variant="filled" padding="0px">
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Button type="button" disabled={props.disabled} onClick={() => setLeaveModalOpen(true)}>Add Custom Goal <AddIcon style={{ fontSize: 40 }} /></Button>
+      </Stack>
       <Modal
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
@@ -83,11 +76,27 @@ function CustomGoal() {
           <Typography id="modal-description" sx={{ mb: 2 }}>
             Set New Goal
           </Typography>
-          <Button disabled={!canSubmit()} onClick={() => dispatch(submitGoal())} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Set Goal</Button>
+          <Button
+            disabled={!canSubmit()}
+            onClick={() => {
+              submitGoal();
+              setLeaveModalOpen(false);
+              setTheme('');
+              setDescription('');
+              setCarbonReduction(0);
+            }}
+            sx={{
+              backgroundColor: 'green',
+              '&:hover': {
+                backgroundColor: 'green',
+              },
+            }}
+          >
+            Set Goal
+          </Button>
         </ModalDialog>
       </Modal>
-      {/* <DonutChart style={{ width: '10px', height: '10px' }} /> */}
-    </Stack>
+    </Card>
   );
 }
 

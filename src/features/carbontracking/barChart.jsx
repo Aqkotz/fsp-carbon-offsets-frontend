@@ -5,7 +5,7 @@ import 'chart.js/auto';
 function BarChart(props) {
   const { points } = props;
   const data = {
-    labels: ['Air', 'Rail', 'Car'],
+    labels: ['Air kg CO2e', 'Rail kg CO2e', 'Car kg CO2e'],
     datasets: [
       {
         label: [],
@@ -45,7 +45,7 @@ function BarChart(props) {
       },
       title: {
         display: true,
-        text: 'Travel Options by Air, Rail, and Car',
+        text: 'Kg CO2e produced by Air, Rail, and Car',
       },
     },
   };

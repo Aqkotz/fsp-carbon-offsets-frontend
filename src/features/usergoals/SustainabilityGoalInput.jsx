@@ -2,14 +2,17 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 import {
-  Typography, Card, Box, Button, ButtonGroup, Option, MenuItem, Select, Stack, selectClasses,
+  Typography, Card, Box, Button, ButtonGroup, Option, MenuItem, Select, Stack, selectClasses, IconButton, Modal, ModalDialog,
 } from '@mui/joy';
 import {
   setGoal, getThemes, getGoalsByTheme,
 } from './userGoalsSlice';
 
-function DependentDropdown() {
+function DependentDropdown(props) {
+  const { setLeaveModalOpen } = props;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getThemes());
@@ -75,7 +78,13 @@ function DependentDropdown() {
           ))}
         </Select>
         )}
-        <Button onClick={handleSubmit} disabled={!canSubmit()}>
+        <Button
+          onClick={() => {
+            handleSubmit();
+            setLeaveModalOpen(false);
+          }}
+          disabled={!canSubmit()}
+        >
           Add Goal
         </Button>
       </Stack>
@@ -85,17 +94,31 @@ function DependentDropdown() {
 
 export { DependentDropdown };
 
-function SustyGoalInput() {
+function SustyGoalInput(props) {
+  const [leaveModalOpen, setLeaveModalOpen] = useState(false);
   return (
-    <Card variant="outlined"
-      sx={{
-        px: 3, py: 1.5, borderRadius: 'sm', backgroundColor: 'background.level1', width: '50%',
-      }}
-    >
-      <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-        What is your sustainability goal?
-      </Typography>
-      <DependentDropdown />
+    <Card variant="filled">
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Button type="button" disabled={props.disabled} onClick={() => setLeaveModalOpen(true)}> Predefined Goals <AddIcon style={{ fontSize: 40 }} /></Button>
+      </Stack>
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={leaveModalOpen}
+        onClose={() => setLeaveModalOpen(false)}
+      >
+        <ModalDialog sx={{ width: '40%', maxHeight: '80%' }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Typography sx={{ fontSize: '20px' }}>
+              What is your sustainability goal?
+            </Typography>
+            <IconButton aria-label="delete" size="small" onClick={() => setLeaveModalOpen(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Stack>
+          <DependentDropdown setLeaveModalOpen={setLeaveModalOpen} />
+        </ModalDialog>
+      </Modal>
     </Card>
   );
 }

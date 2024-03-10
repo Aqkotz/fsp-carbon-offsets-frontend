@@ -1,12 +1,13 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import {
   Typography, Stack, Card, ToggleButtonGroup, Button, Modal, ModalDialog, Skeleton,
 } from '@mui/joy';
 import { useSelector, useDispatch } from 'react-redux';
 import JoinTeam from './joinTeam';
-import { fetchTeam, leaveTeam } from './teamSlice';
+import { leaveTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
-// import TeamRing from './TeamRing';
+import TeamRing from './TeamRing';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
 function CarbonPieChart({ footprint }) {
@@ -67,9 +68,6 @@ export { CarbonPieChart };
 
 function Team() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchTeam());
-  }, []);
 
   const [leaveTeamModalOpen, setLeaveTeamModalOpen] = useState(false);
   const team = useSelector((state) => state.team.team);
@@ -100,7 +98,7 @@ function Team() {
     <Stack>
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Team: {team.name} </Typography>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {carbonFootprint} </Typography>
+        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {carbonFootprint.toFixed(2)} kg CO2e</Typography>
         <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
           <Button onClick={() => setLeaveTeamModalOpen(true)} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Leave Team</Button>
         </Stack>
@@ -126,7 +124,15 @@ function Team() {
       <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
         <CarbonPieChart footprint={team.carbonFootprint} />
         <Leaderboard />
-        {/* <TeamRing props={team.carbonFootprint, team.carbonGoal} /> */}
+        {team.teamGoal === 'loading' ? (
+          <Card>
+            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+              No Team Goal Set
+            </Typography>
+          </Card>
+        ) : team.teamGoal && team.teamGoal !== 'loading' && (
+        <TeamRing points={team.teamGoal} />
+        )}
       </Stack>
     </Stack>
   );

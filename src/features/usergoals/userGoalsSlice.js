@@ -10,11 +10,12 @@ export const userGoalsSlice = createSlice({
   name: 'userGoals',
   initialState: {
     goals: 'loading',
+    pastGoals: 'loading',
     themes: 'loading',
     goalOptions: 'loading',
   },
   reducers: {
-    setGoalsReducer: (state, action) => {
+    setGoals: (state, action) => {
       state.goals = action.payload;
     },
     setThemes: (state, action) => {
@@ -23,19 +24,35 @@ export const userGoalsSlice = createSlice({
     setGoalOptions: (state, action) => {
       state.goalOptions = action.payload;
     },
+    setPastGoals: (state, action) => {
+      state.pastGoals = action.payload;
+    },
   },
 });
 
-export const { setGoalsReducer, setGoalCompleted, setGoalFailed } = userGoalsSlice.actions;
+export const { setGoals, setGoalCompleted, setGoalFailed } = userGoalsSlice.actions;
 
 export const fetchGoals = () => async (dispatch) => {
-  dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
+  dispatch(userGoalsSlice.actions.setGoals('loading'));
   const response = await axios.get(`${ROOT_URL}/goals`, getAuthHeader());
-  dispatch(userGoalsSlice.actions.setGoalsReducer(response.data));
+  dispatch(userGoalsSlice.actions.setGoals(response.data));
+};
+
+export const fetchPastGoals = () => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setPastGoals('loading'));
+  const response = await axios.get(`${ROOT_URL}/pastgoals`, getAuthHeader());
+  dispatch(userGoalsSlice.actions.setPastGoals(response.data));
+};
+
+export const addPastGoal = (id) => async (dispatch) => {
+  dispatch(userGoalsSlice.actions.setPastGoals('loading'));
+  await axios.post(`${ROOT_URL}/goals/past/${id}`, {}, getAuthHeader());
+  dispatch(fetchPastGoals());
+  dispatch(fetchGoals());
 };
 
 export const setGoal = (goal) => async (dispatch) => {
-  dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
+  dispatch(userGoalsSlice.actions.setGoals('loading'));
   await axios.post(`${ROOT_URL}/goals`, goal, getAuthHeader());
   dispatch(fetchGoals());
 };
@@ -49,15 +66,16 @@ export const setGoalStatusForDay = (id, status) => async (dispatch) => {
 };
 
 export const deleteGoal = (id) => async (dispatch) => {
-  dispatch(userGoalsSlice.actions.setGoalsReducer('loading'));
+  dispatch(userGoalsSlice.actions.setGoals('loading'));
   await axios.delete(`${ROOT_URL}/goals/${id}`, getAuthHeader());
   dispatch(fetchGoals());
+  dispatch(fetchPastGoals());
   dispatch(fetchCarbonFootprint());
 };
 
 export const getThemes = () => async (dispatch) => {
   dispatch(userGoalsSlice.actions.setThemes('loading'));
-  const response = await axios.get(`${ROOT_URL}/themes`);
+  const response = await axios.get(`${ROOT_URL}/goals/themes`);
   dispatch(userGoalsSlice.actions.setThemes(response.data));
 };
 
