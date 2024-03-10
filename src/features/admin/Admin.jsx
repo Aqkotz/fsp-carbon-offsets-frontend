@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   fetchJoinCode, deleteTeam, transferOwnership, addAdmin, removeAdmin,
 } from './adminSlice';
-import { fetchTeam } from '../team/teamSlice';
+import { testRequest } from '../team/teamSlice';
 
 function MembersCard({ owner }) {
   const dispatch = useDispatch();
@@ -130,7 +130,7 @@ function Admin() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchJoinCode());
-    dispatch(fetchTeam());
+    dispatch(testRequest());
   }, []);
   const team = useSelector((state) => state.team.team);
   const owner = useSelector((state) => state.admin.isOwner);
