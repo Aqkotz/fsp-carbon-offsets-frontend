@@ -29,6 +29,13 @@ export function fetchTeam() {
   };
 }
 
+export function testRequest() {
+  return async (dispatch) => {
+    const response = await axios.get(`${ROOT_URL}/testrequest`, getAuthHeader());
+    dispatch(teamSlice.actions.setTeam(response.data));
+  };
+}
+
 export function joinTeam(joinCode) {
   return async (dispatch) => {
     const response = await axios.post(`${ROOT_URL}/teams/join`, { joinCode }, getAuthHeader());
@@ -46,7 +53,7 @@ export function leaveTeam() {
 export function createTeam(team) {
   return async (dispatch) => {
     await axios.post(`${ROOT_URL}/teams`, team, getAuthHeader());
-    dispatch(fetchTeam());
+    dispatch(testRequest());
   };
 }
 
