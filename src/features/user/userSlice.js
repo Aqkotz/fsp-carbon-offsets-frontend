@@ -44,6 +44,11 @@ export const duoSignin = (ticket, navigate) => async (dispatch) => {
   navigate('/');
 };
 
+export const deleteUser = () => async (dispatch) => {
+  await axios.delete(`${ROOT_URL}/user`, getAuthHeader());
+  dispatch(userSlice.actions.logout());
+};
+
 export const {
   setToken, setUser, logout,
 } = userSlice.actions;
