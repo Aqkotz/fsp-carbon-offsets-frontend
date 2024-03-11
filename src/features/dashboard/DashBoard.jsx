@@ -6,7 +6,8 @@ import {
 } from '@mui/joy';
 import CurrentGoals from '../usergoals/currentGoals';
 import TotalCarbonDonut from './TotalCarbonDonut';
-import TeamRing from '../team/TeamRing';
+// import TeamRing from '../team/TeamRing';
+import Thermometer from './Thermomemter';
 import { fetchCarbonFootprint } from '../carbontracking/carbonSlice';
 
 function CarbonPieChart({ footprint }) {
@@ -92,6 +93,7 @@ function DashBoard() {
   }, []);
   const footprint = useSelector((state) => state.carbon.footprint);
   const team = useSelector((state) => state.team.team);
+  console.log('team', team);
 
   if (!footprint || footprint === 'loading') {
     return (
@@ -109,27 +111,32 @@ function DashBoard() {
   return (
     <Stack>
       <Card variant="plain" sx={{ backgroundColor: 'transparent' }}>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Your Carbon Snapshot
-        </Typography>
         <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
-          {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
-          <Card sx={{ width: '30%' }}>
+          <Card>
             <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-              You have produced {footprint.user.allTime.total} kg CO2e
+              Your Carbon Snapshot
             </Typography>
+            {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
           </Card>
-          {team.teamGoal === 'loading' ? (
-            <Card>
+          <Stack direction="column" spacing={2} alignItems="stretch">
+            <Card sx={{ width: '100%' }}>
               <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-                No Team Goal Set
+                You have produced <br /> {footprint.user.allTime.total} kg CO2e
               </Typography>
             </Card>
-          ) : team.teamGoal && team.teamGoal !== 'loading' && (
-          <TeamRing points={team.teamGoal} />
-          )}
+            {team.teamGoal === 'loading' ? (
+              <Card sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+                <Typography level="h3" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}>
+                  No Team Goal Set
+                </Typography>
+              </Card>
+            ) : team.teamGoal && team.teamGoal !== 'loading' && (
+            <Card sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+              <Thermometer points={team.teamGoal} />
+            </Card>
+            )}
+          </Stack>
         </Stack>
-        {/* <CarbonVis /> */}
       </Card>
       <Card variant="plain" sx={{ backgroundColor: 'transparent' }}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>

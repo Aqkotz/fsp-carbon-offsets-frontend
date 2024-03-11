@@ -61,7 +61,7 @@ function DependentDropdown(props) {
         >
           {themes.map((t) => (
             <Option key={t} value={t}>
-              {t}
+              {t.toUpperCase()}
             </Option>
           ))}
         </Select>
@@ -73,7 +73,7 @@ function DependentDropdown(props) {
         >
           {goalOptions.map((g) => (
             <Option key={g.description} value={g.description}>
-              {g.description}
+              {g.description.toUpperCase()}
             </Option>
           ))}
         </Select>
