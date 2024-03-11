@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
 import { getAuthHeader } from '../../app/utils';
-import { testRequest } from '../team/teamSlice';
+import { fetchTeam } from '../team/teamSlice';
 
 const ROOT_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -44,7 +44,7 @@ export const deleteTeam = (navigate) => async (dispatch) => {
   dispatch(setJoinCode('loading'));
   dispatch(adminSlice.actions.setIsAdmin(false));
   dispatch(adminSlice.actions.setIsOwner(false));
-  dispatch(testRequest());
+  dispatch(fetchTeam());
   navigate('/');
 };
 
@@ -52,7 +52,7 @@ export const configureAdmin = (admin, owner) => async (dispatch) => {
   dispatch(setIsAdmin(admin));
   dispatch(setIsOwner(owner));
   if (admin) {
-    dispatch(testRequest());
+    dispatch(fetchTeam());
     dispatch(fetchJoinCode());
   }
 };
@@ -65,23 +65,23 @@ export const fetchTeamGoals = () => async (dispatch) => {
 
 export const addTeamGoal = (goal) => async (dispatch) => {
   await axios.post(`${ROOT_URL}/teams/goal`, { goal }, getAuthHeader());
-  dispatch(testRequest());
+  dispatch(fetchTeam());
 };
 
 export const transferOwnership = (newOwner) => async (dispatch) => {
   await axios.post(`${ROOT_URL}/teams/transfer`, { newOwner }, getAuthHeader());
-  dispatch(testRequest());
+  dispatch(fetchTeam());
   dispatch(adminSlice.actions.setIsOwner(false));
 };
 
 export const addAdmin = (newAdmin) => async (dispatch) => {
   await axios.post(`${ROOT_URL}/teams/admin`, { newAdmin }, getAuthHeader());
-  dispatch(testRequest());
+  dispatch(fetchTeam());
 };
 
 export const removeAdmin = (oldAdmin) => async (dispatch) => {
   await axios.delete(`${ROOT_URL}/teams/admin/${oldAdmin}`, getAuthHeader());
-  dispatch(testRequest());
+  dispatch(fetchTeam());
 };
 
 export default adminSlice.reducer;

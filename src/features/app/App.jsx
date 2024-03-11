@@ -23,7 +23,7 @@ import SignedInUser from '../user/SignedInUser';
 import LandingPage from '../landingpage/LandingPage';
 import DashBoard from '../dashboard/DashBoard';
 import Admin from '../admin/Admin';
-import { testRequest } from '../team/teamSlice';
+import { fetchTeam } from '../team/teamSlice';
 import HelpfulResources from '../helpfulresources/HelpfulResources';
 
 function FallBack() {
@@ -37,7 +37,7 @@ function FallBack() {
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(testRequest());
+    dispatch(fetchTeam());
     const token = getToken();
     if (token) {
       dispatch(setToken(token));
@@ -45,7 +45,6 @@ function App() {
   }, []);
 
   const token = useSelector((state) => state.user.token);
-  console.log(token);
   const navBarWidth = 240;
   const navBarPadding = 16;
   const navBarOffset = navBarWidth + navBarPadding * 2;
