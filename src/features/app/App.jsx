@@ -45,6 +45,7 @@ function App() {
   }, []);
 
   const token = useSelector((state) => state.user.token);
+  console.log(token);
   const navBarWidth = 240;
   const navBarPadding = 16;
   const navBarOffset = navBarWidth + navBarPadding * 2;
