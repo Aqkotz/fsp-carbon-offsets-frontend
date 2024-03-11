@@ -27,15 +27,15 @@ function CurrentGoals() {
         </Stack>
         <Skeleton variant="text" width="80%" height={24} />
         <Skeleton variant="text" width="60%" height={24} />
-        <Skeleton variant="rectangular" width="100%" height={50} style={{ marginBottom: '16px' }} />
+        <Skeleton variant="text" width="60%" height={24} />
         <Box marginTop={2} marginBottom={0.5}>
           <Skeleton variant="text" width="90%" height={32} />
         </Box>
         <Box m={1}>
           <CardActions buttonFlex="1">
             <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-              <Skeleton variant="rectangular" width={60} height={36} />
-              <Skeleton variant="rectangular" width={60} height={36} />
+              <Skeleton variant="text" width="60%" height={24} />
+              <Skeleton variant="text" width="60%" height={24} />
             </ButtonGroup>
           </CardActions>
         </Box>

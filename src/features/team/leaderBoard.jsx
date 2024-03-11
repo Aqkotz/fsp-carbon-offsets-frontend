@@ -51,9 +51,9 @@ function Leaderboard() {
           <tbody>
             {leaderboard.map((item, index) => (
               <tr key={index}>
-                <td style={{ width: '25%' }}>{index + 1}</td>
+                <td style={{ width: '25%' }}> {index + 1}</td>
                 <td style={{ width: '25%' }}> {item.name}</td>
-                <td style={{ width: '50%' }}>{item.carbonReduction}</td>
+                <td style={{ width: '50%' }}> {(item.carbonReduction ?? 0).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
