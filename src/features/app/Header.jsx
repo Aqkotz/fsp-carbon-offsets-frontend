@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import {
-  Typography, Box, Button, Skeleton,
+  Typography, Box, Button, Skeleton, Modal, ModalDialog,
 } from '@mui/joy';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { getUser } from '../user/userSlice';
+import { getUser, deleteUser } from '../user/userSlice';
 
 function Header(props) {
   const dispatch = useDispatch();
   const location = useLocation();
+  const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const [deleteUserModalOpen, setDeleteUserModalOpen] = useState(false);
   useEffect(() => {
     dispatch(getUser());
   }, []);
@@ -54,7 +56,7 @@ function Header(props) {
         px: 3,
         py: 1.5,
         borderRadius: 'sm',
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add drop shadow
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
       }}
     >
       <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
@@ -66,11 +68,46 @@ function Header(props) {
         sx={{
           justifyContent: 'start', marginRight: '30px', alignItems: 'center', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' },
         }}
-        to="/profile"
+        disabled={!user || user === 'loading'}
+        onClick={() => setProfileModalOpen(true)}
         startDecorator={user !== 'loading' ? <AccountCircleOutlinedIcon /> : <Skeleton variant="circular" width={32} height={32} />}
       >
         {user !== 'loading' ? user.name : <Skeleton variant="text" width={100} height={28} />}
       </Button>
+      <Modal
+        open={profileModalOpen}
+        onClose={() => setProfileModalOpen(false)}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <ModalDialog>
+          <Typography id="modal-title" level="h4" component="h2" sx={{ mb: 2 }}>
+            Profile
+          </Typography>
+          <Typography id="modal-description" sx={{ mb: 2 }}>
+            Name: {user !== 'loading' ? user.name : <Skeleton variant="text" width={100} height={28} />}
+          </Typography>
+          <Button onClick={() => setDeleteUserModalOpen(true)} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Delete Account</Button>
+          <Button onClick={() => setProfileModalOpen(false)}>Close</Button>
+        </ModalDialog>
+      </Modal>
+      <Modal
+        open={deleteUserModalOpen}
+        onClose={() => setDeleteUserModalOpen(false)}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <ModalDialog>
+          <Typography id="modal-title" level="h4" component="h2" sx={{ mb: 2 }}>
+            Are you sure?
+          </Typography>
+          <Typography id="modal-description" sx={{ mb: 2 }}>
+            This action will delete the account for {user !== 'loading' ? user.name : <Skeleton variant="text" width={100} height={28} />} and all of its data.
+          </Typography>
+          <Button onClick={() => dispatch(deleteUser())} sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}>Delete Account</Button>
+          <Button onClick={() => setDeleteUserModalOpen(false)}>Close</Button>
+        </ModalDialog>
+      </Modal>
     </Box>
   );
 }

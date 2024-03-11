@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   fetchJoinCode, deleteTeam, transferOwnership, addAdmin, removeAdmin, addTeamGoal,
 } from './adminSlice';
-import { testRequest } from '../team/teamSlice';
 
 function MembersCard({ owner }) {
   const dispatch = useDispatch();
@@ -72,22 +71,22 @@ function MembersCard({ owner }) {
   });
 
   return (
-    <Stack>
+    <Stack sx={{ width: '50%' }}>
       <Card variant="plain" style={{ position: 'relative' }}>
         <Sheet sx={{ width: '100%' }}>
           <Table>
             <thead>
               <tr>
-                <th style={{ width: '25%' }}>Team Member</th>
-                <th style={{ width: '50%' }}>Carbon Footprint Reductions (kg CO2)</th>
+                <th style={{ width: '35%' }}>Team Member</th>
+                <th style={{ width: '40%' }}>Carbon Footprint Reductions (kg CO2)</th>
                 <th style={{ width: '25%' }}>Role</th>
               </tr>
             </thead>
             <tbody>
               {sortedMembers.map((item, index) => (
                 <tr key={index}>
-                  <td style={{ width: '25%' }}> {item.name}</td>
-                  <td style={{ width: '50%' }}> {item.carbonReduction}</td>
+                  <td style={{ width: '35%' }}> {item.name}</td>
+                  <td style={{ width: '40%' }}> {(item?.carbonFootprint?.reduction?.total ?? 0).toFixed(2)}</td>
                   <td style={{ width: '25%' }}>
                     {roleForUser(item) === 'owner' ? <Typography>Owner</Typography>
                       : (
@@ -130,22 +129,24 @@ function Admin() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchJoinCode());
-    dispatch(testRequest());
   }, []);
   const team = useSelector((state) => state.team.team);
+  console.log(team);
   const owner = useSelector((state) => state.admin.isOwner);
   const joinCode = useSelector((state) => state.admin.joinCode);
   const [deleteTeamModalOpen, setDeleteTeamModalOpen] = useState(false);
   const [deleteTeamInput, setDeleteTeamInput] = useState('');
   const [addGoalModalOpen, setAddGoalModalOpen] = useState(false);
-  const [goalInput, setGoalInput] = useState(0);
+  const [goalInput, setGoalInput] = useState('');
 
   const canDeleteTeam = () => {
     return team.name !== '' && deleteTeamInput === team.name;
   };
 
   const submitGoal = () => {
-    dispatch(addTeamGoal(goalInput));
+    dispatch(addTeamGoal({
+      carbonReduction: goalInput,
+    }));
     setAddGoalModalOpen(false);
     setGoalInput(0);
   };
@@ -171,7 +172,7 @@ function Admin() {
         </Stack>
       </Card>
       <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
-        <Card sx={{ width: '33%' }}>
+        <Card sx={{ width: '25%' }}>
           <Stack spacing={2} sx={{ p: 2 }}>
             <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
               {joinCode === 'loading' ? <Skeleton variant="text" /> : 'Join Code:'}
@@ -181,7 +182,13 @@ function Admin() {
             </Typography>
           </Stack>
         </Card>
-        <MembersCard sx={{ width: '67%' }} owner={owner} />
+        <Card sx={{ width: '25%' }}>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            Add Team Goal
+          </Typography>
+          <Button onClick={() => setAddGoalModalOpen(true)}>Add Goal</Button>
+        </Card>
+        <MembersCard sx={{ width: '50%' }} owner={owner} />
       </Stack>
       <Modal
         aria-labelledby="modal-title"
@@ -201,14 +208,6 @@ function Admin() {
           <Button onClick={() => setDeleteTeamModalOpen(false)}>Close</Button>
         </ModalDialog>
       </Modal>
-      <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2}>
-        <Card>
-          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-            Add Team Goal
-          </Typography>
-          <Button onClick={() => setAddGoalModalOpen(true)}>Add Goal</Button>
-        </Card>
-      </Stack>
       <Modal
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
@@ -222,7 +221,7 @@ function Admin() {
           <Typography id="modal-description" sx={{ mb: 2 }}>
             What is the carbon reduction goal for this week? (kg CO2e)
           </Typography>
-          <Input value={goalInput} onChange={(e) => setGoalInput(e.target.value)} placeholder="carbon reduction for this week" />
+          <Input value={goalInput} type="number" onChange={(e) => setGoalInput(e.target.value)} placeholder="carbon reduction for this week" />
           <Button onClick={() => submitGoal()} sx={{ backgroundColor: 'green', '&:hover': { backgroundColor: 'darkgreen' } }}>Add Goal</Button>
           <Button onClick={() => setAddGoalModalOpen(false)}>Close</Button>
         </ModalDialog>
