@@ -160,7 +160,6 @@ function HomeTracking() {
                   How is your house heated?
                 </Typography>
                 <Select placeholder="Heater Type"
-                  dropdownStyle={{ Color: 'rgba(174, 173, 173, 1)' }}
                   onChange={(e, n) => { handleChange('heater', n); }}
                 >
                   <Option value="urban">Urban District Heating</Option>
