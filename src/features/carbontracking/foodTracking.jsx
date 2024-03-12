@@ -75,23 +75,31 @@ function ConsumptionLevel({ label, value, onChange }) {
 }
 
 const defaultFoods = {
-  dairy: 'everyMeal',
-  whiteMeat: 'everyMeal',
-  redMeat: 'everyMeal',
-  fish: 'everyMeal',
-  legumes: 'everyMeal',
-  vegetables: 'everyMeal',
-  fruit: 'everyMeal',
-  bread: 'everyMeal',
-  alcohol: 'everyMeal',
-  soft: 'everyMeal',
-  rice: 'everyMeal',
+  dairy: 'never',
+  whiteMeat: 'never',
+  redMeat: 'never',
+  fish: 'never',
+  legumes: 'never',
+  vegetables: 'never',
+  fruit: 'never',
+  bread: 'never',
+  alcohol: 'never',
+  softDrinks: 'never',
+  rice: 'never',
 };
 
 export default function FoodTracking() {
   const footprint = useSelector((state) => state.carbon.footprint);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const [food, setFood] = useState(defaultFoods);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const endOfWeek = new Date(today);
+  endOfWeek.setDate(today.getDate() - today.getDay());
+  const startOfWeek = new Date(endOfWeek);
+  startOfWeek.setDate(startOfWeek.getDate() - 7);
 
   const handleChange = (attribute, value) => {
     setFood((prevState) => ({
@@ -109,6 +117,10 @@ export default function FoodTracking() {
     setFood(defaultFoods);
   };
 
+  if (!footprint || footprint === 'loading') {
+    return <div />;
+  }
+
   return (
     <Stack spacing={3}>
       <Card sx={{ backgroundColor: 'transparent' }}>
@@ -124,28 +136,41 @@ export default function FoodTracking() {
           {Math.floor(footprint.user.weekly.food)} kg CO2e
         </Typography>
       </Card>
-      <Card sx={{ backgroundColor: 'white' }}>
-        <Typography level="title-md"
-          textColor="text.secondary"
-          fontWeight="xl"
-        >
-          How many times have you consumed the following products this week?
-        </Typography>
-        <Grid container spacing={3}>
-          {Object.keys(food).map((key) => (
-            <Grid item xs={6} key={key}>
-              <ConsumptionLevel
-                label={key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())} // Converts camelCase to Title Case
-                value={food[key]}
-                onChange={(e) => handleChange(key, e.target.value)}
-              />
+      {user.footprintData?.loggedLastWeekFood ? (
+        <Card variant="soft" style={{ width: '50%', backgroundColor: 'white', marginBottom: '10px' }}>
+          <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+            You have logged your food consumption for the week of {startOfWeek.toLocaleDateString()} - {endOfWeek.toLocaleDateString()}
+          </Typography>
+        </Card>
+      ) : (
+        <Stack direction="column" spacing={2}>
+          <Card sx={{ backgroundColor: 'white' }}>
+            <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
+              Log your food consumption for the week of {startOfWeek.toLocaleDateString()} - {endOfWeek.toLocaleDateString()}
+            </Typography>
+            <Typography level="title-md"
+              textColor="text.secondary"
+              fontWeight="xl"
+            >
+              How many times have you consumed the following products this week?
+            </Typography>
+            <Grid container spacing={3}>
+              {Object.keys(food).map((key) => (
+                <Grid item xs={6} key={key}>
+                  <ConsumptionLevel
+                    label={key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())} // Converts camelCase to Title Case
+                    value={food[key]}
+                    onChange={(e) => handleChange(key, e.target.value)}
+                  />
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      </Card>
-      <Stack direction="row" justifyContent="center" spacing={2}>
-        <Button onClick={handleSubmit}>Add Food Analysis</Button>
-      </Stack>
+          </Card>
+          <Stack direction="row" justifyContent="center" spacing={2}>
+            <Button onClick={handleSubmit}>Add Food Analysis</Button>
+          </Stack>
+        </Stack>
+      )}
     </Stack>
   );
 }

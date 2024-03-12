@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Typography, Card, Button, Option, Grid, Radio, RadioGroup, radioClasses, Skeleton,
+  Typography, Card, Button, Option, Grid, Radio, RadioGroup, radioClasses, Skeleton, Stack, Sheet, Table,
 } from '@mui/joy';
 import Select from '@mui/joy/Select';
 import { setHouse } from './carbonSlice';
 
 function HomeTracking() {
   const footprint = useSelector((state) => state.carbon.footprint);
+  const { house } = useSelector((state) => state.user.user.footprintData);
   const dispatch = useDispatch();
   const [energy, setEnergy] = useState({
     heater: '',
@@ -45,20 +46,65 @@ function HomeTracking() {
   }
 
   return (
-    <div>
+    <Stack direction="column" spacing={2}>
       <Card sx={{ backgroundColor: 'transparent' }}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Home Energy Analysis
         </Typography>
       </Card>
-      <Card variant="soft" style={{ width: '50%', backgroundColor: 'white', marginBottom: '10px' }}>
-        <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
-          Your Weekly Home Carbon Footprint
-        </Typography>
-        <Typography level="h1" component="h1" sx={{ fontWeight: 'md' }}>
-          {Math.floor(footprint.user.weekly.house)} kg CO2e
-        </Typography>
-      </Card>
+      {house && (
+      <Stack direction="row" width="100%" spacing={2}>
+        <Card variant="plain" sx={{ fontWeight: 'md', width: '30%' }}>
+          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+            <Typography sx={{ fontWeight: 'md', fontSize: '60px', marginTop: '10px' }}>
+              {(footprint.user.weekly.house ?? 0).toFixed(1)}
+            </Typography>
+            <Typography sx={{ fontWeight: 'md', fontSize: '25px' }}>
+              Weekly House Footprint
+            </Typography>
+          </Stack>
+        </Card>
+        <Card variant="plain" sx={{ fontWeight: 'md', width: '70%' }}>
+          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+            <Typography sx={{ fontWeight: 'md', fontSize: '25px', marginTop: '10px' }}>
+              Your Housing Information
+            </Typography>
+            <Sheet sx={{ width: '100%' }}>
+              <Table>
+                {/* <thead>
+                  <tr>
+                    <th style={{ width: '10%' }}>Team Member</th>
+                    <th style={{ width: '10%' }}>Carbon Footprint Reductions (kg CO2)</th>
+                  </tr>
+                </thead> */}
+                <tbody>
+                  <tr>
+                    <td style={{ width: '25%' }}>Type</td>
+                    <td style={{ width: '25%' }}>{house.type}</td>
+                  </tr>
+                  <tr>
+                    <td style={{ width: '25%' }}>Heating</td>
+                    <td style={{ width: '25%' }}>{house.heater}</td>
+                  </tr>
+                  <tr>
+                    <td style={{ width: '25%' }}>Floor Area</td>
+                    <td style={{ width: '25%' }}>{house.surface} m2</td>
+                  </tr>
+                  <tr>
+                    <td style={{ width: '25%' }}>Residents</td>
+                    <td style={{ width: '25%' }}>{house.residents}</td>
+                  </tr>
+                  <tr>
+                    <td style={{ width: '25%' }}>Age</td>
+                    <td style={{ width: '25%' }}>{house.built === 'old' ? 'Before 1975' : 'After 1975'}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Sheet>
+          </Stack>
+        </Card>
+      </Stack>
+      )}
       <Card variant="outlined" style={{ minHeight: '300px' }}>
         <Card variant="outlined" sx={{ backgroundColor: '#D9D9D9' }}>
           <Grid container spacing={4} justifyContent="center">
@@ -114,7 +160,6 @@ function HomeTracking() {
                   How is your house heated?
                 </Typography>
                 <Select placeholder="Heater Type"
-                  dropdownStyle={{ Color: 'rgba(174, 173, 173, 1)' }}
                   onChange={(e, n) => { handleChange('heater', n); }}
                 >
                   <Option value="urban">Urban District Heating</Option>
@@ -200,7 +245,7 @@ function HomeTracking() {
           </Grid>
         </Card>
       </Card>
-    </div>
+    </Stack>
   );
 }
 

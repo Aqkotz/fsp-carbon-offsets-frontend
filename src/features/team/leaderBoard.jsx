@@ -38,7 +38,7 @@ function Leaderboard() {
     );
   }
   return (
-    <Card variant="plain" style={{ position: 'relative', marginTop: '20px', width: '50%' }}>
+    <Card variant="plain" style={{ position: 'relative', marginTop: '20px' }}>
       <Sheet sx={{ width: '100%' }}>
         <Table>
           <thead>
