@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -131,7 +132,7 @@ function DashBoard() {
               {footprint.user.allTime.total.toFixed(2)} kg CO2e
             </Typography>
           </Card>
-          {team.teamGoal === 'loading' ? (
+          {team && team.teamGoal === 'loading' ? (
             <Card sx={{
               width: '100%', display: 'flex', flexDirection: 'column', midWidth: '600px',
             }}
@@ -140,7 +141,7 @@ function DashBoard() {
                 No Team Goal Set
               </Typography>
             </Card>
-          ) : team.teamGoal && team.teamGoal !== 'loading' && (
+          ) : team?.teamGoal && team.teamGoal !== 'loading' && (
             <Card alignItems="center"
               style={{
                 width: '100%', display: 'flex', flexDirection: 'column', midWidth: '600px',
