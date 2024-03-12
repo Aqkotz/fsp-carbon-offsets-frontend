@@ -10,9 +10,7 @@ function TeamRing(props) {
   ];
 
   return (
-    <div className="App">
-      <GoalRing data={data} />
-    </div>
+    <GoalRing data={data} />
   );
 }
 

@@ -69,11 +69,11 @@ function UserGoals() {
           </Stack>
         </Card>
         <Card variant="plain" sx={{ fontWeight: 'md' }}>
-          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-            <Typography sx={{ fontWeight: 'md', fontSize: '60px', marginTop: '10px' }}>
+          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2} marginTop="30px">
+            <Typography sx={{ fontWeight: 'bold', fontSize: '80px' }}>
               {(footprint?.user?.reduction?.total ?? 0).toFixed(1)}
             </Typography>
-            <Typography sx={{ fontWeight: 'md', fontSize: '25px' }}>
+            <Typography sx={{ fontWeight: 'bold', fontSize: '30px' }}>
               kg CO2e saved
             </Typography>
           </Stack>
