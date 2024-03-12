@@ -53,8 +53,8 @@ function HomeTracking() {
         </Typography>
       </Card>
       {house && (
-      <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
-        <Card variant="plain" sx={{ fontWeight: 'md' }}>
+      <Stack direction="row" width="100%" spacing={2}>
+        <Card variant="plain" sx={{ fontWeight: 'md', width: '30%' }}>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
             <Typography sx={{ fontWeight: 'md', fontSize: '60px', marginTop: '10px' }}>
               {(footprint.user.weekly.house ?? 0).toFixed(1)}
@@ -64,7 +64,7 @@ function HomeTracking() {
             </Typography>
           </Stack>
         </Card>
-        <Card variant="plain" sx={{ fontWeight: 'md' }}>
+        <Card variant="plain" sx={{ fontWeight: 'md', width: '70%' }}>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
             <Typography sx={{ fontWeight: 'md', fontSize: '25px', marginTop: '10px' }}>
               Your Housing Information
