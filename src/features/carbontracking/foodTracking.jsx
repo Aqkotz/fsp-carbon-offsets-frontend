@@ -90,6 +90,7 @@ const defaultFoods = {
 
 export default function FoodTracking() {
   const footprint = useSelector((state) => state.carbon.footprint);
+  console.log('footprint', footprint);
   const dispatch = useDispatch();
   const [food, setFood] = useState(defaultFoods);
 
