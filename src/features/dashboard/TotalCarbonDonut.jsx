@@ -17,13 +17,13 @@ function TotalCarbonDonut(props) {
         label: 'Total Carbon Emissions CO2e (kg)',
         data: [points.travel, points.food, points.house],
         backgroundColor: [
-          'rgba(9, 145, 104, 0.7)',
           'rgba(15, 21, 145, 0.4)',
+          'rgba(9, 145, 104, 0.7)',
           'rgba(114, 194, 193, 0.7)',
         ],
         borderColor: [
-          'rgba(9, 145, 104, 0.7)',
           'rgba(15, 21, 145, 0.4)',
+          'rgba(9, 145, 104, 0.7)',
           'rgba(114, 194, 193, 0.7)',
         ],
         borderWidth: 1,
