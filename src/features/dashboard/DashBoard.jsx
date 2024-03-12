@@ -114,36 +114,35 @@ function DashBoard() {
   }
 
   return (
-    <Stack sx={{ display: 'flex', width: '100%', height: '100%' }}>
-      <Card variant="plain" sx={{ backgroundColor: 'transparent', flex: 1 }}>
-        <Stack direction="row" justifyContent="flex-start" spacing={2} style={{ width: '100%', height: '100%' }}>
-          <Card>
+    <Stack sx={{ display: 'flex' }}>
+      <Stack direction="row" width="100%" justifyContent="flex-start" spacing={2} style={{ height: '100%' }}>
+        <Card width="40%">
+          <Typography sx={{ fontWeight: 'md', fontSize: '30px' }}>
+            Your Carbon Snapshot
+          </Typography>
+          {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
+        </Card>
+        <Stack width="60%" direction="column" spacing={2} style={{ height: '100%' }}>
+          <Card style={{ height: '50%', width: '100%', midWidth: '600px' }}>
             <Typography sx={{ fontWeight: 'md', fontSize: '30px' }}>
-              Your Carbon Snapshot
+              You have produced
             </Typography>
-            {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
+            <Typography sx={{ fontSize: '60px' }}>
+              {footprint.user.allTime.total.toFixed(2)} kg CO2e
+            </Typography>
           </Card>
-          <Stack direction="column" spacing={2} style={{ width: '60%', height: '100%' }}>
-            <Card sx={{ height: '50%', width: '100%', midWidth: '600px' }}>
-              <Typography sx={{ fontWeight: 'md', fontSize: '30px' }}>
-                You have produced
-              </Typography>
-              <Typography sx={{ fontSize: '60px' }}>
-                {footprint.user.allTime.total} kg CO2e
+          {team.teamGoal === 'loading' ? (
+            <Card sx={{
+              width: '100%', display: 'flex', flexDirection: 'column', midWidth: '600px',
+            }}
+            >
+              <Typography level="h3" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}>
+                No Team Goal Set
               </Typography>
             </Card>
-            {team.teamGoal === 'loading' ? (
-              <Card sx={{
-                width: '100%', display: 'flex', flexDirection: 'column', midWidth: '600px',
-              }}
-              >
-                <Typography level="h3" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}>
-                  No Team Goal Set
-                </Typography>
-              </Card>
-            ) : team.teamGoal && team.teamGoal !== 'loading' && (
+          ) : team.teamGoal && team.teamGoal !== 'loading' && (
             <Card alignItems="center"
-              sx={{
+              style={{
                 width: '100%', display: 'flex', flexDirection: 'column', midWidth: '600px',
               }}
             >
@@ -164,10 +163,9 @@ function DashBoard() {
                 {/* <TeamRing points={team.teamGoal} /> */}
               </Stack>
             </Card>
-            )}
-          </Stack>
+          )}
         </Stack>
-      </Card>
+      </Stack>
       <Card variant="plain" sx={{ backgroundColor: 'transparent', flex: 1 }}>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
           Your Goals

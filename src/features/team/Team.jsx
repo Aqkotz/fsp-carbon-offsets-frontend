@@ -4,10 +4,10 @@ import {
   Typography, Stack, Card, ToggleButtonGroup, Button, Modal, ModalDialog, Skeleton,
 } from '@mui/joy';
 import { useSelector, useDispatch } from 'react-redux';
+import GaugeChart from 'react-gauge-chart';
 import JoinTeam from './joinTeam';
 import { leaveTeam } from './teamSlice';
 import Leaderboard from './leaderBoard';
-import TeamRing from './TeamRing';
 import TotalCarbonDonut from '../dashboard/TotalCarbonDonut';
 
 function CarbonPieChart({ footprint }) {
@@ -30,7 +30,10 @@ function CarbonPieChart({ footprint }) {
   }
 
   return (
-    <div style={{ position: 'relative', marginTop: '20px' }}>
+    <Card variant="plain" style={{ position: 'relative', marginTop: '20px', width: '35%' }}>
+      <Typography level="h3" component="h1" sx={{ fontSize: '35px' }}>
+        Team Carbon Footprint
+      </Typography>
       <ToggleButtonGroup
         value={pieType}
         onChange={handleChange}
@@ -60,7 +63,7 @@ function CarbonPieChart({ footprint }) {
       <div style={{ marginTop: '20px' }}>
         {pieType && <TotalCarbonDonut points={footprint[pieType]} />}
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -95,7 +98,7 @@ function Team() {
   }
 
   return (
-    <Stack>
+    <Stack direction="column">
       <Card>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Team: {team.name} </Typography>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> Carbon Footprint: {carbonFootprint.toFixed(2)} kg CO2e</Typography>
@@ -120,10 +123,10 @@ function Team() {
           <Button onClick={() => setLeaveTeamModalOpen(false)}>Close</Button>
         </ModalDialog>
       </Modal>
+      <Leaderboard />
       {/* <DonutChart style={{ width: '10px', height: '10px' }} /> */}
       <Stack direction="row" justifyContent="flex-start" alignItems="stretch" spacing={2} style={{ width: '100%' }}>
         <CarbonPieChart footprint={team.carbonFootprint} />
-        <Leaderboard />
         {team.teamGoal === 'loading' ? (
           <Card>
             <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
@@ -131,7 +134,27 @@ function Team() {
             </Typography>
           </Card>
         ) : team.teamGoal && team.teamGoal !== 'loading' && (
-        <TeamRing points={team.teamGoal} />
+          <Card variant="plaint" alignItems="center" style={{ marginTop: '20px', width: '65%' }}>
+            <Typography level="h3" component="h1" sx={{ fontSize: '35px' }}>
+              Team Goal Progress
+            </Typography>
+            <Typography level="h3" component="h1" sx={{ fontSize: '25px' }}>
+              This week&apos;s goal is to save {team.teamGoal.carbonReduction} kg CO2e
+            </Typography>
+            <Stack direction="row" alignItems="center" spacing={2} style={{ marginTop: '120px' }}>
+              <Typography level="h3" component="h1" sx={{ fontSize: '30px', textAlign: 'center' }}>
+                {team.teamGoal.actualCarbonReduction} of {team.teamGoal.carbonReduction} kg CO2e saved
+              </Typography>
+              <GaugeChart id="gauge-chart3"
+                nrOfLevels={20}
+                colors={['rgba(15, 21, 145,0.4)', 'rgb(9, 145, 104)']}
+                arcWidth={0.3}
+                textColor="black"
+                percent={team.teamGoal.actualCarbonReduction / team.teamGoal.carbonReduction}
+              />
+              {/* <TeamRing points={team.teamGoal} /> */}
+            </Stack>
+          </Card>
         )}
       </Stack>
     </Stack>
