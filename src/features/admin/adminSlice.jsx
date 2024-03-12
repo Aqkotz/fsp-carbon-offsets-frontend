@@ -84,4 +84,9 @@ export const removeAdmin = (oldAdmin) => async (dispatch) => {
   dispatch(fetchTeam());
 };
 
+export const regenerateJoinCode = () => async (dispatch) => {
+  await axios.post(`${ROOT_URL}/teams/joincode`, {}, getAuthHeader());
+  dispatch(fetchJoinCode());
+};
+
 export default adminSlice.reducer;

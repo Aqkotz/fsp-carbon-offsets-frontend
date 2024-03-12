@@ -6,7 +6,7 @@ import {
 } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import {
-  fetchJoinCode, deleteTeam, transferOwnership, addAdmin, removeAdmin, addTeamGoal,
+  fetchJoinCode, deleteTeam, transferOwnership, addAdmin, removeAdmin, addTeamGoal, regenerateJoinCode,
 } from './adminSlice';
 
 function MembersCard({ owner }) {
@@ -180,6 +180,7 @@ function Admin() {
             <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}>
               {joinCode === 'loading' ? <Skeleton variant="text" /> : joinCode}
             </Typography>
+            <Button onClick={() => dispatch(regenerateJoinCode())}>Regenerate Code</Button>
           </Stack>
         </Card>
         <Card sx={{ width: '25%' }}>
