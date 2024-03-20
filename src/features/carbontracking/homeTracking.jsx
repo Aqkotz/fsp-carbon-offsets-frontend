@@ -62,7 +62,7 @@ function HomeTracking() {
         <Card variant="plain" sx={{ fontWeight: 'md', width: '30%' }}>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
             <Typography sx={{ fontWeight: 'md', fontSize: '60px', marginTop: '10px' }}>
-              {(footprint.user.weekly.house ?? 0).toFixed(1)}
+              {(footprint.user.weekly.house ?? 0).toFixed(1)} kg CO2e
             </Typography>
             <Typography sx={{ fontWeight: 'md', fontSize: '25px' }}>
               Weekly House Footprint
@@ -100,7 +100,7 @@ function HomeTracking() {
                     <td style={{ width: '25%' }}>{house.residents}</td>
                   </tr>
                   <tr>
-                    <td style={{ width: '25%' }}>Age</td>
+                    <td style={{ width: '25%' }}>Built</td>
                     <td style={{ width: '25%' }}>{house.built === 'old' ? 'Before 1975' : 'After 1975'}</td>
                   </tr>
                 </tbody>
@@ -144,7 +144,7 @@ function HomeTracking() {
                   What is the square metreage of your residence?
                 </Typography>
                 <input
-                  placeholder="Household square metreage"
+                  placeholder="Household square metreage (m^2)"
                   label="surfaceArea"
                   value={energy.area}
                   type="text"
