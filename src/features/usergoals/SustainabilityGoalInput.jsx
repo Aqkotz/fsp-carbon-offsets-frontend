@@ -58,6 +58,7 @@ function DependentDropdown(props) {
           value={theme}
           onChange={handleThemeChange}
           label="Category"
+          placeholder="Theme"
         >
           {themes.map((t) => (
             <Option key={t} value={t}>
@@ -69,6 +70,7 @@ function DependentDropdown(props) {
         <Select
           value={tempGoal}
           label="Goal"
+          placeholder="Goal"
           onChange={(e, n) => { setTempGoal(n); }}
         >
           {goalOptions.map((g) => (
@@ -109,9 +111,14 @@ function SustyGoalInput(props) {
       >
         <ModalDialog sx={{ width: '40%', maxHeight: '80%' }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography sx={{ fontSize: '20px' }}>
-              What is your sustainability goal?
-            </Typography>
+            <Stack direction="column" justifyContent="space-between" alignItems="center" spacing={2} sx={{ width: '100%' }}>
+              <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>
+                What is your sustainability goal?
+              </Typography>
+              <Typography sx={{ fontSize: '20px' }}>
+                Pick a goal you don&apos;t do on a regular basis
+              </Typography>
+            </Stack>
             <IconButton aria-label="delete" size="small" onClick={() => setLeaveModalOpen(false)}>
               <CloseIcon />
             </IconButton>
