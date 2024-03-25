@@ -99,6 +99,8 @@ function DashBoard() {
   }, []);
   const footprint = useSelector((state) => state.carbon.footprint);
   const team = useSelector((state) => state.team.team);
+  const user = useSelector((state) => state.user.user);
+
   console.log('team', team);
 
   if (!footprint || footprint === 'loading') {
@@ -116,15 +118,9 @@ function DashBoard() {
 
   return (
     <Stack sx={{ display: 'flex' }}>
-      <Stack direction="row" width="100%" justifyContent="flex-start" spacing={2} style={{ height: '100%' }}>
-        <Card width="40%">
-          <Typography sx={{ fontWeight: 'md', fontSize: '30px' }}>
-            Your Carbon Snapshot
-          </Typography>
-          {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
-        </Card>
-        <Stack width="60%" direction="column" spacing={2} style={{ height: '100%' }}>
-          <Card style={{ height: '50%', width: '100%', midWidth: '600px' }}>
+      <Stack direction="row" width="100%" spacing={2} style={{ height: '100%' }}>
+        <Stack direction="column" justifyContent="stretch" spacing={2}>
+          <Card width="50%" style={{ height: '100%' }}>
             <Typography sx={{ fontWeight: 'md', fontSize: '30px' }}>
               You have produced
             </Typography>
@@ -132,7 +128,15 @@ function DashBoard() {
               {footprint.user.allTime.total.toFixed(2)} kg CO2e
             </Typography>
           </Card>
-          {team && team.teamGoal === 'loading' ? (
+          <Card width="50%" style={{ height: '100%' }}>
+            <Typography sx={{ fontWeight: 'md', fontSize: '30px' }}>
+              Your Carbon Snapshot
+            </Typography>
+            {(footprint && footprint !== 'loading') && <CarbonPieChart footprint={footprint} />}
+          </Card>
+        </Stack>
+        <Stack width="60%" direction="column" spacing={2}>
+          {team.teamGoal === 'loading' ? (
             <Card sx={{
               width: '100%', display: 'flex', flexDirection: 'column', midWidth: '600px',
             }}
@@ -141,12 +145,9 @@ function DashBoard() {
                 No Team Goal Set
               </Typography>
             </Card>
-          ) : team?.teamGoal && team.teamGoal !== 'loading' && (
-            <Card alignItems="center"
-              style={{
-                width: '100%', display: 'flex', flexDirection: 'column', midWidth: '600px',
-              }}
-            >
+          ) : team.teamGoal && team.teamGoal !== 'loading' && (
+          <Stack direction="column" spacing={2} style={{ width: '100%' }}>
+            <Card alignItems="center" style={{ width: '100%', midWidth: '600px' }}>
               <Typography sx={{ fontWeight: 'md', fontSize: '30px' }}>
                 Team Goal Progress
               </Typography>
@@ -154,16 +155,35 @@ function DashBoard() {
                 <Typography level="h3" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}>
                   {team.teamGoal.actualCarbonReduction} of {team.teamGoal.carbonReduction} kg CO2e saved
                 </Typography>
-                <GaugeChart id="gauge-chart3"
+                <GaugeChart
+                  id="gauge-chart3"
                   nrOfLevels={20}
                   colors={['rgba(15, 21, 145,0.4)', 'rgb(9, 145, 104)']}
                   arcWidth={0.3}
                   hideText
                   percent={team.teamGoal.actualCarbonReduction / team.teamGoal.carbonReduction}
                 />
-                {/* <TeamRing points={team.teamGoal} /> */}
               </Stack>
             </Card>
+            <Card alignItems="center" style={{ width: '100%', midWidth: '600px' }}>
+              <Typography sx={{ fontWeight: 'md', fontSize: '30px' }}>
+                Individual Goal Progress
+              </Typography>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Typography level="h3" component="h1" sx={{ fontWeight: 'md', textAlign: 'center' }}>
+                  {team.teamGoal.actualCarbonReduction} of {team.teamGoal.carbonReduction} kg CO2e saved
+                </Typography>
+                <GaugeChart
+                  id="gauge-chart3"
+                  nrOfLevels={20}
+                  colors={['rgba(15, 21, 145,0.4)', 'rgb(9, 145, 104)']}
+                  arcWidth={0.3}
+                  hideText
+                  percent={user.carbonFootprint.weeklyReduction.total / (team.teamGoal.carbonReduction / team.teamSize)}
+                />
+              </Stack>
+            </Card>
+          </Stack>
           )}
         </Stack>
       </Stack>

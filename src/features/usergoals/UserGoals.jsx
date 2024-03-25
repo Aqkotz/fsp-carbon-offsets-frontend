@@ -78,6 +78,11 @@ function UserGoals() {
             </Typography>
           </Stack>
         </Card>
+        <Card variant="plain" sx={{ fontWeight: 'md', alignItems: 'center' }}>
+          <Typography sx={{ fontWeight: 'bold', fontSize: '40px' }}>
+            Pick a goal you don&apos;t <br /> do on a regular basis
+          </Typography>
+        </Card>
       </Stack>
       <Card sx={{ backgroundColor: 'transparent' }}>
         {goals.length > 0 && (

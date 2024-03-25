@@ -84,6 +84,16 @@ function Nav() {
         sx={{
           justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
         }}
+        onClick={() => window.open('https://forms.gle/ReGm9HJZcAXazq3U8')}
+      >
+        PROVIDE FEEDBACK
+      </Button>
+      <Button
+        size="lg"
+        variant="plain"
+        sx={{
+          justifyContent: 'start', width: '100%', '&:hover': { backgroundColor: 'rgba(243, 248, 243, 0.19)' }, color: 'white',
+        }}
         onClick={handleLogout}
       >
         LOGOUT

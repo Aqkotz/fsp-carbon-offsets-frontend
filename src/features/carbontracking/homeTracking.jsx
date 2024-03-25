@@ -8,15 +8,19 @@ import { setHouse } from './carbonSlice';
 
 function HomeTracking() {
   const footprint = useSelector((state) => state.carbon.footprint);
-  const { house } = useSelector((state) => state.user.user.footprintData);
+  const footprintData = useSelector((state) => state.user.user.footprintData);
+  const house = footprintData?.house;
+  console.log(house);
   const dispatch = useDispatch();
   const [energy, setEnergy] = useState({
     heater: '',
     type: '',
+    time: '',
     surface: 0,
     built: '',
     residents: 0,
   });
+  console.log(energy);
 
   const handleChange = (attribute, value) => {
     setEnergy((prevState) => ({
@@ -36,6 +40,7 @@ function HomeTracking() {
       residents: 0,
     });
   };
+
   if (!footprint || footprint === 'loading') {
     return (
       <Card>
@@ -57,7 +62,7 @@ function HomeTracking() {
         <Card variant="plain" sx={{ fontWeight: 'md', width: '30%' }}>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
             <Typography sx={{ fontWeight: 'md', fontSize: '60px', marginTop: '10px' }}>
-              {(footprint.user.weekly.house ?? 0).toFixed(1)}
+              {(footprint.user.weekly.house ?? 0).toFixed(1)} kg CO2e
             </Typography>
             <Typography sx={{ fontWeight: 'md', fontSize: '25px' }}>
               Weekly House Footprint
@@ -95,7 +100,7 @@ function HomeTracking() {
                     <td style={{ width: '25%' }}>{house.residents}</td>
                   </tr>
                   <tr>
-                    <td style={{ width: '25%' }}>Age</td>
+                    <td style={{ width: '25%' }}>Built</td>
                     <td style={{ width: '25%' }}>{house.built === 'old' ? 'Before 1975' : 'After 1975'}</td>
                   </tr>
                 </tbody>
@@ -108,7 +113,7 @@ function HomeTracking() {
       <Card variant="outlined" style={{ minHeight: '300px' }}>
         <Card variant="outlined" sx={{ backgroundColor: '#D9D9D9' }}>
           <Grid container spacing={4} justifyContent="center">
-            <Grid item xs={12} sm={6} md={4} spacing={4}>
+            <Grid xs={12} sm={6} md={4} spacing={4}>
               <Card variant="outlined"
                 sx={{
                   borderRadius: 'sm',
@@ -126,7 +131,7 @@ function HomeTracking() {
                 </Select>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid xs={12} sm={6} md={4}>
               <Card variant="soft"
                 sx={{
                   borderRadius: 'sm',
@@ -139,7 +144,7 @@ function HomeTracking() {
                   What is the square metreage of your residence?
                 </Typography>
                 <input
-                  placeholder="Household square metreage"
+                  placeholder="Household square metreage (m^2)"
                   label="surfaceArea"
                   value={energy.area}
                   type="text"
@@ -147,7 +152,7 @@ function HomeTracking() {
                 />
               </Card>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid xs={12} sm={6} md={4}>
               <Card variant="soft"
                 sx={{
                   borderRadius: 'sm',
@@ -174,7 +179,7 @@ function HomeTracking() {
                 </Select>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid xs={12} sm={6} md={4}>
               <Card variant="soft"
                 sx={{
                   borderRadius: 'sm',
@@ -195,7 +200,7 @@ function HomeTracking() {
                 />
               </Card>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid xs={12} sm={6} md={4}>
               <Card variant="soft"
                 sx={{
                   borderRadius: 'sm',
@@ -218,7 +223,7 @@ function HomeTracking() {
                 </RadioGroup>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid xs={12} sm={6} md={4}>
               <Card variant="soft"
                 sx={{
                   borderRadius: 'sm',
@@ -239,7 +244,7 @@ function HomeTracking() {
                 />
               </Card>
             </Grid>
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <Button onClick={handleSubmit} fullWidth sx={{ backgroundColor: 'rgb(12, 77, 1, 0.3)', color: 'black' }}>Add Energy Analysis</Button>
             </Grid>
           </Grid>

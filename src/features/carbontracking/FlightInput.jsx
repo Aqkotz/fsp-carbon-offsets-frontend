@@ -30,7 +30,7 @@ function FlightInput() {
     }, 1000);
   }, []);
 
-  const canSubmit = () => {
+  const canEstimate = () => {
     if (stops.length < 2) {
       return false;
     }
@@ -38,8 +38,12 @@ function FlightInput() {
     return stops.every((stop) => stop.length >= 2) && uniqueStops.length === stops.length;
   };
 
+  const canSubmit = () => {
+    return canEstimate() && mode;
+  };
+
   useEffect(() => {
-    if (canSubmit() && stops) {
+    if (canEstimate() && stops) {
       debouncedApiCallRef.current(mode, stops);
     }
   }, [mode, stops]);
@@ -147,9 +151,9 @@ function FlightInput() {
         </List>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> How will you be traveling? </Typography>
         <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
-          <Option value="air">{loading ? 'Air' : `Air: ${estimate.air} kg CO2e`}</Option>
-          <Option value="rail">{loading ? 'Rail' : `Rail: ${estimate.rail} kg CO2e`}</Option>
-          <Option value="car">{loading ? 'Car' : `Car: ${estimate.car} kg CO2e`}</Option>
+          <Option value="air">{loading ? 'Air' : `Air: ${estimate.air.toFixed(2)} kg CO2e`}</Option>
+          <Option value="rail">{loading ? 'Rail' : `Rail: ${estimate.rail.toFixed(2)} kg CO2e`}</Option>
+          <Option value="car">{loading ? 'Car' : `Car: ${estimate.car.toFixed(2)} kg CO2e`}</Option>
         </Select>
         {estimatedCarbon()}
         <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>

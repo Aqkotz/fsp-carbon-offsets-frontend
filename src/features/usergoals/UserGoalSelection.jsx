@@ -118,6 +118,9 @@ function UserGoalSelection(props) {
               <Button onClick={() => { dispatch(setGoalStatusForDay(props.goal._id, 'failed')); }}>
                 No!
               </Button>
+              <Button onClick={() => { dispatch(setGoalStatusForDay(props.goal._id, 'na')); }}> {/* this is if the goal is not applicable for the day */}
+                N/A
+              </Button>
             </ButtonGroup>
           </CardActions>
         </Box>
