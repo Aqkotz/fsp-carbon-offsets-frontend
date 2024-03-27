@@ -25,8 +25,8 @@ function FlightInput() {
   }
 
   useEffect(() => {
-    debouncedApiCallRef.current = debounce((modeOfTravel, legs) => {
-      dispatch(estimateTrip({ modeOfTravel, legs }));
+    debouncedApiCallRef.current = debounce((legs) => {
+      dispatch(estimateTrip({ mode, legs }));
     }, 1000);
   }, []);
 
@@ -39,14 +39,14 @@ function FlightInput() {
   };
 
   const canSubmit = () => {
-    return canEstimate() && mode;
+    return canEstimate() && mode && estimate[mode];
   };
 
   useEffect(() => {
     if (canEstimate() && stops) {
-      debouncedApiCallRef.current(mode, stops);
+      debouncedApiCallRef.current(stops);
     }
-  }, [mode, stops]);
+  }, [stops]);
 
   const handleStopsChange = (s) => {
     setStops(s);
@@ -59,6 +59,8 @@ function FlightInput() {
   const submit = () => {
     if (canSubmit()) {
       dispatch(addTrip({ modeOfTravel: mode, legs: stops }));
+      setStops(['', '']);
+      setMode('');
     }
   };
 
@@ -151,9 +153,9 @@ function FlightInput() {
         </List>
         <Typography level="h3" component="h1" sx={{ fontWeight: 'md' }}> How will you be traveling? </Typography>
         <Select placeholder="Mode of Travel" onChange={(e, n) => { handleModeChange(n); }}>
-          <Option value="air">{loading ? 'Air' : `Air: ${estimate.air.toFixed(2)} kg CO2e`}</Option>
-          <Option value="rail">{loading ? 'Rail' : `Rail: ${estimate.rail.toFixed(2)} kg CO2e`}</Option>
-          <Option value="car">{loading ? 'Car' : `Car: ${estimate.car.toFixed(2)} kg CO2e`}</Option>
+          <Option value="air">{loading || !estimate.air ? 'Air' : `Air: ${(estimate.air ?? 0).toFixed(2)} kg CO2e`}</Option>
+          <Option value="rail">{loading || !estimate.rail ? 'Rail' : `Rail: ${(estimate.rail ?? 0).toFixed(2)} kg CO2e`}</Option>
+          <Option value="car">{loading || !estimate.car ? 'Car' : `Car: ${(estimate.car ?? 0).toFixed(2)} kg CO2e`}</Option>
         </Select>
         {estimatedCarbon()}
         <Button onClick={() => { submit(); }} sx={{ width: 100 }} disabled={!canSubmit()}>Add Trip</Button>
