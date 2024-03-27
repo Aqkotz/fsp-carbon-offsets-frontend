@@ -143,14 +143,14 @@ function Team() {
             </Typography>
             <Stack direction="row" alignItems="center" spacing={2} style={{ marginTop: '120px' }}>
               <Typography level="h3" component="h1" sx={{ fontSize: '30px', textAlign: 'center' }}>
-                {team.teamGoal.actualCarbonReduction} of {team.teamGoal.carbonReduction} kg CO2e saved
+                {team.teamGoal.actualCarbonReduction ?? 0} of {team.teamGoal.carbonReduction ?? 0} kg CO2e saved
               </Typography>
               <GaugeChart id="gauge-chart3"
                 nrOfLevels={20}
                 colors={['rgba(15, 21, 145,0.4)', 'rgb(9, 145, 104)']}
                 arcWidth={0.3}
                 textColor="black"
-                percent={team.teamGoal.actualCarbonReduction / team.teamGoal.carbonReduction}
+                percent={team.teamGoal?.actualCarbonReduction ?? 0 / (team.teamGoal?.carbonReduction ?? 0)}
               />
               {/* <TeamRing points={team.teamGoal} /> */}
             </Stack>

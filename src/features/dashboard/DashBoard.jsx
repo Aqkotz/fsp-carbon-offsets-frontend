@@ -161,7 +161,7 @@ function DashBoard() {
                   colors={['rgba(15, 21, 145,0.4)', 'rgb(9, 145, 104)']}
                   arcWidth={0.3}
                   hideText
-                  percent={team.teamGoal.actualCarbonReduction / team.teamGoal.carbonReduction}
+                  percent={team.teamGoal?.actualCarbonReduction ?? 0 / team.teamGoal.carbonReduction}
                 />
               </Stack>
             </Card>
@@ -179,7 +179,7 @@ function DashBoard() {
                   colors={['rgba(15, 21, 145,0.4)', 'rgb(9, 145, 104)']}
                   arcWidth={0.3}
                   hideText
-                  percent={user.carbonFootprint.weeklyReduction.total / (team.teamGoal.carbonReduction / team.teamSize)}
+                  percent={user.carbonFootprint?.weeklyReduction?.total ?? 0 / (team.teamGoal.carbonReduction / team.teamSize)}
                 />
               </Stack>
             </Card>
